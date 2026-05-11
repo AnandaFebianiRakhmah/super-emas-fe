@@ -1,0 +1,56 @@
+/* src/pages/Roles/RolesPage.css */
+
+.roles-container {
+  background-color: var(--darker-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.roles-container h2 {
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.roles-container .module-cell {
+  background-color: #1e1e1e;
+  color: var(--gray-light);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.roles-container .roles-table th {
+  background-color: #1e1e1e;
+  color: var(--white);
+  border-bottom: 2px solid var(--gold);
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.roles-container .roles-table td {
+  background-color: var(--dark-bg);
+  border-color: var(--gray-dark);
+}
+
+.roles-container .roles-table tr:hover td {
+  background-color: #2a2a2a;
+}
+
+.roles-container .roles-table th:first-child,
+.roles-container .roles-table td:first-child {
+  border-left: none;
+}
+
+.roles-container .roles-table th:last-child,
+.roles-container .roles-table td:last-child {
+  border-right: none;
+}
+
+.roles-container .roles-table {
+  margin-top: 1rem;
+}
+
+.roles-container p {
+  font-style: italic;
+  color: var(--gray-light);
+}

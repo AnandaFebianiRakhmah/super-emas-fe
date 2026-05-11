@@ -1,0 +1,93 @@
+/* src/pages/Transactions/InitializationPage.css */
+
+/* Container spacing */
+.init-page-container {
+  padding: 1rem;
+}
+
+/* Card styling overrides */
+.init-card {
+  border-radius: 0.5rem;
+}
+.init-card-body {
+  background-color: #1f1f1f;
+  color: #f0c000;
+}
+
+/* Form input dark look */
+.init-form .form-control,
+.init-form .form-select {
+  background-color: #1a1a1a;
+  border: 1px solid #444;
+  color: #f0f000;
+}
+.init-form .form-control::placeholder {
+  color: #888;
+}
+
+/* Autocomplete dropdown */
+.autocomplete-dropdown {
+  position: absolute;
+  z-index: 10;
+  background: #222;
+  border: 1px solid #444;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.autocomplete-item {
+  padding: 0.5rem;
+  color: #f0c000;
+  cursor: pointer;
+}
+.autocomplete-item:hover {
+  background: #444;
+  color: #fff;
+}
+
+/* Table override: header background */
+.init-transactions-table th {
+  background-color: #4a4a4a;
+  color: #fff;
+}
+.init-transactions-table td {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Photo row styling */
+.photo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.detail-thumb {
+  max-width: 4rem;
+  max-height: 4rem;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+/* Button overrides */
+.init-card .btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+.init-card .btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+/* Card header override for form */
+.init-card .card-header {
+  background-color: #007bff;
+  border-bottom: none;
+  color: #fff;
+}
+
+/* Card header override for table */
+.init-card + .card .card-header {
+  background-color: #6c757d;
+  color: #fff;
+}

@@ -1,0 +1,97 @@
+/* src/pages/Layout/Layout.css */
+
+/* ─── Overall Layout ────────────────────────────────────────────────── */
+.layout-wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background-color: #111;
+  padding: 1rem;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f5c518; /* gold accent */
+  margin-bottom: 1.5rem;
+}
+
+.sidebar .nav-link {
+  color: #ccc;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  background-color: #222;
+  color: #fff;
+}
+
+/* ─── Transaksi Parent Styling ───────────────────────────────────────── */
+.transaksi-parent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: #ccc;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 0.25rem;
+}
+
+.transaksi-parent:hover,
+.transaksi-parent.active-parent {
+  background-color: #222;
+  color: #fff;
+}
+
+.transaksi-parent .chevron {
+  font-size: 0.75rem;
+  margin-left: 0.25rem;
+}
+
+/* ─── Sub‐Menu Styling ───────────────────────────────────────────────── */
+.sub-menu {
+  margin-left: 1rem; /* indent sub‐links */
+}
+
+.sub-menu .nav-item .nav-link {
+  font-size: 0.9rem;
+  padding-left: 1.5rem;
+  color: #bbb;
+}
+
+.sub-menu .nav-item .nav-link:hover,
+.sub-menu .nav-item .nav-link.active {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+/* ─── Main Content Area ────────────────────────────────────────────── */
+.main-content {
+  flex: 1;
+  background-color: #1e1e1e;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* ─── Logout Link ─────────────────────────────────────────────────── */
+.logout-link {
+  color: #f55;
+  margin-top: auto;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.logout-link:hover {
+  background-color: #222;
+  color: #f77;
+}

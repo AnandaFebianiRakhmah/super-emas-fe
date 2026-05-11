@@ -1,0 +1,175 @@
+/* ─── CONTAINER & CARD STYLING ───────────────────────────────────────────────────────────── */
+.init-page-container {
+  padding: 1rem 1.5rem;
+  background-color: #1d1d1d;
+  min-height: 100vh;
+}
+
+/* Card backgrounds */
+.init-card {
+  border: none;
+  border-radius: 0.5rem;
+  overflow: visible;
+}
+
+.init-card .card-header.bg-primary {
+  background-color: #0d6efd !important; /* Bootstrap “primary” blue */
+  color: #fff !important;
+}
+
+.init-card .card-header.bg-secondary {
+  background-color: #6c757d !important; /* Bootstrap “secondary” gray */
+  color: #fff !important;
+}
+
+.init-card-body {
+  background-color: #2c2c2e;
+  padding: 1rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+/* ─── FORM LAYOUT: HORIZONTAL SUB-ROWS ──────────────────────────────────────────────────── */
+/* Make form fields dark */
+.dark-input {
+  background-color: #2c2c2e !important;
+  border: 1px solid #444 !important;
+  color: #f1f1f1 !important;
+}
+
+.dark-input:focus {
+  background-color: #2c2c2e !important;
+  color: #fff !important;
+  border-color: #0d6efd !important;
+  box-shadow: none !important;
+}
+
+.dark-input-file {
+  background-color: #2c2c2e !important;
+  border: 1px solid #444 !important;
+  color: #f1f1f1 !important;
+}
+
+.dark-input-file::-webkit-file-upload-button {
+  background: #444;
+  color: #f1f1f1;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+/* Autocomplete wrapper to position dropdown correctly */
+.autocomplete-wrapper {
+  position: relative;
+}
+
+/* Autocomplete dropdown styling */
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #2c2c2e;
+  border: 1px solid #444;
+  border-top: none;
+  border-radius: 0 0 0.25rem 0.25rem;
+  z-index: 1000;
+}
+
+.autocomplete-item {
+  padding: 0.5rem;
+  color: #f1f1f1;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.autocomplete-item:hover,
+.autocomplete-item:focus {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+/* Make form sub-rows have small gutters */
+.init-form-horizontal .form-group {
+  margin-bottom: 0.75rem;
+}
+
+/* ─── TABLE STYLING & EXPANDABLE DETAILS ─────────────────────────────────────────────────── */
+/* Table background & text */
+.init-transactions-table {
+  background-color: #2c2c2e;
+  color: #f1f1f1;
+}
+
+/* Table header */
+.init-transactions-table thead {
+  background-color: #3a3a3c;
+  color: #f1f1f1;
+}
+
+.init-transactions-table th,
+.init-transactions-table td {
+  vertical-align: middle !important;
+  border-color: #444 !important;
+}
+
+/* Detail row (hidden by default unless expanded) */
+.row-detail td {
+  background-color: #1f1f1f;
+  padding: 1rem !important;
+}
+
+/* Container for detail images categories */
+.detail-images-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Each category heading */
+.detail-category h6 {
+  color: #0d6efd;
+  margin-bottom: 0.25rem;
+}
+
+/* Row of thumbnails */
+.image-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+/* Each thumbnail: fixed size */
+.detail-thumb {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border: 2px solid #444;
+  border-radius: 0.25rem;
+  transition: transform 0.1s ease-in-out;
+}
+
+.detail-thumb:hover {
+  transform: scale(1.1);
+  border-color: #0d6efd;
+}
+
+/* Button to toggle row expand/collapse */
+.row-toggle-btn {
+  font-size: 1.2rem;
+  color: #0d6efd;
+}
+
+.row-toggle-btn:hover {
+  text-decoration: none;
+}
+
+/* On small screens, stack everything nicely */
+@media (max-width: 768px) {
+  .init-form-horizontal .form-group,
+  .init-form-horizontal .row {
+    display: block;
+  }
+}

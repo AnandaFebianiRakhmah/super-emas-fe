@@ -1,0 +1,36 @@
+/* src/components/Footer.css */
+
+.footer-container {
+  background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+  color: var(--text-secondary);
+  padding: 30px 0;
+  border-top: 1px solid var(--border-color);
+  position: relative;
+}
+
+.footer-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.footer-text {
+  color: var(--text-tertiary);
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 24px 0;
+  }
+
+  .footer-text {
+    font-size: 0.8rem;
+  }
+}
