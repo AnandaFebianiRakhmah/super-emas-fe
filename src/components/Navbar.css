@@ -1,7 +1,7 @@
 /* src/components/Navbar.css */
 
 .navbar-custom {
-  background-color: rgba(10, 10, 10, 0.98);
+  background-color: rgba(26, 15, 46, 0.98);
   backdrop-filter: blur(10px);
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
   padding: 8px 0;

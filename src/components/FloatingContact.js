@@ -10,7 +10,7 @@ export default function FloatingContact() {
     {
       icon: <FaWhatsapp />,
       label: "WhatsApp",
-      url: "https://wa.me/+6285111205552",
+      url: "https://api.whatsapp.com/send/?phone=%2B6285111205552&text&type=phone_number&app_absent=0",
       color: "#25D366"
     },
     {

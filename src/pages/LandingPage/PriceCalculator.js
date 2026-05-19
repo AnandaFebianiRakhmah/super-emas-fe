@@ -105,7 +105,7 @@ export default function PriceCalculator({ priceData }) {
         </div>
 
         <div className="disclaimer">
-          *Harga dapat berubah sewaktu-waktu mengikuti harga pasar
+          *Harga estimasi dapat berbeda dengan harga transaksi di toko
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
 const AuthContext = createContext();
+const API_BASE_URL = "https://super-emas-be.onrender.com";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -28,7 +29,7 @@ export function AuthProvider({ children }) {
         }
 
         const response = await axios.get(
-          "/api/auth/me",
+          `${API_BASE_URL}/api/auth/me`,
           { withCredentials: true }
         );
         const { user: me, permissions: perms = [] } = response.data;
@@ -47,7 +48,7 @@ export function AuthProvider({ children }) {
   // login only sets state (no navigation here)
   const login = async ({ username, password }) => {
     const response = await axios.post(
-      "/api/auth/login",
+      `${API_BASE_URL}/api/auth/login`,
       { username, password },
       { withCredentials: true }
     );
@@ -61,7 +62,7 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     try {
       await axios.post(
-        "/api/auth/logout",
+        `${API_BASE_URL}/api/auth/logout`,
         {},
         { withCredentials: true }
       );
@@ -70,8 +71,6 @@ export function AuthProvider({ children }) {
     } finally {
       setUser(null);
       setPermissions([]);
-      // If you want a full‐page redirect, you could do:
-      // window.location.href = "/login";
     }
   };
 

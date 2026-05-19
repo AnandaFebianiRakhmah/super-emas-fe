@@ -5,6 +5,11 @@
   bottom: 30px;
   right: 30px;
   z-index: 1000;
+  pointer-events: none;
+}
+
+.floating-contact > * {
+  pointer-events: auto;
 }
 
 /* Main Toggle Button */
@@ -160,16 +165,17 @@
   color: #ffffff;
 }
 
-/* Backdrop */
+/* Backdrop - hanya untuk visual, tidak menghalangi konten */
 .floating-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: -1;
   animation: fadeIn 0.3s ease;
+  pointer-events: none;
 }
 
 @keyframes fadeIn {

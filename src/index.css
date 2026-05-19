@@ -5,11 +5,11 @@
 @import './styles/animations.css';
 
 :root {
-  /* Dark Mode Colors */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #1a1a1a;
-  --bg-tertiary: #0f0f0f;
-  --border-color: #2a2a2a;
+  /* Dark Mode Colors - Purple Dark Theme */
+  --bg-primary: #0f0a1a;
+  --bg-secondary: #1a0f2e;
+  --bg-tertiary: #150d24;
+  --border-color: #2a1f3d;
   
   /* Gold Accent */
   --gold: #ffd700;
@@ -76,7 +76,8 @@ html {
 }
 
 body {
-  background-color: var(--bg-primary);
+  background: linear-gradient(180deg, #1a0f2e 0%, #120a20 30%, #0a0612 70%, #000000 100%);
+  background-attachment: fixed;
   color: var(--text-primary);
   font-family: var(--font-primary);
   line-height: 1.6;
@@ -84,6 +85,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
 }
 
 /* Selection */

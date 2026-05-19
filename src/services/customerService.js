@@ -1,5 +1,5 @@
 // src/services/customerService.js
-import api from "./api"; // where api.baseURL === "http://localhost:5000/api"
+import api from "./api";
 
 export const fetchCustomers = async () => {
   const response = await api.get("/api/customers");
