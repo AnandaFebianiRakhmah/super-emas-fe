@@ -1,29 +1,61 @@
 // src/pages/LandingPage/PriceCalculator.js
 import { useState, useEffect } from "react";
-import { FaCalculator, FaWeight, FaMoneyBillWave } from "react-icons/fa";
+import { FaCalculator, FaWeight } from "react-icons/fa";
 import { GiGoldBar } from "react-icons/gi";
 import "./PriceCalculator.css";
 
-export default function PriceCalculator({ priceData }) {
+export default function PriceCalculator() {
+  const [priceData, setPriceData] = useState([]);
   const [weight, setWeight] = useState("");
   const [karat, setKarat] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
 
-  // Auto-calculate
+  // Ambil data dari API
+  useEffect(() => {
+    const fetchPriceData = async () => {
+      try {
+        const response = await fetch(
+          "https://super-emas-be.onrender.com/api/comparison-data"
+        );
+
+        const result = await response.json();
+
+        // Sesuaikan dengan struktur response API
+        const formattedData =
+          result.data?.map((item) => ({
+            karat: item.name,
+            price: item.price,
+          })) || [];
+
+        setPriceData(formattedData);
+      } catch (error) {
+        console.error("Gagal mengambil data harga:", error);
+      }
+    };
+
+    fetchPriceData();
+  }, []);
+
+  // Auto calculate
   useEffect(() => {
     if (weight && karat) {
-      const cleanWeight = weight.toString().replace(/[^\d.,]/g, '').replace(',', '.');
+      const cleanWeight = weight
+        .toString()
+        .replace(/[^\d.,]/g, "")
+        .replace(",", ".");
+
       const weightNum = parseFloat(cleanWeight);
-      
-      // Ambil harga dari priceData berdasarkan karat yang dipilih
-      const selectedPrice = priceData.find(item => item.karat === karat);
-      const pricePerGram = selectedPrice ? selectedPrice.price : 0;
+
+      const selectedPrice = priceData.find(
+        (item) => item.karat === karat
+      );
+
+      const pricePerGram = selectedPrice
+        ? Number(selectedPrice.price)
+        : 0;
 
       if (!isNaN(weightNum) && weightNum > 0 && pricePerGram > 0) {
-        // Hitung total: berat × harga per gram
-        // Tidak perlu dikali faktor karat karena harga sudah final
-        const total = weightNum * pricePerGram;
-        setTotalPrice(total);
+        setTotalPrice(weightNum * pricePerGram);
       } else {
         setTotalPrice(0);
       }
@@ -34,19 +66,15 @@ export default function PriceCalculator({ priceData }) {
 
   const formatCurrency = (value) => {
     if (value === 0) return "Rp 0";
+
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
-    }).format(value).replace("IDR", "Rp");
-  };
-
-  // Get price per gram for selected karat
-  const getSelectedPrice = () => {
-    if (!karat) return "Rp 0";
-    const selectedPrice = priceData.find(item => item.karat === karat);
-    return selectedPrice ? formatCurrency(selectedPrice.price) : "Rp 0";
+    })
+      .format(value)
+      .replace("IDR", "Rp");
   };
 
   return (
@@ -61,6 +89,7 @@ export default function PriceCalculator({ priceData }) {
           <label htmlFor="karat">
             <GiGoldBar className="label-icon" /> Karat
           </label>
+
           <select
             id="karat"
             className="form-control"
@@ -68,6 +97,7 @@ export default function PriceCalculator({ priceData }) {
             onChange={(e) => setKarat(e.target.value)}
           >
             <option value="">Pilih karat</option>
+
             {priceData.map((item, index) => (
               <option key={index} value={item.karat}>
                 {item.karat}
@@ -76,11 +106,11 @@ export default function PriceCalculator({ priceData }) {
           </select>
         </div>
 
-
         <div className="form-group">
           <label htmlFor="weight">
             <FaWeight className="label-icon" /> Berat (gram)
           </label>
+
           <input
             type="text"
             id="weight"
@@ -93,7 +123,9 @@ export default function PriceCalculator({ priceData }) {
 
         <div className="result-box">
           <div className="result-label">Estimasi Harga</div>
-          <div className="result-price">{formatCurrency(totalPrice)}</div>
+          <div className="result-price">
+            {formatCurrency(totalPrice)}
+          </div>
         </div>
 
         <div className="disclaimer">
