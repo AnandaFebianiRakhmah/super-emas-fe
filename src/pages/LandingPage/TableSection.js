@@ -195,7 +195,17 @@ export default function TableSection() {
                 </div>
               ) : (
                 <div className="price-list">
-                  {priceData.map((item, index) => (
+                  {priceData
+                    .filter(item => {
+                      // Filter hanya untuk tampilan UI, data lengkap tetap tersedia untuk kalkulator
+                      const displayItems = [
+                        'Harga Emas Dunia',
+                        'Antam 2025-2026',
+                        'Perhiasan K24'
+                      ];
+                      return displayItems.includes(item.karat);
+                    })
+                    .map((item, index) => (
                     <div 
                       key={index} 
                       className={`price-item stagger-item ${tableVisible ? 'is-visible' : ''} delay-${(index + 1) * 100}`}
