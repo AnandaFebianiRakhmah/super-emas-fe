@@ -4,13 +4,15 @@ import { GiGoldBar } from "react-icons/gi";
 import { FaClock, FaExclamationTriangle } from "react-icons/fa";
 import "./TableSection.css";
 import PriceCalculator from "./PriceCalculator";
+import { getComparisonData } from "../../services/comparisonService";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 import axios from "axios";
 
 const API_BASE_URL = "https://super-emas-be.onrender.com";
 
 export default function TableSection() {
-  const [priceData, setPriceData] = useState([]);
+  const [priceData, setPriceData] = useState([]); // Untuk tampilan list harga (API baru)
+  const [calculatorData, setCalculatorData] = useState([]); // Untuk kalkulator (API lama)
   const [loading, setLoading] = useState(true);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [error, setError] = useState(null);
@@ -31,34 +33,56 @@ export default function TableSection() {
           setLoading(true);
         }
         
-        // Fetch dari API baru dengan cache busting
         const timestamp = new Date().getTime();
-        const response = await axios.get(`${API_BASE_URL}/api/showprice?t=${timestamp}`, {
-          timeout: 10000, // 10 detik timeout
+        
+        // Fetch data untuk tampilan list harga (API baru - /api/showprice)
+        const displayResponse = await axios.get(`${API_BASE_URL}/api/showprice?t=${timestamp}`, {
+          timeout: 10000,
         });
-        const apiResponse = response.data;
         
-        console.log("API Response:", apiResponse);
+        console.log("Display API Response:", displayResponse.data);
         
-        // Validasi response memiliki priceData
-        if (!apiResponse.priceData || typeof apiResponse.priceData !== 'object') {
+        // Validasi response display
+        if (!displayResponse.data.priceData || typeof displayResponse.data.priceData !== 'object') {
           throw new Error("Format data harga tidak valid");
         }
         
-        // Transform object ke array format
-        const transformedData = Object.entries(apiResponse.priceData).map(([karat, price]) => ({
+        // Transform object ke array untuk tampilan
+        const transformedDisplayData = Object.entries(displayResponse.data.priceData).map(([karat, price]) => ({
           karat: karat,
           price: price
         }));
         
-        console.log("Transformed data:", transformedData);
+        // Fetch data untuk kalkulator (API lama - /api/comparison-data)
+        const calculatorResponse = await axios.get(`${API_BASE_URL}/api/comparison-data?t=${timestamp}`, {
+          timeout: 10000,
+        });
+        
+        console.log("Calculator API Response:", calculatorResponse.data);
+        
+        // Set date dan time dari API lama
+        if (calculatorResponse.data.date) setApiDate(calculatorResponse.data.date);
+        if (calculatorResponse.data.latestUpdate) setApiTime(calculatorResponse.data.latestUpdate);
+        
+        // Get calculator data
+        const calcData = await getComparisonData();
+        
+        // Transform calculator data
+        const transformedCalcData = calcData.map(item => ({
+          karat: item.karat || item.karatage || item.type,
+          price: item.price || item.buyback_price || 0
+        }));
+        
+        console.log("Transformed display data:", transformedDisplayData);
+        console.log("Transformed calculator data:", transformedCalcData);
         
         // Validasi data tidak kosong
-        if (transformedData.length === 0) {
+        if (transformedDisplayData.length === 0) {
           throw new Error("Data harga tidak tersedia saat ini");
         }
         
-        setPriceData(transformedData);
+        setPriceData(transformedDisplayData); // Untuk tampilan list
+        setCalculatorData(transformedCalcData); // Untuk kalkulator
         setLastUpdate(new Date());
         setError(null);
         
@@ -79,6 +103,7 @@ export default function TableSection() {
         
         // TIDAK menggunakan dummy data - biarkan kosong
         setPriceData([]);
+        setCalculatorData([]);
         
         if (isInitialLoad) {
           setIsInitialLoad(false);
@@ -219,7 +244,7 @@ export default function TableSection() {
             ref={calculatorRef}
             className={`fade-in-right ${calculatorVisible ? 'is-visible' : ''}`}
           >
-            <PriceCalculator priceData={priceData} />
+            <PriceCalculator priceData={calculatorData} />
           </div>
         </div>
       </div>
