@@ -76,14 +76,6 @@ export default function PriceCalculator({ priceData }) {
           </select>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="priceDisplay">
-            <FaMoneyBillWave className="label-icon" /> Harga per Gram
-          </label>
-          <div className="price-display">
-            {getSelectedPrice()}
-          </div>
-        </div>
 
         <div className="form-group">
           <label htmlFor="weight">
