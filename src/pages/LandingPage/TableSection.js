@@ -12,7 +12,6 @@ const API_BASE_URL = "https://super-emas-be.onrender.com";
 
 export default function TableSection() {
   const [priceData, setPriceData] = useState([]);
-  const [calculatorPriceData, setCalculatorPriceData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [error, setError] = useState(null);
@@ -33,58 +32,38 @@ export default function TableSection() {
           setLoading(true);
         }
         
-        // Fetch data untuk display list (API baru)
+        // Fetch raw response dengan cache busting
         const timestamp = new Date().getTime();
-        const displayResponse = await axios.get(`${API_BASE_URL}/api/showprice?t=${timestamp}`, {
-          timeout: 10000,
+        const response = await axios.get(`${API_BASE_URL}/api/comparison-data?t=${timestamp}`, {
+          timeout: 10000, // 10 detik timeout
         });
+        const apiResponse = response.data;
         
-        console.log("Display API Response:", displayResponse.data);
+        console.log("API Response:", apiResponse);
         
-        // Transform data untuk display
-        let displayData = [];
-        if (Array.isArray(displayResponse.data)) {
-          displayData = displayResponse.data.map(item => ({
-            karat: item.karat || item.karatage || item.type,
-            price: item.price || item.buyback_price || 0
-          }));
-        } else if (displayResponse.data.data && Array.isArray(displayResponse.data.data)) {
-          displayData = displayResponse.data.data.map(item => ({
-            karat: item.karat || item.karatage || item.type,
-            price: item.price || item.buyback_price || 0
-          }));
-        }
-        
-        // Fetch data untuk calculator (API lama)
-        const calculatorResponse = await axios.get(`${API_BASE_URL}/api/comparison-data?t=${timestamp}`, {
-          timeout: 10000,
-        });
-        const apiResponse = calculatorResponse.data;
-        
-        console.log("Calculator API Response:", apiResponse);
-        
-        // Set date dan time dari API lama
+        // Set date dan time dari API
         if (apiResponse.date) setApiDate(apiResponse.date);
         if (apiResponse.latestUpdate) setApiTime(apiResponse.latestUpdate);
         
-        // Get calculator data
-        const calcData = await getComparisonData();
+        // Get price data array
+        const data = await getComparisonData();
         
-        console.log("Calculator processed data:", calcData);
+        console.log("Processed data:", data);
         
-        // Transform calculator data
-        const transformedCalcData = calcData.map(item => ({
+        // Validasi data adalah array dan tidak kosong
+        if (!Array.isArray(data) || data.length === 0) {
+          throw new Error("Data harga tidak tersedia saat ini");
+        }
+        
+        // Transform API data to match the expected format
+        const transformedData = data.map(item => ({
           karat: item.karat || item.karatage || item.type,
           price: item.price || item.buyback_price || 0
         }));
         
-        // Validasi data display
-        if (!Array.isArray(displayData) || displayData.length === 0) {
-          throw new Error("Data harga tidak tersedia saat ini");
-        }
+        console.log("Transformed data:", transformedData);
         
-        setPriceData(displayData);
-        setCalculatorPriceData(transformedCalcData);
+        setPriceData(transformedData);
         setLastUpdate(new Date());
         setError(null);
         
@@ -103,8 +82,8 @@ export default function TableSection() {
         }
         setError(errorMessage);
         
+        // TIDAK menggunakan dummy data - biarkan kosong
         setPriceData([]);
-        setCalculatorPriceData([]);
         
         if (isInitialLoad) {
           setIsInitialLoad(false);
@@ -203,7 +182,7 @@ export default function TableSection() {
                     </div>
                   </div>
                   <a 
-                    href="https://wa.me/+6285111205552" 
+                    href="https://wa.me/+6285168888700" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="contact-button"
@@ -245,7 +224,7 @@ export default function TableSection() {
             ref={calculatorRef}
             className={`fade-in-right ${calculatorVisible ? 'is-visible' : ''}`}
           >
-            <PriceCalculator priceData={calculatorPriceData} />
+            <PriceCalculator priceData={priceData} />
           </div>
         </div>
       </div>
