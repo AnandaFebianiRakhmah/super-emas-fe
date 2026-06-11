@@ -8,7 +8,7 @@ import { getComparisonData } from "../../services/comparisonService";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 import axios from "axios";
 
-const API_BASE_URL = "https://super-emas-be.onrender.com/api/showprice";
+const API_BASE_URL = "https://super-emas-be.onrender.com";
 
 export default function TableSection() {
   const [priceData, setPriceData] = useState([]);
@@ -203,7 +203,7 @@ export default function TableSection() {
                     </div>
                   </div>
                   <a 
-                    href="https://wa.me/+6285168888700" 
+                    href="https://wa.me/+6285111205552" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="contact-button"
