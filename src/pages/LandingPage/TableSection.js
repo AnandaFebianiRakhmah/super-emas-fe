@@ -4,15 +4,14 @@ import { GiGoldBar } from "react-icons/gi";
 import { FaClock, FaExclamationTriangle } from "react-icons/fa";
 import "./TableSection.css";
 import PriceCalculator from "./PriceCalculator";
-import { getComparisonData } from "../../services/comparisonService";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 import axios from "axios";
 
 const API_BASE_URL = "https://super-emas-be.onrender.com";
 
 export default function TableSection() {
-  const [priceData, setPriceData] = useState([]); // Untuk tampilan list harga (API baru)
-  const [calculatorData, setCalculatorData] = useState([]); // Untuk kalkulator (API lama)
+  const [priceData, setPriceData] = useState([]); // Untuk tampilan tabel (3 item)
+  const [calculatorData, setCalculatorData] = useState([]); // Untuk kalkulator (semua data)
   const [loading, setLoading] = useState(true);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [error, setError] = useState(null);
@@ -35,54 +34,61 @@ export default function TableSection() {
         
         const timestamp = new Date().getTime();
         
-        // Fetch data untuk tampilan list harga (API baru - /api/showprice)
-        const displayResponse = await axios.get(`${API_BASE_URL}/api/showprice?t=${timestamp}`, {
+        // Fetch data untuk tabel (3 item dari showprice)
+        const showPriceResponse = await axios.get(`${API_BASE_URL}/api/showprice?t=${timestamp}`, {
           timeout: 10000,
         });
         
-        console.log("Display API Response:", displayResponse.data);
+        console.log("ShowPrice API Response:", showPriceResponse.data);
         
-        // Validasi response display
-        if (!displayResponse.data.priceData || typeof displayResponse.data.priceData !== 'object') {
+        // Validasi response showprice
+        if (!showPriceResponse.data.priceData || typeof showPriceResponse.data.priceData !== 'object') {
           throw new Error("Format data harga tidak valid");
         }
         
-        // Transform object ke array untuk tampilan
-        const transformedDisplayData = Object.entries(displayResponse.data.priceData).map(([karat, price]) => ({
+        // Transform showprice data untuk tabel
+        const tableData = Object.entries(showPriceResponse.data.priceData).map(([karat, price]) => ({
           karat: karat,
           price: price
         }));
         
-        // Fetch data untuk kalkulator (API lama - /api/comparison-data)
-        const calculatorResponse = await axios.get(`${API_BASE_URL}/api/comparison-data?t=${timestamp}`, {
+        console.log("Table data (showprice):", tableData);
+        
+        // Fetch data untuk kalkulator (semua data dari comparison-data)
+        const comparisonResponse = await axios.get(`${API_BASE_URL}/api/comparison-data?t=${timestamp}`, {
           timeout: 10000,
         });
         
-        console.log("Calculator API Response:", calculatorResponse.data);
+        console.log("Comparison API Response:", comparisonResponse.data);
         
-        // Set date dan time dari API lama
-        if (calculatorResponse.data.date) setApiDate(calculatorResponse.data.date);
-        if (calculatorResponse.data.latestUpdate) setApiTime(calculatorResponse.data.latestUpdate);
+        // Set date dan time dari API comparison-data
+        if (comparisonResponse.data.date) setApiDate(comparisonResponse.data.date);
+        if (comparisonResponse.data.latestUpdate) setApiTime(comparisonResponse.data.latestUpdate);
         
-        // Get calculator data
-        const calcData = await getComparisonData();
+        // Transform comparison data untuk kalkulator
+        let calcData = [];
+        if (Array.isArray(comparisonResponse.data)) {
+          calcData = comparisonResponse.data;
+        } else if (comparisonResponse.data.prices && Array.isArray(comparisonResponse.data.prices)) {
+          calcData = comparisonResponse.data.prices;
+        } else if (comparisonResponse.data.priceData && Array.isArray(comparisonResponse.data.priceData)) {
+          calcData = comparisonResponse.data.priceData;
+        }
         
-        // Transform calculator data
-        const transformedCalcData = calcData.map(item => ({
+        const calculatorTransformed = calcData.map(item => ({
           karat: item.karat || item.karatage || item.type,
           price: item.price || item.buyback_price || 0
         }));
         
-        console.log("Transformed display data:", transformedDisplayData);
-        console.log("Transformed calculator data:", transformedCalcData);
+        console.log("Calculator data (comparison):", calculatorTransformed);
         
         // Validasi data tidak kosong
-        if (transformedDisplayData.length === 0) {
+        if (tableData.length === 0) {
           throw new Error("Data harga tidak tersedia saat ini");
         }
         
-        setPriceData(transformedDisplayData); // Untuk tampilan list
-        setCalculatorData(transformedCalcData); // Untuk kalkulator
+        setPriceData(tableData);
+        setCalculatorData(calculatorTransformed.length > 0 ? calculatorTransformed : tableData);
         setLastUpdate(new Date());
         setError(null);
         
