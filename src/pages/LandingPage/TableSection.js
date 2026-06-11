@@ -4,7 +4,6 @@ import { GiGoldBar } from "react-icons/gi";
 import { FaClock, FaExclamationTriangle } from "react-icons/fa";
 import "./TableSection.css";
 import PriceCalculator from "./PriceCalculator";
-import { getComparisonData } from "../../services/comparisonService";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 import axios from "axios";
 
@@ -32,36 +31,32 @@ export default function TableSection() {
           setLoading(true);
         }
         
-        // Fetch raw response dengan cache busting
+        // Fetch dari API baru dengan cache busting
         const timestamp = new Date().getTime();
-        const response = await axios.get(`${API_BASE_URL}/api/comparison-data?t=${timestamp}`, {
+        const response = await axios.get(`${API_BASE_URL}/api/showprice?t=${timestamp}`, {
           timeout: 10000, // 10 detik timeout
         });
         const apiResponse = response.data;
         
         console.log("API Response:", apiResponse);
         
-        // Set date dan time dari API
-        if (apiResponse.date) setApiDate(apiResponse.date);
-        if (apiResponse.latestUpdate) setApiTime(apiResponse.latestUpdate);
-        
-        // Get price data array
-        const data = await getComparisonData();
-        
-        console.log("Processed data:", data);
-        
-        // Validasi data adalah array dan tidak kosong
-        if (!Array.isArray(data) || data.length === 0) {
-          throw new Error("Data harga tidak tersedia saat ini");
+        // Validasi response memiliki priceData
+        if (!apiResponse.priceData || typeof apiResponse.priceData !== 'object') {
+          throw new Error("Format data harga tidak valid");
         }
         
-        // Transform API data to match the expected format
-        const transformedData = data.map(item => ({
-          karat: item.karat || item.karatage || item.type,
-          price: item.price || item.buyback_price || 0
+        // Transform object ke array format
+        const transformedData = Object.entries(apiResponse.priceData).map(([karat, price]) => ({
+          karat: karat,
+          price: price
         }));
         
         console.log("Transformed data:", transformedData);
+        
+        // Validasi data tidak kosong
+        if (transformedData.length === 0) {
+          throw new Error("Data harga tidak tersedia saat ini");
+        }
         
         setPriceData(transformedData);
         setLastUpdate(new Date());
@@ -195,17 +190,7 @@ export default function TableSection() {
                 </div>
               ) : (
                 <div className="price-list">
-                  {priceData
-                    .filter(item => {
-                      // Filter hanya untuk tampilan UI, data lengkap tetap tersedia untuk kalkulator
-                      const displayItems = [
-                        'Harga Emas Dunia',
-                        'Antam 2025-2026',
-                        'Perhiasan K24'
-                      ];
-                      return displayItems.includes(item.karat);
-                    })
-                    .map((item, index) => (
+                  {priceData.map((item, index) => (
                     <div 
                       key={index} 
                       className={`price-item stagger-item ${tableVisible ? 'is-visible' : ''} delay-${(index + 1) * 100}`}
