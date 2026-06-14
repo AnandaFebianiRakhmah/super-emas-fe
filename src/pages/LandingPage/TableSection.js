@@ -60,56 +60,21 @@ export default function TableSection() {
         });
         
         console.log("Comparison API Response:", comparisonResponse.data);
-        console.log("Response type:", typeof comparisonResponse.data);
-        console.log("Is Array?:", Array.isArray(comparisonResponse.data));
         
         // Set date dan time dari API comparison-data
         if (comparisonResponse.data.date) setApiDate(comparisonResponse.data.date);
         if (comparisonResponse.data.latestUpdate) setApiTime(comparisonResponse.data.latestUpdate);
         
         // Transform comparison data untuk kalkulator
-        let calcData = [];
-        
-        // Coba berbagai struktur response yang mungkin
-        if (Array.isArray(comparisonResponse.data)) {
-          console.log("Structure: Direct array");
-          calcData = comparisonResponse.data;
-        } else if (comparisonResponse.data.data && Array.isArray(comparisonResponse.data.data)) {
-          console.log("Structure: data.data array");
-          calcData = comparisonResponse.data.data;
-        } else if (comparisonResponse.data.prices && Array.isArray(comparisonResponse.data.prices)) {
-          console.log("Structure: data.prices array");
-          calcData = comparisonResponse.data.prices;
-        } else if (comparisonResponse.data.priceData && Array.isArray(comparisonResponse.data.priceData)) {
-          console.log("Structure: data.priceData array");
-          calcData = comparisonResponse.data.priceData;
-        } else if (comparisonResponse.data.priceData && typeof comparisonResponse.data.priceData === 'object') {
-          console.log("Structure: data.priceData object");
-          // Transform object to array
-          calcData = Object.entries(comparisonResponse.data.priceData).map(([key, value]) => ({
-            karat: key,
-            price: typeof value === 'number' ? value : value.price || 0
-          }));
-        } else {
-          console.log("Structure: Unknown, trying to parse");
-          console.log("Data keys:", Object.keys(comparisonResponse.data));
-        }
-        
-        console.log("calcData before transform:", calcData);
-        
         let calculatorTransformed = [];
-        if (calcData.length > 0) {
-          calculatorTransformed = calcData.map(item => {
-            // If item is already in correct format
-            if (item.karat && item.price) {
-              return item;
-            }
-            // If item needs transformation
-            return {
-              karat: item.karat || item.karatage || item.type || item.name || 'Unknown',
-              price: item.price || item.buyback_price || item.value || 0
-            };
-          });
+        
+        if (comparisonResponse.data.priceData && typeof comparisonResponse.data.priceData === 'object') {
+          // Transform object ke array
+          // Structure: { "K23": { "buyPrice": 0, "buybackPrice": 1963000 }, ... }
+          calculatorTransformed = Object.entries(comparisonResponse.data.priceData).map(([key, value]) => ({
+            karat: key,
+            price: value.buybackPrice || value.price || 0
+          }));
         }
         
         console.log("Calculator data (comparison) after transform:", calculatorTransformed);

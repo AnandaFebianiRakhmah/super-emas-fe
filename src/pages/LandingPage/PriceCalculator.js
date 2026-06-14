@@ -26,34 +26,31 @@ export default function PriceCalculator() {
         
         console.log("PriceCalculator API Response:", response.data);
         
-        // Transform data dari berbagai struktur response yang mungkin
+        // Transform data dari struktur API
         let calcData = [];
         
-        if (Array.isArray(response.data)) {
-          calcData = response.data;
-        } else if (response.data.data && Array.isArray(response.data.data)) {
-          calcData = response.data.data;
-        } else if (response.data.prices && Array.isArray(response.data.prices)) {
-          calcData = response.data.prices;
-        } else if (response.data.priceData && Array.isArray(response.data.priceData)) {
-          calcData = response.data.priceData;
-        } else if (response.data.priceData && typeof response.data.priceData === 'object') {
-          // Transform object to array
+        if (response.data.priceData && typeof response.data.priceData === 'object') {
+          // Transform object ke array
+          // Structure: { "K23": { "buyPrice": 0, "buybackPrice": 1963000 }, ... }
           calcData = Object.entries(response.data.priceData).map(([key, value]) => ({
             karat: key,
-            price: typeof value === 'number' ? value : value.price || 0
+            price: value.buybackPrice || value.price || 0
+          }));
+        } else if (Array.isArray(response.data)) {
+          calcData = response.data.map(item => ({
+            karat: item.karat || item.karatage || item.type,
+            price: item.buybackPrice || item.price || item.buyback_price || 0
+          }));
+        } else if (response.data.data && Array.isArray(response.data.data)) {
+          calcData = response.data.data.map(item => ({
+            karat: item.karat || item.karatage || item.type,
+            price: item.buybackPrice || item.price || item.buyback_price || 0
           }));
         }
         
-        // Transform ke format yang konsisten
-        const transformedData = calcData.map(item => ({
-          karat: item.karat || item.karatage || item.type || item.name,
-          price: item.price || item.buyback_price || item.value || 0
-        }));
+        console.log("Transformed calculator data:", calcData);
         
-        console.log("Transformed calculator data:", transformedData);
-        
-        setPriceData(transformedData);
+        setPriceData(calcData);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching calculator data:", error);
