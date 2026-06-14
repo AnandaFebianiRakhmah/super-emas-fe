@@ -4,70 +4,114 @@ import { useState, useEffect } from "react";
 import { FaCalculator, FaWeight, FaMoneyBillWave } from "react-icons/fa";
 import { GiGoldBar } from "react-icons/gi";
 import "./PriceCalculator.css";
+import axios from "axios";
 
-export default function PriceCalculator({ priceData = [] }) {
+const API_BASE_URL = "https://super-emas-be.onrender.com";
+
+export default function PriceCalculator() {
   const [weight, setWeight] = useState("");
   const [karat, setKarat] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
+  const [priceData, setPriceData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Debug: Log priceData setiap kali berubah
+  // Fetch data dari API comparison-data
   useEffect(() => {
-    console.log("PriceCalculator received priceData:", priceData);
-    console.log("PriceData length:", priceData?.length || 0);
-    console.log("PriceData items:", priceData);
-  }, [priceData]);
+    const fetchPriceData = async () => {
+      try {
+        const timestamp = new Date().getTime();
+        const response = await axios.get(`${API_BASE_URL}/api/comparison-data?t=${timestamp}`, {
+          timeout: 10000,
+        });
+        
+        console.log("PriceCalculator API Response:", response.data);
+        
+        // Transform data dari berbagai struktur response yang mungkin
+        let calcData = [];
+        
+        if (Array.isArray(response.data)) {
+          calcData = response.data;
+        } else if (response.data.data && Array.isArray(response.data.data)) {
+          calcData = response.data.data;
+        } else if (response.data.prices && Array.isArray(response.data.prices)) {
+          calcData = response.data.prices;
+        } else if (response.data.priceData && Array.isArray(response.data.priceData)) {
+          calcData = response.data.priceData;
+        } else if (response.data.priceData && typeof response.data.priceData === 'object') {
+          // Transform object to array
+          calcData = Object.entries(response.data.priceData).map(([key, value]) => ({
+            karat: key,
+            price: typeof value === 'number' ? value : value.price || 0
+          }));
+        }
+        
+        // Transform ke format yang konsisten
+        const transformedData = calcData.map(item => ({
+          karat: item.karat || item.karatage || item.type || item.name,
+          price: item.price || item.buyback_price || item.value || 0
+        }));
+        
+        console.log("Transformed calculator data:", transformedData);
+        
+        setPriceData(transformedData);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching calculator data:", error);
+        setPriceData([]);
+        setLoading(false);
+      }
+    };
+
+    fetchPriceData();
+    
+    // Refresh setiap 30 detik
+    const interval = setInterval(fetchPriceData, 30 * 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Auto-calculate
   useEffect(() => {
     console.log("=== Calculation Debug ===");
     console.log("Weight:", weight);
     console.log("Karat:", karat);
-    console.log("PriceData in calculation:", priceData);
+    console.log("PriceData:", priceData);
     
-    if (weight && karat && Array.isArray(priceData) && priceData.length > 0) {
+    if (weight && karat && priceData.length > 0) {
+      // Clean weight input
       const cleanWeight = weight
         .toString()
         .replace(/[^\d.,]/g, "")
         .replace(",", ".");
 
       const weightNum = parseFloat(cleanWeight);
-      console.log("Clean weight:", cleanWeight);
       console.log("Weight number:", weightNum);
 
-      // Ambil harga dari priceData berdasarkan karat yang dipilih
-      const selectedPrice = priceData.find(
-        (item) => item.karat === karat
-      );
-      
+      // Cari harga berdasarkan karat yang dipilih
+      const selectedPrice = priceData.find(item => item.karat === karat);
       console.log("Selected price object:", selectedPrice);
 
-      const pricePerGram = selectedPrice
-        ? selectedPrice.price
-        : 0;
-      
-      console.log("Price per gram:", pricePerGram);
+      if (selectedPrice && selectedPrice.price) {
+        const pricePerGram = selectedPrice.price;
+        console.log("Price per gram:", pricePerGram);
 
-      if (
-        !isNaN(weightNum) &&
-        weightNum > 0 &&
-        pricePerGram > 0
-      ) {
-        // Hitung total: berat × harga per gram
-        const total = weightNum * pricePerGram;
-        console.log("Total calculated:", total);
-        setTotalPrice(total);
+        if (!isNaN(weightNum) && weightNum > 0 && pricePerGram > 0) {
+          // Hitung: berat × harga per gram
+          const total = weightNum * pricePerGram;
+          console.log("Total calculated:", total);
+          setTotalPrice(total);
+        } else {
+          console.log("Invalid calculation inputs");
+          setTotalPrice(0);
+        }
       } else {
-        console.log("Calculation failed - conditions not met");
-        console.log("isNaN(weightNum):", isNaN(weightNum));
-        console.log("weightNum > 0:", weightNum > 0);
-        console.log("pricePerGram > 0:", pricePerGram > 0);
+        console.log("Selected price not found or invalid");
         setTotalPrice(0);
       }
     } else {
-      console.log("Weight, Karat, or PriceData not ready");
+      console.log("Missing required data");
       console.log("Has weight:", !!weight);
       console.log("Has karat:", !!karat);
-      console.log("Has priceData:", Array.isArray(priceData) && priceData.length > 0);
+      console.log("PriceData length:", priceData.length);
       setTotalPrice(0);
     }
   }, [weight, karat, priceData]);

@@ -282,7 +282,7 @@ export default function TableSection() {
             ref={calculatorRef}
             className={`fade-in-right ${calculatorVisible ? 'is-visible' : ''}`}
           >
-            <PriceCalculator priceData={calculatorData} />
+            <PriceCalculator />
           </div>
         </div>
       </div>
