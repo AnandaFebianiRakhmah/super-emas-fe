@@ -25,6 +25,7 @@ import GuideSection from "./pages/LandingPage/GuideSection";
 import StoreLocation from "./pages/LandingPage/StoreLocation";
 import Footer from "./components/Footer";
 import FloatingContact from "./components/FloatingContact";
+import ContactPage from "./pages/ContactPage/ContactPage";
 
 export default function App() {
   return (
@@ -48,6 +49,9 @@ export default function App() {
 
       {/* ─── Public Login ───────────────────────────────────────────────── */}
       <Route path="/login" element={<LoginPage />} />
+
+      {/* ─── Contact Page (hidden - no navigation link) ─────────────────── */}
+      <Route path="/contact" element={<ContactPage />} />
 
       {/* ─── Protected Routes: wrap Layout + child routes ──────────────── */}
       <Route
