@@ -200,7 +200,7 @@ export default function PriceCalculator() {
         </div>
 
         <div className="disclaimer">
-          *Harga estimasi mengikuti estimasi harga pada hari ini tanggal 15 Juni 2026
+          *Harga estimasi mengikuti estimasi harga pada hari ini tanggal 25 Juni 2026
         </div>
       </div>
     </div>
