@@ -1,9 +1,9 @@
 /* src/components/Footer.css */
 
 .footer-container {
-  background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
   color: var(--text-secondary);
-  padding: 30px 0;
+  padding: 60px 0 30px;
   border-top: 1px solid var(--border-color);
   position: relative;
 }
@@ -18,19 +18,223 @@
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
+.footer-content {
+  margin-bottom: 40px;
+}
+
+/* Left Section - Company Info */
+.footer-left {
+  margin-bottom: 30px;
+}
+
+.company-info {
+  max-width: 400px;
+}
+
+.company-logo {
+  margin-bottom: 16px;
+}
+
+.logo-text {
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.company-tagline {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Right Section - Legal Info */
+.footer-right {
+  margin-bottom: 30px;
+}
+
+.legal-info {
+  max-width: 500px;
+  margin-left: auto;
+}
+
+.footer-title {
+  color: var(--text-primary);
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: var(--bg-tertiary);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.info-item:hover {
+  border-color: var(--gold);
+  background: var(--bg-secondary);
+}
+
+.info-icon {
+  color: var(--gold);
+  font-size: 1.25rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.info-label {
+  color: var(--text-tertiary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.info-value {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.info-link {
+  color: var(--gold);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.info-link:hover {
+  color: var(--gold-light);
+  text-decoration: underline;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  margin-top: 20px;
+}
+
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+  margin-bottom: 20px;
+}
+
 .footer-text {
   color: var(--text-tertiary);
   font-size: 0.875rem;
   letter-spacing: 0.5px;
+  display: block;
+}
+
+/* Light Mode Adjustments */
+[data-theme="light"] .footer-container {
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+}
+
+[data-theme="light"] .info-item {
+  background: var(--bg-primary);
+}
+
+[data-theme="light"] .info-item:hover {
+  background: var(--bg-secondary);
 }
 
 /* Responsive */
+@media (max-width: 991px) {
+  .legal-info {
+    margin-left: 0;
+    max-width: 100%;
+  }
+  
+  .footer-left {
+    text-align: center;
+  }
+  
+  .company-info {
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 768px) {
   .footer-container {
-    padding: 24px 0;
+    padding: 40px 0 24px;
+  }
+
+  .footer-content {
+    margin-bottom: 30px;
+  }
+
+  .logo-text {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+
+  .company-tagline {
+    font-size: 0.875rem;
+  }
+
+  .footer-title {
+    font-size: 1rem;
+  }
+
+  .info-item {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .info-icon {
+    font-size: 1.125rem;
+  }
+
+  .info-label {
+    font-size: 0.7rem;
+  }
+
+  .info-value {
+    font-size: 0.875rem;
   }
 
   .footer-text {
     font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 30px 0 20px;
+  }
+
+  .logo-text {
+    font-size: 1.25rem;
+  }
+
+  .info-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .info-icon {
+    font-size: 1.5rem;
   }
 }
