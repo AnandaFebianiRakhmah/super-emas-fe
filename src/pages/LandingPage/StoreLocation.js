@@ -38,6 +38,12 @@ export default function StoreLocation() {
       subtitle: "Lokasi Cabang",
       address: "Jl. Pahlawan Revolusi.22 A, RT.2/RW.2, Pd. Bambu, Kec. Duren Sawit, Kota Jakarta Timur, DKI Jakarta 13430",
       mapUrl: "https://maps.app.goo.gl/uQzjL4rA9N6ApsNJ8",
+    },
+    {
+      name: "Super Emas Bekasi",
+      subtitle: "Lokasi Cabang",
+      address: "Jl. Caman Raya No.60, RT.007/RW.001, Jatibening, Kec. Pd. Gede, Kota Bks, Jawa Barat 17412",
+      mapUrl: "https://share.google/mhYXO0kZ56vJ7tTma",
     }
   ];
 
