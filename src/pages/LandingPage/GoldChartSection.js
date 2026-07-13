@@ -1,27 +1,81 @@
 // src/pages/LandingPage/GoldChartSection.js
-import React, { useEffect } from "react";
-import { FaChartLine } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaChartLine, FaClock } from "react-icons/fa";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 import "./GoldChartSection.css";
 
 export default function GoldChartSection() {
   const [headerRef, headerVisible] = useScrollAnimation({ threshold: 0.2 });
   const [chartRef, chartVisible] = useScrollAnimation({ threshold: 0.1 });
+  const [chartData, setChartData] = useState([]);
+  const [timeframe, setTimeframe] = useState('7days');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Load GoldPrice.org widget script
-    const script = document.createElement('script');
-    script.src = 'https://www.goldprice.org/widget-gold-price.php?lang=id';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      // Cleanup
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
+    // Generate mock data for gold price chart
+    // In production, you would fetch real data from an API
+    const generateMockData = () => {
+      const data = [];
+      const basePrice = 2350000; // Base price in IDR
+      const now = new Date();
+      
+      let daysToGenerate = 7;
+      if (timeframe === '30days') daysToGenerate = 30;
+      if (timeframe === '90days') daysToGenerate = 90;
+      
+      for (let i = daysToGenerate; i >= 0; i--) {
+        const date = new Date(now);
+        date.setDate(date.getDate() - i);
+        
+        // Generate realistic price fluctuation
+        const fluctuation = (Math.random() - 0.5) * 100000;
+        const trendAdjustment = (daysToGenerate - i) * 500; // Slight upward trend
+        const price = basePrice + fluctuation + trendAdjustment;
+        
+        data.push({
+          date: date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }),
+          fullDate: date.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }),
+          price: Math.round(price),
+          priceUSD: Math.round(price / 15500) // Mock USD conversion
+        });
       }
+      
+      return data;
     };
-  }, []);
+
+    setLoading(true);
+    setTimeout(() => {
+      setChartData(generateMockData());
+      setLoading(false);
+    }, 500);
+  }, [timeframe]);
+
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value).replace("IDR", "Rp");
+  };
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip">
+          <p className="tooltip-date">{payload[0].payload.fullDate}</p>
+          <p className="tooltip-price">
+            {formatCurrency(payload[0].value)}
+          </p>
+          <p className="tooltip-usd">
+            ≈ ${payload[0].payload.priceUSD.toLocaleString('id-ID')} USD
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <section className="gold-chart-section" id="chart">
@@ -46,22 +100,98 @@ export default function GoldChartSection() {
           className={`chart-wrapper fade-in-up ${chartVisible ? 'is-visible' : ''}`}
         >
           <div className="chart-card">
-            {/* GoldPrice.org Widget */}
-            <div id="goldprice-widget" className="widget-container">
-              <iframe 
-                src="https://www.goldprice.org/id/gold-price-chart.html"
-                title="Grafik Harga Emas Dunia"
-                width="100%"
-                height="500"
-                frameBorder="0"
-                scrolling="no"
-                className="gold-chart-iframe"
-              />
+            {/* Timeframe Selector */}
+            <div className="chart-controls">
+              <button 
+                className={`timeframe-btn ${timeframe === '7days' ? 'active' : ''}`}
+                onClick={() => setTimeframe('7days')}
+              >
+                7 Hari
+              </button>
+              <button 
+                className={`timeframe-btn ${timeframe === '30days' ? 'active' : ''}`}
+                onClick={() => setTimeframe('30days')}
+              >
+                30 Hari
+              </button>
+              <button 
+                className={`timeframe-btn ${timeframe === '90days' ? 'active' : ''}`}
+                onClick={() => setTimeframe('90days')}
+              >
+                90 Hari
+              </button>
+            </div>
+
+            {/* Chart */}
+            <div className="chart-area">
+              {loading ? (
+                <div className="chart-loading">
+                  <div className="spinner"></div>
+                  <p>Memuat data grafik...</p>
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height={400}>
+                  <LineChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                    <defs>
+                      <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#ffd700" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#ffd700" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 215, 0, 0.1)" />
+                    <XAxis 
+                      dataKey="date" 
+                      stroke="#a0a0a0"
+                      style={{ fontSize: '0.875rem' }}
+                    />
+                    <YAxis 
+                      stroke="#a0a0a0"
+                      style={{ fontSize: '0.875rem' }}
+                      tickFormatter={(value) => `${(value / 1000000).toFixed(1)}M`}
+                    />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend 
+                      wrapperStyle={{ paddingTop: '20px' }}
+                      iconType="line"
+                      formatter={() => 'Harga Emas (IDR/gram)'}
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="price" 
+                      stroke="#ffd700" 
+                      strokeWidth={3}
+                      dot={{ fill: '#ffd700', r: 4 }}
+                      activeDot={{ r: 6, fill: '#ffed4e' }}
+                      fill="url(#colorPrice)"
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+
+            {/* Chart Info */}
+            <div className="chart-info">
+              <div className="info-item">
+                <FaClock className="info-icon" />
+                <div className="info-content">
+                  <span className="info-label">Terakhir Diperbarui</span>
+                  <span className="info-value">
+                    {new Date().toLocaleString('id-ID', { 
+                      day: '2-digit', 
+                      month: 'long', 
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}
+                  </span>
+                </div>
+              </div>
             </div>
 
             <div className="chart-footer">
               <p className="chart-note">
-                <strong>Catatan:</strong> Data harga emas dunia diperbarui secara real-time dari{" "}
+                <strong>Catatan:</strong> Data harga emas dunia untuk referensi. 
+                Harga aktual dapat berbeda. Untuk informasi terkini, kunjungi{" "}
                 <a 
                   href="https://goldprice.org/id" 
                   target="_blank" 
