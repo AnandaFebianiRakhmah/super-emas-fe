@@ -3,7 +3,7 @@
 .footer-container {
   background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
   color: var(--text-secondary);
-  padding: 40px 0 30px;
+  padding: 30px 0;
   border-top: 1px solid var(--border-color);
   position: relative;
 }
@@ -18,71 +18,6 @@
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
-/* Legal Information Section */
-.footer-legal-section {
-  margin-bottom: 32px;
-}
-
-.legal-item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 0;
-}
-
-.legal-icon {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  background: rgba(255, 215, 0, 0.1);
-  border: 2px solid rgba(255, 215, 0, 0.3);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gold);
-  font-size: 1.125rem;
-}
-
-.legal-content {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.legal-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.legal-value {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: 0.3px;
-}
-
-.legal-link {
-  color: var(--gold);
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.legal-link:hover {
-  color: var(--gold-light);
-  text-decoration: underline;
-}
-
-/* Divider */
-.footer-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
-  margin: 24px 0;
-}
-
 /* Copyright */
 .footer-text {
   color: var(--text-tertiary);
@@ -95,67 +30,13 @@
   background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
-[data-theme="light"] .legal-icon {
-  background: rgba(255, 215, 0, 0.15);
-  border-color: rgba(255, 215, 0, 0.4);
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   .footer-container {
-    padding: 32px 0 24px;
-  }
-
-  .footer-legal-section {
-    margin-bottom: 24px;
-  }
-
-  .legal-item {
-    padding: 12px 0;
-    margin-bottom: 8px;
-  }
-
-  .legal-icon {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    font-size: 1rem;
-  }
-
-  .legal-label {
-    font-size: 0.7rem;
-  }
-
-  .legal-value {
-    font-size: 0.875rem;
-  }
-
-  .footer-divider {
-    margin: 20px 0;
+    padding: 24px 0;
   }
 
   .footer-text {
-    font-size: 0.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .legal-item {
-    gap: 12px;
-  }
-
-  .legal-icon {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    font-size: 0.9rem;
-  }
-
-  .legal-label {
-    font-size: 0.65rem;
-  }
-
-  .legal-value {
     font-size: 0.8rem;
   }
 }
