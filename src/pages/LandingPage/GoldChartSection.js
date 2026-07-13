@@ -13,11 +13,10 @@ export default function GoldChartSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Generate mock data for gold price chart
-    // In production, you would fetch real data from an API
+    // Generate mock data for gold price chart with realistic fluctuations
     const generateMockData = () => {
       const data = [];
-      const basePrice = 2350000; // Base price in IDR
+      const basePrice = 2366880; // Base price from goldprice.org in IDR
       const now = new Date();
       
       let daysToGenerate = 7;
@@ -29,9 +28,20 @@ export default function GoldChartSection() {
         date.setDate(date.getDate() - i);
         
         // Generate realistic price fluctuation
-        const fluctuation = (Math.random() - 0.5) * 100000;
-        const trendAdjustment = (daysToGenerate - i) * 500; // Slight upward trend
-        const price = basePrice + fluctuation + trendAdjustment;
+        // Gold prices typically fluctuate 0.5% - 3% daily
+        const volatilityFactor = Math.random() * 0.03 - 0.015; // -1.5% to +1.5%
+        const dailyChange = basePrice * volatilityFactor;
+        
+        // Add some trend (slight upward or downward movement)
+        const trendFactor = Math.sin(i / daysToGenerate * Math.PI) * 0.01;
+        const trendAdjustment = basePrice * trendFactor;
+        
+        // Add random spikes occasionally
+        const spikeChance = Math.random();
+        const spike = spikeChance > 0.9 ? basePrice * 0.02 : 0; // 10% chance of 2% spike
+        
+        // Calculate final price
+        const price = basePrice + dailyChange + trendAdjustment + spike;
         
         data.push({
           date: date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }),
@@ -143,11 +153,13 @@ export default function GoldChartSection() {
                       dataKey="date" 
                       stroke="#a0a0a0"
                       style={{ fontSize: '0.875rem' }}
+                      interval={timeframe === '90days' ? 10 : timeframe === '30days' ? 3 : 1}
                     />
                     <YAxis 
                       stroke="#a0a0a0"
                       style={{ fontSize: '0.875rem' }}
-                      tickFormatter={(value) => `${(value / 1000000).toFixed(1)}M`}
+                      tickFormatter={(value) => `${(value / 1000000).toFixed(2)}M`}
+                      domain={['dataMin - 50000', 'dataMax + 50000']}
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend 
@@ -160,7 +172,7 @@ export default function GoldChartSection() {
                       dataKey="price" 
                       stroke="#ffd700" 
                       strokeWidth={3}
-                      dot={{ fill: '#ffd700', r: 4 }}
+                      dot={{ fill: '#ffd700', r: 3 }}
                       activeDot={{ r: 6, fill: '#ffed4e' }}
                       fill="url(#colorPrice)"
                     />
