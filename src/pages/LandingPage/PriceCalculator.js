@@ -126,6 +126,16 @@ export default function PriceCalculator() {
       .replace("IDR", "Rp");
   };
 
+  // Get current date in Indonesian format
+  const getCurrentDate = () => {
+    const today = new Date();
+    return today.toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+  };
+
   // Get price per gram for selected karat
   const getSelectedPrice = () => {
     if (!karat) return "Rp 0";
@@ -200,7 +210,7 @@ export default function PriceCalculator() {
         </div>
 
         <div className="disclaimer">
-          *Harga estimasi mengikuti estimasi harga pada hari ini tanggal 25 Juni 2026
+          *Harga estimasi mengikuti estimasi harga pada hari ini tanggal {getCurrentDate()}
         </div>
       </div>
     </div>
