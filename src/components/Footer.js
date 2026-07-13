@@ -11,7 +11,7 @@ export default function Footer() {
         <Row>
           <Col className="text-center">
             <small className="footer-text">
-              © {new Date().getFullYear()} SUPER EMAS. Hak cipta dilindungi.
+              © 2025 PT SUPER EMAS INDONESIA. Hak cipta dilindungi.
             </small>
           </Col>
         </Row>
