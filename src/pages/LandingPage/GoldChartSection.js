@@ -101,7 +101,7 @@ export default function GoldChartSection() {
             Grafik <span className="gradient-text">Harga Emas Dunia</span>
           </h2>
           <p className="section-subtitle">
-            Pantau pergerakan harga emas dunia secara real-time untuk keputusan investasi terbaik
+            Pantau pergerakan harga emas dunia secara real-time
           </p>
         </div>
 
