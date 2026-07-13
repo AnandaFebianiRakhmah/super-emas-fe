@@ -22,6 +22,7 @@ import HeroSection from "./pages/LandingPage/HeroSection";
 import TableSection from "./pages/LandingPage/TableSection";
 import AboutSection from "./pages/LandingPage/AboutSection";
 import GuideSection from "./pages/LandingPage/GuideSection";
+import GoldChartSection from "./pages/LandingPage/GoldChartSection";
 import StoreLocation from "./pages/LandingPage/StoreLocation";
 import Footer from "./components/Footer";
 import FloatingContact from "./components/FloatingContact";
@@ -40,6 +41,7 @@ export default function App() {
             <TableSection />
             <AboutSection />
             <GuideSection />
+            <GoldChartSection />
             <StoreLocation />
             <Footer />
             <FloatingContact />

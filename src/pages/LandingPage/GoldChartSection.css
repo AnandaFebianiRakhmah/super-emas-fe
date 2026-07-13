@@ -1,0 +1,264 @@
+/* src/pages/LandingPage/GoldChartSection.css */
+
+.gold-chart-section {
+  padding: 100px 20px;
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Section Header */
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 50px;
+  color: var(--gold);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+
+.gradient-text {
+  background: linear-gradient(180deg, #FFE17B 0%, #FFCD3C 50%, #D4A017 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Chart Wrapper */
+.chart-wrapper {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.chart-wrapper.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.chart-card {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
+}
+
+.chart-card:hover {
+  border-color: rgba(255, 215, 0, 0.4);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Widget Container */
+.widget-container {
+  background: var(--bg-tertiary);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.gold-chart-iframe {
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  display: block;
+  width: 100%;
+  min-height: 500px;
+}
+
+/* Chart Footer */
+.chart-footer {
+  padding: 20px;
+  background: rgba(255, 215, 0, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.chart-note {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.chart-note strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.chart-link {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.chart-link:hover {
+  color: var(--gold-light);
+  text-decoration: underline;
+}
+
+/* Animations */
+.fade-in-down {
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: all 0.8s ease;
+}
+
+.fade-in-down.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.fade-in-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Light Mode */
+[data-theme="light"] .chart-card {
+  background: var(--bg-secondary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .chart-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .widget-container {
+  background: #f5f5f5;
+}
+
+[data-theme="light"] .chart-footer {
+  background: rgba(255, 215, 0, 0.08);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .gold-chart-section {
+    padding: 80px 16px;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  .chart-card {
+    padding: 24px;
+  }
+
+  .gold-chart-iframe {
+    min-height: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gold-chart-section {
+    padding: 60px 16px;
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .section-badge {
+    font-size: 0.75rem;
+    padding: 6px 16px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+  }
+
+  .chart-card {
+    padding: 20px;
+  }
+
+  .widget-container {
+    padding: 16px;
+  }
+
+  .gold-chart-iframe {
+    min-height: 400px;
+  }
+
+  .chart-footer {
+    padding: 16px;
+  }
+
+  .chart-note {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .chart-card {
+    padding: 16px;
+  }
+
+  .widget-container {
+    padding: 12px;
+  }
+
+  .gold-chart-iframe {
+    min-height: 350px;
+  }
+
+  .chart-note {
+    font-size: 0.8rem;
+  }
+}
