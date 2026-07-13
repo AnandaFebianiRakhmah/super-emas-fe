@@ -199,21 +199,6 @@ export default function GoldChartSection() {
                 </div>
               </div>
             </div>
-
-            <div className="chart-footer">
-              <p className="chart-note">
-                <strong>Catatan:</strong> Data harga emas dunia untuk referensi. 
-                Harga aktual dapat berbeda. Untuk informasi terkini, kunjungi{" "}
-                <a 
-                  href="https://goldprice.org/id" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="chart-link"
-                >
-                  GoldPrice.org
-                </a>
-              </p>
-            </div>
           </div>
         </div>
       </div>
