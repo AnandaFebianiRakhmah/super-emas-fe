@@ -14,38 +14,6 @@ export default function PriceCalculator() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [priceData, setPriceData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [currentDate, setCurrentDate] = useState("");
-
-  // Update current date
-  useEffect(() => {
-    const updateDate = () => {
-      const today = new Date();
-      const formattedDate = today.toLocaleDateString("id-ID", {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      });
-      setCurrentDate(formattedDate);
-    };
-
-    updateDate(); // Initial update
-    
-    // Update every day at 9 AM
-    const checkAndUpdate = () => {
-      const now = new Date();
-      const hours = now.getHours();
-      
-      // Update if it's 9 AM or if date changed
-      if (hours === 9 || !currentDate) {
-        updateDate();
-      }
-    };
-
-    // Check every hour
-    const interval = setInterval(checkAndUpdate, 60 * 60 * 1000);
-    
-    return () => clearInterval(interval);
-  }, [currentDate]);
 
   // Fetch data dari API comparison-data
   useEffect(() => {
@@ -232,7 +200,7 @@ export default function PriceCalculator() {
         </div>
 
         <div className="disclaimer">
-          *Harga estimasi mengikuti estimasi harga pada hari ini tanggal {currentDate}
+          *Harga estimasi mengikuti estimasi harga pada hari ini tanggal {new Date().toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}
         </div>
       </div>
     </div>
