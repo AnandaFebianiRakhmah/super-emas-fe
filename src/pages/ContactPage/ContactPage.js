@@ -46,12 +46,12 @@ export default function ContactPage() {
             <div className="card-content">
               <h3 className="card-label">Nomor WhatsApp</h3>
               <a 
-                href="https://wa.me/6282178559906" 
+                href="https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="card-value-link"
               >
-                082178559906
+                085111355020
               </a>
             </div>
           </div>

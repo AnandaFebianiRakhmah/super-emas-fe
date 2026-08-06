@@ -205,7 +205,7 @@ export default function TableSection() {
                     </div>
                   </div>
                   <a 
-                    href="https://wa.me/+6285168888700" 
+                    href="https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="contact-button"
