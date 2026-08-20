@@ -123,7 +123,9 @@ export default function GoldPriceLocationPage() {
         <section className="location-hero">
           <div className="container">
             <h1 className="location-h1">{locationData.seo.h1}</h1>
-            <p className="location-intro">{locationData.content.intro}</p>
+            <p className="location-intro">
+              Lihat informasi harga emas di cabang Super Emas terdekat sebelum melakukan transaksi. Super Emas menerima berbagai jenis emas, mulai dari Logam Mulia hingga perhiasan, dalam kondisi apa pun—termasuk rusak, patah, sebelah, bahkan tanpa surat. Kami bantu proses jual emas dengan cepat, aman, dan transparan.
+            </p>
           </div>
         </section>
 
