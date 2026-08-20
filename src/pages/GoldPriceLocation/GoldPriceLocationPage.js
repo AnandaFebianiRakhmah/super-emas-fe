@@ -92,7 +92,7 @@ export default function GoldPriceLocationPage() {
   };
 
   const siteUrl = typeof window !== 'undefined' ? window.location.origin : 'https://superemas.id';
-  const canonicalUrl = `${siteUrl}/harga-emas-${locationData.slug}`;
+  const canonicalUrl = `${siteUrl}/harga-emas-hari-ini/${locationData.slug}`;
   const structuredData = generateStructuredData(locationData);
 
   return (

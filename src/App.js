@@ -60,6 +60,7 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
 
         {/* ─── Gold Price Location Pages (SEO) ────────────────────────────── */}
+        <Route path="/harga-emas-hari-ini/:location" element={<GoldPriceLocationPage />} />
         <Route path="/harga-emas-:location" element={<GoldPriceLocationPage />} />
 
         {/* ─── Protected Routes: wrap Layout + child routes ──────────────── */}
