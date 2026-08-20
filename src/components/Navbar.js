@@ -43,6 +43,9 @@ export default function AppNavbar() {
             <Nav.Link href="#prices" className="nav-link">
               Harga Emas
             </Nav.Link>
+            <Nav.Link as={Link} to="/#harga-cabang" className="nav-link">
+              Informasi Harga
+            </Nav.Link>
             <Nav.Link href="#about" className="nav-link">
               Tentang
             </Nav.Link>
