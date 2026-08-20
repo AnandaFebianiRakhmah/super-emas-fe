@@ -56,7 +56,6 @@ export default function GuideSection() {
               key={index} 
               className={`step-card fade-in-up ${stepsVisible ? 'is-visible' : ''} delay-${(index + 1) * 100}`}
             >
-              <div className="step-number">{step.number}</div>
               <div className="step-icon">{step.icon}</div>
               <h3 className="step-title">{step.title}</h3>
               <p className="step-description">{step.description}</p>

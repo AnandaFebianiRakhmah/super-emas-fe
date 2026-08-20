@@ -28,7 +28,7 @@ export default function FloatingContact() {
     {
       icon: <FaEnvelope />,
       label: "Email",
-      url: "mailto:info@superemas.co.id",
+      url: "admin@superemas.id",
       color: "#EA4335"
     }
   ];

@@ -1,0 +1,543 @@
+/* src/pages/GoldPriceLocation/GoldPriceLocationPage.css */
+
+.location-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Breadcrumb */
+.location-breadcrumb {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px 0;
+  margin-top: 70px;
+}
+
+.location-breadcrumb .container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.breadcrumb-link {
+  color: #ffd700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.3s;
+}
+
+.breadcrumb-link:hover {
+  color: #ffed4e;
+}
+
+.breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.breadcrumb-current {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Hero Section */
+.location-hero {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.location-h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.location-intro {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Price Section */
+.location-price-section {
+  padding: 60px 0;
+}
+
+.price-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.price-header h2 {
+  font-size: 2.2rem;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.price-update-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 30px;
+  color: #ffd700;
+  font-size: 0.9rem;
+}
+
+.price-loading,
+.price-error {
+  text-align: center;
+  padding: 60px 20px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 215, 0, 0.2);
+  border-top-color: #ffd700;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.price-error svg {
+  font-size: 3rem;
+  color: #ffd700;
+  margin-bottom: 15px;
+}
+
+.contact-wa-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 30px;
+  background: #25d366;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.contact-wa-btn:hover {
+  background: #128c7e;
+  transform: scale(1.05);
+}
+
+.price-table-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.price-table {
+  margin-bottom: 20px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-row:last-child {
+  border-bottom: none;
+}
+
+.price-karat {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.gold-icon {
+  font-size: 2rem;
+  color: #ffd700;
+}
+
+.karat-label {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.price-amount {
+  text-align: right;
+}
+
+.price-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffd700;
+}
+
+.price-unit {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-left: 5px;
+}
+
+.price-note {
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Location Info Section */
+.location-info-section {
+  padding: 60px 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.location-info-section h2 {
+  font-size: 2.2rem;
+  color: #ffffff;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.location-info-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.location-detail {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.location-icon {
+  font-size: 2.5rem;
+  color: #ffd700;
+  flex-shrink: 0;
+}
+
+.location-detail h3 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.location-detail p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.service-area {
+  color: rgba(255, 215, 0, 0.9) !important;
+  font-style: italic;
+}
+
+.maps-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 30px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #0f0a1a;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+.maps-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+}
+
+/* Why Section */
+.location-why-section {
+  padding: 60px 0;
+}
+
+.location-why-section h2 {
+  font-size: 2.2rem;
+  color: #ffffff;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.why-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 30px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: all 0.3s;
+}
+
+.why-card:hover {
+  border-color: rgba(255, 215, 0, 0.5);
+  transform: translateY(-5px);
+}
+
+.why-number {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #0f0a1a;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.why-card p {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Guide Section */
+.location-guide-section {
+  padding: 60px 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.location-guide-section h2 {
+  font-size: 2.2rem;
+  color: #ffffff;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.guide-steps {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.guide-step {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 30px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  transition: all 0.3s;
+}
+
+.guide-step:hover {
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.step-number {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #0f0a1a;
+  font-size: 2rem;
+  font-weight: 700;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-content h3 {
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.step-content p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* FAQ Section */
+.location-faq-section {
+  padding: 60px 0;
+}
+
+.location-faq-section h2 {
+  font-size: 2.2rem;
+  color: #ffffff;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 20px;
+  transition: all 0.3s;
+}
+
+.faq-item:hover {
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.faq-question {
+  font-size: 1.2rem;
+  color: #ffd700;
+  margin-bottom: 15px;
+}
+
+.faq-answer {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* CTA Section */
+.location-cta-section {
+  padding: 80px 0;
+  background: rgba(255, 215, 0, 0.05);
+  text-align: center;
+}
+
+.location-cta-section h2 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.location-cta-section p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 40px;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-btn {
+  padding: 16px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s;
+  display: inline-block;
+}
+
+.cta-primary {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #0f0a1a;
+}
+
+.cta-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+}
+
+.cta-secondary {
+  background: transparent;
+  color: #ffd700;
+  border: 2px solid #ffd700;
+}
+
+.cta-secondary:hover {
+  background: rgba(255, 215, 0, 0.1);
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .location-h1 {
+    font-size: 2rem;
+  }
+  
+  .price-header h2,
+  .location-info-section h2,
+  .location-why-section h2,
+  .location-guide-section h2,
+  .location-faq-section h2 {
+    font-size: 1.8rem;
+  }
+  
+  .location-cta-section h2 {
+    font-size: 2rem;
+  }
+  
+  .price-table-card,
+  .location-info-card {
+    padding: 25px;
+  }
+  
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .guide-step {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .location-detail {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 20px;
+  }
+}

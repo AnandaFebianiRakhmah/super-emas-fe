@@ -44,6 +44,12 @@ export default function StoreLocation() {
       subtitle: "Lokasi Cabang",
       address: "Jl. Caman Raya No.60, RT.007/RW.001, Jatibening, Kec. Pd. Gede, Kota Bks, Jawa Barat 17412",
       mapUrl: "https://share.google/mhYXO0kZ56vJ7tTma",
+    },
+    {
+      name: "Super Emas Kebon Jeruk",
+      subtitle: "Lokasi Cabang",
+      address: "Jl. Panjang No.16 7, RT.7/RW.1, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530",
+      mapUrl: "https://maps.app.goo.gl/3AME3mLe8Y3F9MaL9",
     }
   ];
 
