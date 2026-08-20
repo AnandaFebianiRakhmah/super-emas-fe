@@ -2,7 +2,7 @@
 
 .location-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-tertiary) 52%, var(--bg-primary) 100%);
 }
 
 .container {
@@ -13,7 +13,7 @@
 
 /* Breadcrumb */
 .location-breadcrumb {
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--bg-tertiary);
   padding: 15px 0;
   margin-top: 70px;
 }
@@ -144,9 +144,9 @@
 }
 
 .price-table-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--bg-secondary);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 40px;
   max-width: 800px;
@@ -213,7 +213,7 @@
 /* Location Info Section */
 .location-info-section {
   padding: 60px 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--bg-tertiary);
 }
 
 .location-info-section h2 {
@@ -224,9 +224,9 @@
 }
 
 .location-info-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--bg-secondary);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 40px;
   max-width: 800px;
@@ -301,9 +301,9 @@
 }
 
 .why-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--bg-secondary);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
   border-radius: 15px;
   padding: 30px;
   display: flex;
@@ -340,7 +340,7 @@
 /* Guide Section */
 .location-guide-section {
   padding: 60px 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--bg-tertiary);
 }
 
 .location-guide-section h2 {
@@ -360,9 +360,9 @@
   gap: 25px;
   margin-bottom: 30px;
   padding: 30px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--bg-secondary);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
   border-radius: 15px;
   transition: all 0.3s;
 }
@@ -415,9 +415,9 @@
 }
 
 .faq-item {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--bg-secondary);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
   border-radius: 15px;
   padding: 30px;
   margin-bottom: 20px;
