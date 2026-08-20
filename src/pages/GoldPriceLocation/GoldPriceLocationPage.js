@@ -223,24 +223,6 @@ export default function GoldPriceLocationPage() {
           </div>
         </section>
 
-        {/* How to Sell Section */}
-        <section className="location-guide-section">
-          <div className="container">
-            <h2>Cara Menjual Emas di {locationData.name}</h2>
-            <div className="guide-steps">
-              {locationData.content.howToSellSteps.map((step) => (
-                <div key={step.step} className="guide-step">
-                  <div className="step-number">{step.step}</div>
-                  <div className="step-content">
-                    <h3>{step.title}</h3>
-                    <p>{step.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* FAQ Section */}
         <section className="location-faq-section">
           <div className="container">
