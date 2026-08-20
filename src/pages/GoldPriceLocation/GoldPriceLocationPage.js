@@ -208,21 +208,6 @@ export default function GoldPriceLocationPage() {
           </div>
         </section>
 
-        {/* Why Section */}
-        <section className="location-why-section">
-          <div className="container">
-            <h2>Kenapa Jual Emas di Super Emas {locationData.name}?</h2>
-            <div className="why-grid">
-              {locationData.content.whySuperEmas.map((reason, index) => (
-                <div key={index} className="why-card">
-                  <div className="why-number">{index + 1}</div>
-                  <p>{reason}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* FAQ Section */}
         <section className="location-faq-section">
           <div className="container">
