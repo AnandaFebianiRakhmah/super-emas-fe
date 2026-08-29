@@ -43,8 +43,10 @@ export default function AboutSection() {
             Solusi Jual Emas <span className="gradient-text">Paling Super!</span>
           </h2>
           <p className="about-description">
-            Super Emas adalah platform terpercaya untuk menjual emas Anda dengan harga terbaik. 
-            Kami memberikan layanan yang cepat, aman, dan transparan untuk semua jenis emas.
+            Super Emas Indonesia hadir sebagai solusi terpercaya untuk semua kebutuhan emas Anda.
+            Kami menerima berbagai jenis emas dalam kondisi apapun, mulai dari emas perhiasan, logam mulia, emas rusak, patah, sebelah, hingga emas tanpa surat.
+            Tak hanya menerima jual emas, Super Emas juga menyediakan pilihan Logam Mulia untuk Anda yang ingin membeli dan berinvestasi emas.
+            Semua proses dilakukan dengan cepat, aman, transparan, dan dengan harga terbaik.
           </p>
         </div>
 

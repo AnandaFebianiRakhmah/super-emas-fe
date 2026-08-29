@@ -27,87 +27,64 @@ export default function TableSection() {
   useEffect(() => {
     const fetchPriceData = async () => {
       try {
-        // Hanya set loading true saat initial load
         if (isInitialLoad) {
           setLoading(true);
         }
-        
+
         const timestamp = new Date().getTime();
-        
-        // Fetch data untuk tabel (3 item dari showprice)
-        const showPriceResponse = await axios.get(`${API_BASE_URL}/api/showprice?t=${timestamp}`, {
-          timeout: 10000,
-        });
-        
-        console.log("ShowPrice API Response:", showPriceResponse.data);
-        
-        // Validasi response showprice
-        if (!showPriceResponse.data.priceData || typeof showPriceResponse.data.priceData !== 'object') {
-          throw new Error("Format data harga tidak valid");
-        }
-        
-        // Transform showprice data untuk tabel
-        const tableData = Object.entries(showPriceResponse.data.priceData).map(([karat, price]) => ({
-          karat: karat,
-          price: price
-        }));
-        
-        console.log("Table data (showprice):", tableData);
-        
-        // Fetch data untuk kalkulator (semua data dari comparison-data)
         const comparisonResponse = await axios.get(`${API_BASE_URL}/api/comparison-data?t=${timestamp}`, {
           timeout: 10000,
         });
-        
+
         console.log("Comparison API Response:", comparisonResponse.data);
-        
-        // Set date dan time dari API comparison-data
-        if (comparisonResponse.data.date) setApiDate(comparisonResponse.data.date);
-        if (comparisonResponse.data.latestUpdate) setApiTime(comparisonResponse.data.latestUpdate);
-        
-        // Transform comparison data untuk kalkulator
-        let calculatorTransformed = [];
-        
-        if (comparisonResponse.data.priceData && typeof comparisonResponse.data.priceData === 'object') {
-          // Transform object ke array
-          // Structure: { "K23": { "buyPrice": 0, "buybackPrice": 1963000 }, ... }
-          calculatorTransformed = Object.entries(comparisonResponse.data.priceData).map(([key, value]) => ({
-            karat: key,
-            price: value.buybackPrice || value.price || 0
-          }));
+
+        const rawPriceData = comparisonResponse.data?.priceData;
+        if (!rawPriceData || typeof rawPriceData !== "object") {
+          throw new Error("Format data harga tidak valid");
         }
-        
-        console.log("Calculator data (comparison) after transform:", calculatorTransformed);
-        
-        // Validasi data tidak kosong
-        if (tableData.length === 0) {
+
+        const transformedData = Object.entries(rawPriceData)
+          .map(([karat, value]) => {
+            const price = value && typeof value === "object"
+              ? (value.buybackPrice ?? value.buyBackPrice ?? value.price ?? value.buyback_price ?? value.buy_price ?? 0)
+              : Number(value) || 0;
+
+            return {
+              karat,
+              price: Number(price) || 0,
+            };
+          })
+          .filter((item) => item.karat && Number(item.price) > 0);
+
+        console.log("Transformed comparison data:", transformedData);
+
+        if (transformedData.length === 0) {
           throw new Error("Data harga tidak tersedia saat ini");
         }
-        
-        setPriceData(tableData);
-        setCalculatorData(calculatorTransformed.length > 0 ? calculatorTransformed : tableData);
+
+        if (comparisonResponse.data.date) setApiDate(comparisonResponse.data.date);
+        if (comparisonResponse.data.latestUpdate) setApiTime(comparisonResponse.data.latestUpdate);
+
+        setPriceData(transformedData);
+        setCalculatorData(transformedData);
         setLastUpdate(new Date());
         setError(null);
-        
-        // Set initial load false setelah load pertama
+
         if (isInitialLoad) {
           setIsInitialLoad(false);
           setLoading(false);
         }
       } catch (err) {
         console.error('Error fetching price data:', err);
-        
-        // Set pesan error yang lebih informatif
+
         let errorMessage = "Gagal memuat data harga";
         if (err.message) {
           errorMessage = err.message;
         }
         setError(errorMessage);
-        
-        // TIDAK menggunakan dummy data - biarkan kosong
         setPriceData([]);
         setCalculatorData([]);
-        
+
         if (isInitialLoad) {
           setIsInitialLoad(false);
           setLoading(false);
@@ -116,10 +93,9 @@ export default function TableSection() {
     };
 
     fetchPriceData();
-    
-    // Refresh data every 30 seconds
+
     const interval = setInterval(fetchPriceData, 30 * 1000);
-    
+
     return () => clearInterval(interval);
   }, [isInitialLoad]);
 
