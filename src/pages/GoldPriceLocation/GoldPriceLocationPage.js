@@ -45,6 +45,7 @@ export default function GoldPriceLocationPage() {
         // Transform data
         const prices = Object.entries(response.data.priceData).map(([karat, priceObj]) => ({
           karat,
+          label: String(karat ?? "").replace(/_/g, " ").replace(/\s+/g, " ").trim(),
           price: priceObj.buybackPrice || priceObj.price || 0
         }));
 
@@ -166,7 +167,7 @@ export default function GoldPriceLocationPage() {
                     <div key={index} className="price-row">
                       <div className="price-karat">
                         <GiGoldBar className="gold-icon" />
-                        <span className="karat-label">{item.karat}</span>
+                        <span className="karat-label">{item.label || item.karat}</span>
                       </div>
                       <div className="price-amount">
                         <span className="price-value">{formatCurrency(item.price)}</span>

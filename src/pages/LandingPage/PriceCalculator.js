@@ -15,6 +15,13 @@ export default function PriceCalculator() {
   const [priceData, setPriceData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const formatKaratLabel = (value) => {
+    return String(value ?? "")
+      .replace(/_/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  };
+
   // Fetch data dari API comparison-data
   useEffect(() => {
     const fetchPriceData = async () => {
@@ -34,16 +41,19 @@ export default function PriceCalculator() {
           // Structure: { "K23": { "buyPrice": 0, "buybackPrice": 1963000 }, ... }
           calcData = Object.entries(response.data.priceData).map(([key, value]) => ({
             karat: key,
+            label: formatKaratLabel(key),
             price: value.buybackPrice || value.price || 0
           }));
         } else if (Array.isArray(response.data)) {
           calcData = response.data.map(item => ({
             karat: item.karat || item.karatage || item.type,
+            label: formatKaratLabel(item.karat || item.karatage || item.type),
             price: item.buybackPrice || item.price || item.buyback_price || 0
           }));
         } else if (response.data.data && Array.isArray(response.data.data)) {
           calcData = response.data.data.map(item => ({
             karat: item.karat || item.karatage || item.type,
+            label: formatKaratLabel(item.karat || item.karatage || item.type),
             price: item.buybackPrice || item.price || item.buyback_price || 0
           }));
         }
@@ -164,7 +174,7 @@ export default function PriceCalculator() {
             {priceData && priceData.length > 0 ? (
               priceData.map((item, index) => (
                 <option key={index} value={item.karat}>
-                  {item.karat}
+                  {item.label || item.karat}
                 </option>
               ))
             ) : (

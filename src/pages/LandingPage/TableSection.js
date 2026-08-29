@@ -51,6 +51,7 @@ export default function TableSection() {
 
             return {
               karat,
+              label: formatKaratLabel(karat),
               price: Number(price) || 0,
             };
           })
@@ -98,6 +99,13 @@ export default function TableSection() {
 
     return () => clearInterval(interval);
   }, [isInitialLoad]);
+
+  const formatKaratLabel = (value) => {
+    return String(value ?? "")
+      .replace(/_/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  };
 
   const formatCurrency = (value) => {
     return new Intl.NumberFormat("id-ID", {
@@ -204,7 +212,7 @@ export default function TableSection() {
                           <GiGoldBar />
                         </div>
                         <div className="karat-info">
-                          <span className="karat-label">{item.karat}</span>
+                          <span className="karat-label">{item.label || item.karat}</span>
                           <span className="karat-sublabel">Emas</span>
                         </div>
                       </div>
