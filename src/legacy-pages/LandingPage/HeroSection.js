@@ -2,6 +2,7 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
+import logo from "./logo.png";
 import "./HeroSection.css";
 
 export default function HeroSection() {
@@ -19,7 +20,7 @@ export default function HeroSection() {
               className={`hero-logo-container fade-in-down ${logoVisible ? 'is-visible' : ''}`}
             >
               <img 
-                src={require('./logo.png')} 
+                src={logo} 
                 alt="Super Emas Logo" 
                 className="hero-logo"
               />
