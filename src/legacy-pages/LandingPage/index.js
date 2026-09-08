@@ -4,6 +4,16 @@ import HeroSection from "./HeroSection";
 import TableSection from "./TableSection";
 import AboutSection from "./AboutSection";
 import GuideSection from "./GuideSection";
-import StoreLocation from "./StoreLocation";    </>
+import StoreLocation from "./StoreLocation";
+
+export default function LandingPage() {
+  return (
+    <>
+      <HeroSection />
+      <TableSection />
+      <AboutSection />
+      <GuideSection />
+      <StoreLocation />
+    </>
   );
 }

@@ -1,22 +1,24 @@
 # Deployment Guide
 
-## API Proxy Configuration
+## Next.js Runtime
 
-Aplikasi ini menggunakan proxy untuk menghubungkan frontend dengan backend API.
+Aplikasi sekarang menggunakan Next.js App Router. Jalankan secara lokal dengan:
 
-### Development (Local)
-
-Untuk development lokal, proxy dikonfigurasi di `package.json`:
-
-```json
-"proxy": "https://super-emas-be.onrender.com"
+```bash
+npm install
+npm run dev
 ```
 
-Semua request ke `/api/*` akan otomatis di-proxy ke backend.
+Untuk menguji hasil production:
+
+```bash
+npm run build
+npm start
+```
 
 ### Production (Vercel)
 
-Untuk production di Vercel, proxy dikonfigurasi di `vercel.json`:
+Vercel akan mendeteksi Next.js dari script `build` dan `start`. Rewrite API yang dipertahankan di `vercel.json` adalah:
 
 ```json
 {
@@ -31,12 +33,13 @@ Untuk production di Vercel, proxy dikonfigurasi di `vercel.json`:
 
 ## Environment Variables
 
-Aplikasi ini tidak memerlukan environment variables untuk API URL karena menggunakan relative paths (`/api/*`) yang akan di-proxy.
+Harga pada halaman kota diambil server-side menggunakan `API_BASE_URL` dengan fallback ke backend production:
 
-Jika Anda perlu mengubah backend URL:
+```env
+API_BASE_URL=https://super-emas-be.onrender.com
+```
 
-1. **Development**: Edit `proxy` di `package.json`
-2. **Production**: Edit `destination` di `vercel.json`
+Set variable ini di Vercel jika backend berbeda. Jangan menggunakan `NEXT_PUBLIC_` karena URL ini tidak perlu diekspos sebagai konfigurasi publik.
 
 ## Deployment ke Vercel
 
@@ -49,21 +52,18 @@ Jika Anda perlu mengubah backend URL:
 
 2. Vercel akan otomatis detect dan deploy
 
-3. Tidak perlu setup environment variables di Vercel dashboard
+3. Set `API_BASE_URL` di Vercel bila ingin mengganti backend default
 
-## Testing API Calls
+## Existing API Calls
 
-Semua API calls menggunakan relative paths:
+Endpoint backend yang dipertahankan:
 
 ```javascript
-// ✅ Correct - akan di-proxy
-axios.get('/api/comparison-data')
-axios.post('/api/auth/login')
-axios.get('/api/customers')
-
-// ❌ Wrong - jangan gunakan absolute URLs
-axios.get('http://localhost:5000/api/...')
-axios.get('https://super-emas-be.onrender.com/api/...')
+GET /api/comparison-data
+GET/POST /api/auth/*
+GET/POST/PUT/DELETE /api/customers
+GET/POST/PUT/DELETE /api/transactions/initialization
+GET/POST /api/admin/roles dan /api/admin/permissions
 ```
 
 ## Troubleshooting
@@ -80,7 +80,4 @@ Pastikan backend (super-emas-be) sudah configure CORS untuk allow origin dari Ve
 
 ### Cache issues
 
-API calls menggunakan cache busting dengan timestamp:
-```javascript
-axios.get(`/api/comparison-data?t=${new Date().getTime()}`)
-```
+Halaman kota menggunakan Next.js revalidation setiap 300 detik untuk harga server-rendered. Komponen legacy tetap melakukan refresh client-side setiap 30 detik agar UI existing tetap real-time.

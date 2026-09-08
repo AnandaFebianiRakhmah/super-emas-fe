@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.9.0",
     "bootstrap": "^5.3.6",
+    "next": "^14.2.30",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^18.2.0",
@@ -21,8 +22,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "cross-env NODE_OPTIONS=--no-deprecation react-scripts build",
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build",
+    "legacy:start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

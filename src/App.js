@@ -3,32 +3,32 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import ProtectedRoute from "./components/ProtectedRoute";
-import Layout from "./pages/Layout/Layout";
+import Layout from "./legacy-pages/Layout/Layout";
 import ScrollToTop from "./components/ScrollToTop";
 
-import LoginPage from "./pages/Login/LoginPage";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import CustomersPage from "./pages/Customers/CustomersPage";
-import InventoryPage from "./pages/Inventory/InventoryPage";
-import SoldPage from "./pages/Sold/SoldPage";
-import RolesPage from "./pages/Roles/RolesPage";
+import LoginPage from "./legacy-pages/Login/LoginPage";
+import Dashboard from "./legacy-pages/Dashboard/Dashboard";
+import CustomersPage from "./legacy-pages/Customers/CustomersPage";
+import InventoryPage from "./legacy-pages/Inventory/InventoryPage";
+import SoldPage from "./legacy-pages/Sold/SoldPage";
+import RolesPage from "./legacy-pages/Roles/RolesPage";
 
-import InitializationPage from "./pages/Transactions/InitializationPage";
-import ApprovalPage from "./pages/Transactions/ApprovalPage";
-import TransferPage from "./pages/Transactions/TransferPage";
-import CompletePage from "./pages/Transactions/CompletePage";
+import InitializationPage from "./legacy-pages/Transactions/InitializationPage";
+import ApprovalPage from "./legacy-pages/Transactions/ApprovalPage";
+import TransferPage from "./legacy-pages/Transactions/TransferPage";
+import CompletePage from "./legacy-pages/Transactions/CompletePage";
 
 import Navbar from "./components/Navbar";
-import HeroSection from "./pages/LandingPage/HeroSection";
-import TableSection from "./pages/LandingPage/TableSection";
-import GoldPriceByLocation from "./pages/LandingPage/GoldPriceByLocation";
-import AboutSection from "./pages/LandingPage/AboutSection";
-import GuideSection from "./pages/LandingPage/GuideSection";
-import StoreLocation from "./pages/LandingPage/StoreLocation";
+import HeroSection from "./legacy-pages/LandingPage/HeroSection";
+import TableSection from "./legacy-pages/LandingPage/TableSection";
+import GoldPriceByLocation from "./legacy-pages/LandingPage/GoldPriceByLocation";
+import AboutSection from "./legacy-pages/LandingPage/AboutSection";
+import GuideSection from "./legacy-pages/LandingPage/GuideSection";
+import StoreLocation from "./legacy-pages/LandingPage/StoreLocation";
 import Footer from "./components/Footer";
 import FloatingContact from "./components/FloatingContact";
-import ContactPage from "./pages/ContactPage/ContactPage";
-import GoldPriceLocationPage from "./pages/GoldPriceLocation/GoldPriceLocationPage";
+import ContactPage from "./legacy-pages/ContactPage/ContactPage";
+import GoldPriceLocationPage from "./legacy-pages/GoldPriceLocation/GoldPriceLocationPage";
 
 export default function App() {
   return (

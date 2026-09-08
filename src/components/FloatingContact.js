@@ -1,3 +1,5 @@
+'use client';
+
 // src/components/FloatingContact.js
 import React, { useState } from "react";
 import { FaWhatsapp, FaInstagram, FaTiktok, FaEnvelope, FaTimes, FaComments } from "react-icons/fa";
