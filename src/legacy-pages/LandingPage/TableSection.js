@@ -9,15 +9,16 @@ import axios from "axios";
 
 const API_BASE_URL = "https://super-emas-be.onrender.com";
 
-export default function TableSection() {
-  const [priceData, setPriceData] = useState([]); // Untuk tampilan tabel (3 item)
-  const [calculatorData, setCalculatorData] = useState([]); // Untuk kalkulator (semua data)
-  const [loading, setLoading] = useState(true);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
+export default function TableSection({ initialPriceData = [], initialPriceDate = null, initialPriceTime = null }) {
+  const hasInitialData = initialPriceData.length > 0;
+  const [priceData, setPriceData] = useState(initialPriceData); // Untuk tampilan tabel (3 item)
+  const [calculatorData, setCalculatorData] = useState(initialPriceData); // Untuk kalkulator (semua data)
+  const [loading, setLoading] = useState(!hasInitialData);
+  const [isInitialLoad, setIsInitialLoad] = useState(!hasInitialData);
   const [error, setError] = useState(null);
   const [lastUpdate, setLastUpdate] = useState(null);
-  const [apiDate, setApiDate] = useState(null);
-  const [apiTime, setApiTime] = useState(null);
+  const [apiDate, setApiDate] = useState(initialPriceDate);
+  const [apiTime, setApiTime] = useState(initialPriceTime);
   
   // Scroll animations
   const [headerRef, headerVisible] = useScrollAnimation({ threshold: 0.2 });
@@ -25,6 +26,8 @@ export default function TableSection() {
   const [calculatorRef, calculatorVisible] = useScrollAnimation({ threshold: 0.1 });
 
   useEffect(() => {
+    if (hasInitialData) return undefined;
+
     const fetchPriceData = async () => {
       try {
         if (isInitialLoad) {
@@ -98,7 +101,7 @@ export default function TableSection() {
     const interval = setInterval(fetchPriceData, 30 * 1000);
 
     return () => clearInterval(interval);
-  }, [isInitialLoad]);
+  }, [hasInitialData, isInitialLoad]);
 
   const formatKaratLabel = (value) => {
     return String(value ?? "")

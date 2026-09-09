@@ -9,6 +9,7 @@ export default function LocationLinks() {
           <span className="gpl-badge">INFORMASI HARGA</span>
           <h2 className="gpl-title">Harga Emas per Cabang</h2>
           <p className="gpl-subtitle">Temukan informasi harga emas terbaru di cabang Super Emas pilihan Anda</p>
+          <p className="gpl-subtitle"><Link href="/harga-jual-emas-hari-ini">Cek Harga Jual Emas Hari Ini</Link></p>
         </div>
         <div className="gpl-grid">
           {locations.map((location) => (

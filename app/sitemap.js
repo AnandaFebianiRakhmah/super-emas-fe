@@ -12,6 +12,12 @@ export default function sitemap() {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    {
+      url: `${SITE_URL}/harga-jual-emas-hari-ini`,
+      lastModified: now,
+      changeFrequency: "hourly",
+      priority: 0.9,
+    },
     ...locations.map((location) => ({
       url: `${SITE_URL}/harga-emas-hari-ini/${location.slug}`,
       lastModified: now,

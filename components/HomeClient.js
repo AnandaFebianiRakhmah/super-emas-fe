@@ -9,12 +9,16 @@ import Footer from "../src/components/Footer";
 import FloatingContact from "../src/components/FloatingContact";
 import NextNavbar from "./NextNavbar";
 
-export default function HomeClient({ children }) {
+export default function HomeClient({ children, initialPriceData, initialPriceDate, initialPriceTime }) {
   return (
     <>
       <NextNavbar />
       <HeroSection />
-      <TableSection />
+      <TableSection
+        initialPriceData={initialPriceData}
+        initialPriceDate={initialPriceDate}
+        initialPriceTime={initialPriceTime}
+      />
       <AboutSection />
       <GuideSection />
       {children}
