@@ -5,6 +5,10 @@
   padding: 72px 24px 96px;
 }
 
+.page * {
+  color: #000000 !important;
+}
+
 .container {
   background: #160c2d;
   max-width: 920px;
