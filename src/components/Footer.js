@@ -10,6 +10,9 @@ export default function Footer() {
         {/* Copyright */}
         <Row>
           <Col className="text-center">
+            <a href="/syarat-dan-ketentuan" className="footer-terms-link">
+              Syarat &amp; Ketentuan
+            </a>
             <small className="footer-text">
               © 2025 PT SUPER EMAS INDONESIA. Hak cipta dilindungi.
             </small>

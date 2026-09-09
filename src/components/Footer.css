@@ -19,6 +19,20 @@
 }
 
 /* Copyright */
+.footer-terms-link {
+  color: var(--text-secondary);
+  display: block;
+  font-size: 0.875rem;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.footer-terms-link:hover {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .footer-text {
   color: var(--text-tertiary);
   font-size: 0.875rem;
