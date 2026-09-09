@@ -195,6 +195,7 @@ export default function GoldPriceLocationPage() {
                   <h3>{locationData.fullName}</h3>
                   <p>{locationData.address}</p>
                   <p className="service-area">{locationData.content.serviceArea}</p>
+                  <p className="service-area">Jam operasional: Setiap hari, 09.00-20.00</p>
                 </div>
               </div>
               <a
