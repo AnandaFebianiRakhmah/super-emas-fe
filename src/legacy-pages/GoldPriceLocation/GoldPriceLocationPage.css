@@ -71,6 +71,22 @@
   margin: 0 auto;
 }
 
+.operating-hours-important {
+  align-items: center;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  border-radius: 10px;
+  color: #ffd700 !important;
+  display: inline-flex;
+  gap: 9px;
+  margin-top: 22px;
+  padding: 12px 18px;
+}
+
+.operating-hours-important strong {
+  color: #ffd700 !important;
+}
+
 /* Price Section */
 .location-price-section {
   padding: 60px 0;

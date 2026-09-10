@@ -127,6 +127,9 @@ export default function GoldPriceLocationPage() {
             <p className="location-intro">
               Lihat informasi harga emas di cabang Super Emas terdekat sebelum melakukan transaksi. Super Emas menerima berbagai jenis emas, mulai dari Logam Mulia hingga perhiasan, dalam kondisi apa pun—termasuk rusak, patah, sebelah, bahkan tanpa surat. Kami bantu proses jual emas dengan cepat, aman, dan transparan.
             </p>
+            <div className="operating-hours-important">
+              <FaClock /> <span><strong>Informasi penting:</strong> Jam operasional setiap hari, 09.00-20.00</span>
+            </div>
           </div>
         </section>
 
@@ -195,7 +198,6 @@ export default function GoldPriceLocationPage() {
                   <h3>{locationData.fullName}</h3>
                   <p>{locationData.address}</p>
                   <p className="service-area">{locationData.content.serviceArea}</p>
-                  <p className="service-area">Jam operasional: Setiap hari, 09.00-20.00</p>
                 </div>
               </div>
               <a
