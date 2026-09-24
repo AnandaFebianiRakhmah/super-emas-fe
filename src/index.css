@@ -1,7 +1,6 @@
 /* src/index.css */
 
 /* ── Gen Z Modern Dark Mode Styling ───────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import './styles/animations.css';
 
 :root {
@@ -33,7 +32,7 @@
   --shadow-gold: 0 4px 20px rgba(255, 215, 0, 0.3);
   
   /* Font */
-  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-primary: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* Light Mode Colors */

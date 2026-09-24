@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Inter } from "next/font/google";
 import "../src/index.css";
 import "../src/components/Navbar.css";
 import "../src/components/Footer.css";
@@ -11,6 +12,13 @@ import "../src/legacy-pages/LandingPage/GuideSection.css";
 import "../src/legacy-pages/LandingPage/GoldPriceByLocation.css";
 import "../src/legacy-pages/LandingPage/StoreLocation.css";
 import "../src/legacy-pages/GoldPriceLocation/GoldPriceLocationPage.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata = {
   metadataBase: new URL("https://www.superemas.id"),
@@ -48,7 +56,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="id">
+    <html lang="id" className={inter.variable}>
       <body>{children}</body>
     </html>
   );

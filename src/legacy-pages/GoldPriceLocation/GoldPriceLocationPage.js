@@ -5,8 +5,6 @@ import { FaMapMarkerAlt, FaClock, FaExclamationTriangle, FaHome } from "react-ic
 import { GiGoldBar } from "react-icons/gi";
 import axios from "axios";
 import { getLocationBySlug } from "../../data/locationData";
-import { generateStructuredData } from "../../utils/seoHelpers";
-import SEOHead from "../../components/SEOHead";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import FloatingContact from "../../components/FloatingContact";
@@ -92,20 +90,8 @@ export default function GoldPriceLocationPage() {
     });
   };
 
-  const siteUrl = typeof window !== 'undefined' ? window.location.origin : 'https://superemas.id';
-  const canonicalUrl = `${siteUrl}/harga-emas-hari-ini/${locationData.slug}`;
-  const structuredData = generateStructuredData(locationData);
-
   return (
     <>
-      <SEOHead
-        title={locationData.seo.title}
-        description={locationData.seo.metaDescription}
-        canonical={canonicalUrl}
-        ogImage={locationData.seo.ogImage}
-        structuredData={structuredData}
-      />
-      
       <Navbar />
       
       <div className="location-page">

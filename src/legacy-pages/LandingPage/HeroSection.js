@@ -1,5 +1,6 @@
 // src/pages/LandingPage/HeroSection.js
 import React from "react";
+import Image from "next/image";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 import "./HeroSection.css";
@@ -18,10 +19,13 @@ export default function HeroSection() {
               ref={logoRef}
               className={`hero-logo-container fade-in-down ${logoVisible ? 'is-visible' : ''}`}
             >
-              <img 
+              <Image
                 src="/logo.png" 
                 alt="Super Emas Logo" 
+                width={617}
+                height={405}
                 className="hero-logo"
+                priority
               />
             </div>
             <h1 

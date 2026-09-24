@@ -5,6 +5,7 @@ import { GiGoldBar } from "react-icons/gi";
 import Footer from "../../../src/components/Footer";
 import FloatingContact from "../../../src/components/FloatingContact";
 import NextNavbar from "../../../components/NextNavbar";
+import JsonLd from "../../../components/JsonLd";
 import { getAllLocationSlugs, getLocationBySlug, locations } from "../../../src/data/locationData";
 import { formatCurrency, getPriceData } from "../../../lib/priceApi";
 
@@ -18,31 +19,53 @@ export async function generateMetadata({ params }) {
   const location = getLocationBySlug(params.city);
   if (!location) return {};
 
+  const priceData = await getPriceData();
+  const updateDate = priceData.date || new Intl.DateTimeFormat("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date());
+  const cityName = location.name.toLowerCase();
+  const title = `Harga Emas ${location.name} Hari Ini | Update ${updateDate}`;
+  const description = `Cek harga emas ${cityName} hari ini untuk emas batangan dan perhiasan. Lihat harga buyback terbaru per gram, lalu kunjungi Super Emas untuk menjual emas Anda.`;
   const canonical = `${SITE_URL}/harga-emas-hari-ini/${location.slug}`;
   return {
-    title: location.seo.title,
-    description: location.seo.metaDescription,
+    title: { absolute: title },
+    description,
+    keywords: [
+      `harga emas ${cityName}`,
+      `jual emas ${cityName} hari ini`,
+      `harga emas hari ini di ${cityName}`,
+      `harga buyback emas ${cityName}`,
+    ],
     alternates: { canonical },
     openGraph: {
       type: "website",
-      title: location.seo.title,
-      description: location.seo.metaDescription,
+      title,
+      description,
       url: canonical,
       siteName: "Super Emas Indonesia",
       images: [{ url: `${SITE_URL}${location.seo.ogImage}`, alt: location.fullName }],
     },
     twitter: {
       card: "summary_large_image",
-      title: location.seo.title,
-      description: location.seo.metaDescription,
+      title,
+      description,
       images: [`${SITE_URL}${location.seo.ogImage}`],
     },
     robots: { index: true, follow: true },
   };
 }
 
-function StructuredData({ location }) {
+function getPriceValidUntil() {
+  const validUntil = new Date();
+  validUntil.setDate(validUntil.getDate() + 1);
+  return validUntil.toISOString().slice(0, 10);
+}
+
+function getStructuredData({ location, priceData }) {
   const canonical = `${SITE_URL}/harga-emas-hari-ini/${location.slug}`;
+  const priceValidUntil = getPriceValidUntil();
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
@@ -53,6 +76,31 @@ function StructuredData({ location }) {
         url: canonical,
       },
       {
+        "@type": "LocalBusiness",
+        name: location.fullName,
+        url: canonical,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: location.address,
+          addressCountry: "ID",
+        },
+        areaServed: location.content.serviceArea,
+        openingHoursSpecification: [{
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday",
+          ],
+          opens: "09:00",
+          closes: "20:00",
+        }],
+      },
+      {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
@@ -60,6 +108,20 @@ function StructuredData({ location }) {
           { "@type": "ListItem", position: 3, name: location.name, item: canonical },
         ],
       },
+      ...priceData.prices.map((item) => ({
+        "@type": "Product",
+        name: `${item.label} - Harga Emas ${location.name}`,
+        category: "Harga buyback emas per gram",
+        offers: {
+          "@type": "Offer",
+          url: canonical,
+          price: item.price,
+          priceCurrency: "IDR",
+          priceValidUntil,
+          availability: "https://schema.org/InStock",
+          itemCondition: "https://schema.org/NewCondition",
+        },
+      })),
       {
         "@type": "FAQPage",
         mainEntity: location.content.faq.map((faq) => ({
@@ -71,7 +133,7 @@ function StructuredData({ location }) {
     ],
   };
 
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
+  return schema;
 }
 
 function PriceTable({ priceData }) {
@@ -107,10 +169,11 @@ export default async function LocationPage({ params }) {
   const priceData = await getPriceData();
   const updateDate = priceData.date || "Terbaru";
   const updateTime = priceData.latestUpdate ? `${priceData.latestUpdate} WIB` : "";
+  const structuredData = getStructuredData({ location, priceData });
 
   return (
     <>
-      <StructuredData location={location} />
+      <JsonLd data={structuredData} />
       <NextNavbar />
       <main className="location-page">
         <div className="location-breadcrumb"><div className="container"><Link href="/" className="breadcrumb-link"><FaHome /> Home</Link><span className="breadcrumb-separator">/</span><Link href="/#harga-cabang" className="breadcrumb-link">Harga Emas Hari Ini</Link><span className="breadcrumb-separator">/</span><span className="breadcrumb-current">{location.name}</span></div></div>
