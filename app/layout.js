@@ -23,11 +23,11 @@ const inter = Inter({
 export const metadata = {
   metadataBase: new URL("https://www.superemas.id"),
   title: {
-    default: "Super Emas Indonesia | Harga Emas Hari Ini",
+    default: "Super Emas - Jual Beli Emas Aman, Cepat, Terpercaya | Cek Harga Semua Cabang",
     template: "%s | Super Emas",
   },
   description:
-    "Cek harga emas hari ini dan jual emas dengan proses aman, transparan, dan terpercaya di Super Emas.",
+    "Pusat jual beli emas resmi, aman, cepat, dan terpercaya di Indonesia. Dapatkan penawaran harga buyback terbaik dan cek informasi harga emas hari ini di seluruh cabang Super Emas terdekat di kota Anda.",
   alternates: {
     canonical: "/",
   },
@@ -35,17 +35,17 @@ export const metadata = {
     type: "website",
     locale: "id_ID",
     siteName: "Super Emas Indonesia",
-    title: "Super Emas Indonesia | Harga Emas Hari Ini",
+    title: "Super Emas - Jual Beli Emas Aman, Cepat, Terpercaya | Cek Harga Semua Cabang",
     description:
-      "Cek harga emas terbaru dan jual emas dengan proses aman, transparan, dan terpercaya di Super Emas.",
+      "Pusat jual beli emas resmi, aman, cepat, dan terpercaya di Indonesia. Dapatkan penawaran harga buyback terbaik dan cek informasi harga emas hari ini di seluruh cabang Super Emas terdekat di kota Anda.",
     url: "https://www.superemas.id/",
     images: [{ url: "/images/logo.png", alt: "Super Emas Indonesia" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Super Emas Indonesia | Harga Emas Hari Ini",
+    title: "Super Emas - Jual Beli Emas Aman, Cepat, Terpercaya | Cek Harga Semua Cabang",
     description:
-      "Cek harga emas terbaru dan jual emas dengan proses aman, transparan, dan terpercaya di Super Emas.",
+      "Pusat jual beli emas resmi, aman, cepat, dan terpercaya di Indonesia. Dapatkan penawaran harga buyback terbaik dan cek informasi harga emas hari ini di seluruh cabang Super Emas terdekat di kota Anda.",
     images: ["/images/logo.png"],
   },
   robots: {
