@@ -3,8 +3,7 @@ import NextNavbar from "../../components/NextNavbar";
 import Footer from "../../src/components/Footer";
 import styles from "./terms.module.css";
 
-const WHATSAPP_URL =
-  "https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0";
+const WHATSAPP_URL = "https://wa.me/6285111405501";
 
 export const metadata = {
   title: { absolute: "Syarat & Ketentuan | Super Emas Indonesia" },
