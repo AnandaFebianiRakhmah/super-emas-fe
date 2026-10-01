@@ -50,6 +50,12 @@ export default function StoreLocation() {
       subtitle: "Lokasi Cabang",
       address: "Jl. Panjang No.16 7, RT.7/RW.1, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530",
       mapUrl: "https://maps.app.goo.gl/3AME3mLe8Y3F9MaL9",
+    },
+    {
+      name: "Super Emas Bogor",
+      subtitle: "Lokasi Cabang",
+      address: "Jl. Otto Iskandardinata Jl. Otista Iskandar No.42, Babakan Ps., Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16126",
+      mapUrl: "https://maps.app.goo.gl/aKzoNWdBhAo1rzFA6",
     }
   ];
 

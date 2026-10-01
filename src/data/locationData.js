@@ -461,6 +461,72 @@ export const locations = [
         }
       ]
     }
+  },
+  
+  {
+    id: 'bogor',
+    slug: 'bogor',
+    name: 'Bogor',
+    fullName: 'Super Emas Bogor',
+    address: 'Jl. Otto Iskandardinata Jl. Otista Iskandar No.42, Babakan Ps., Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16126',
+    mapUrl: 'https://maps.app.goo.gl/aKzoNWdBhAo1rzFA6',
+    
+    seo: {
+      title: 'Harga Emas Bogor Hari Ini Terkini | Super Emas',
+      metaDescription: 'Cek harga emas terkini di Super Emas Bogor. Informasi lengkap harga buyback emas, lokasi cabang, dan cara jual emas di Bogor.',
+      h1: 'Harga Emas Bogor Hari Ini',
+      ogImage: '/images/logo.png',
+    },
+    
+    content: {
+      intro: 'Super Emas cabang Bogor berlokasi di Jl. Otto Iskandardinata (Otista) No.42, Babakan Pasar, Bogor Tengah, siap melayani transaksi jual beli emas untuk masyarakat Bogor dan sekitarnya. Harga yang ditampilkan adalah harga Super Emas yang berlaku secara nasional dan diperbarui secara real-time.',
+      
+      serviceArea: 'Melayani wilayah Kota Bogor dan sekitarnya termasuk Bogor Tengah, Babakan Pasar, Baranangsiang, Pajajaran.',
+      
+      whySuperEmas: [
+        'Lokasi strategis di pusat Kota Bogor',
+        'Proses transaksi jual beli emas yang transparan dan aman',
+        'Harga kompetitif sesuai harga pasar terkini'
+      ],
+      
+      howToSellSteps: [
+        {
+          step: 1,
+          title: 'Kunjungi Cabang Bogor',
+          description: 'Datang langsung ke cabang kami di Jl. Otto Iskandardinata No.42 dengan membawa emas yang ingin dijual.'
+        },
+        {
+          step: 2,
+          title: 'Pemeriksaan Emas',
+          description: 'Tim kami akan memeriksa karat dan menimbang berat emas Anda secara transparan.'
+        },
+        {
+          step: 3,
+          title: 'Penawaran Harga',
+          description: 'Anda akan mendapatkan penawaran harga terbaik berdasarkan harga emas hari ini.'
+        },
+        {
+          step: 4,
+          title: 'Transaksi',
+          description: 'Jika setuju dengan penawaran, proses transaksi dan pencairan dana langsung diselesaikan di tempat.'
+        }
+      ],
+      
+      faq: [
+        {
+          question: 'Apakah harga emas di Super Emas Bogor berbeda dengan cabang lain?',
+          answer: 'Tidak, harga emas yang ditampilkan adalah harga Super Emas yang berlaku sama untuk semua cabang secara nasional dan diperbarui secara real-time.'
+        },
+        {
+          question: 'Dimana alamat lengkap Super Emas Bogor?',
+          answer: 'Super Emas Bogor beralamat di Jl. Otto Iskandardinata Jl. Otista Iskandar No.42, Babakan Ps., Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16126.'
+        },
+        {
+          question: 'Bagaimana cara menjual emas di Super Emas Bogor?',
+          answer: 'Anda cukup datang langsung ke cabang kami dengan membawa emas perhiasan atau logam mulia. Tim kami akan melakukan penimbangan, pengecekan kadar karat, dan memberikan penawaran harga terbaik.'
+        }
+      ]
+    }
   }
 ];
 
