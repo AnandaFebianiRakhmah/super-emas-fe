@@ -33,10 +33,13 @@ export async function generateMetadata({ params }) {
     title: { absolute: title },
     description,
     keywords: [
-      `harga emas ${cityName}`,
+      `harga emas ${cityName} hari ini`,
       `jual emas ${cityName} hari ini`,
       `harga emas hari ini di ${cityName}`,
       `harga buyback emas ${cityName}`,
+      `toko emas ${cityName}`,
+      `toko emas ${cityName} terdekat`,
+      `toko emas ${cityName} terpercaya`,
     ],
     alternates: { canonical },
     openGraph: {
