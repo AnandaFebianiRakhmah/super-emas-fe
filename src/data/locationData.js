@@ -8,6 +8,11 @@ export const locations = [
     fullName: 'Super Emas Tangerang',
     address: 'Jl. A. Damyati No.3, RT.006/RW.003, Sukasari, Kec. Tangerang, Kota Tangerang, Banten 15118',
     mapUrl: 'https://maps.app.goo.gl/VNvLZ3AuAvempESQ9',
+    coordinates: { lat: -6.1777825, lng: 106.6305562 },
+    // TODO: replace placeholder photos with real branch storefront photos.
+    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    hours: '09.00–20.00',
+    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
     
     seo: {
       title: 'Harga Emas Tangerang Hari Ini Terkini | Super Emas',
@@ -74,6 +79,10 @@ export const locations = [
     fullName: 'Super Emas Depok',
     address: 'Jl. Arif Rahman Hakim, Depok Jaya, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16432',
     mapUrl: 'https://maps.app.goo.gl/t5v6xfn43ciddeUF8',
+    coordinates: { lat: -6.3889655, lng: 106.8145091 },
+    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    hours: '09.00–20.00',
+    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
     
     seo: {
       title: 'Harga Emas Depok Hari Ini Terkini | Super Emas',
@@ -140,6 +149,10 @@ export const locations = [
     fullName: 'Super Emas Bintaro',
     address: 'Jl. Jombang Raya No.71, Pd. Pucung, Kec. Ciputat, Kota Tangerang Selatan, Banten 15414',
     mapUrl: 'https://maps.app.goo.gl/Bes9RNp5s3PjTW5p9',
+    coordinates: { lat: -6.2941881, lng: 106.7085865 },
+    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    hours: '09.00–20.00',
+    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
     
     seo: {
       title: 'Harga Emas Bintaro Hari Ini Terkini | Super Emas',
@@ -206,6 +219,10 @@ export const locations = [
     fullName: 'Super Emas Cibubur',
     address: 'Jl. Transyogi, RT.001/RW.010, Jatisampurna, Kec. Jatisampurna, Kota Bks, Jawa Barat 17435',
     mapUrl: 'https://maps.app.goo.gl/GnccP7fz1WLjZSqF7',
+    coordinates: { lat: -6.3810177, lng: 106.9238506 },
+    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    hours: '09.00–20.00',
+    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
     
     seo: {
       title: 'Harga Emas Cibubur Hari Ini Terkini | Super Emas',
@@ -272,6 +289,10 @@ export const locations = [
     fullName: 'Super Emas Duren Sawit',
     address: 'Jl. Pahlawan Revolusi.22 A, RT.2/RW.2, Pd. Bambu, Kec. Duren Sawit, Kota Jakarta Timur, DKI Jakarta 13430',
     mapUrl: 'https://maps.app.goo.gl/uQzjL4rA9N6ApsNJ8',
+    coordinates: { lat: -6.2268377, lng: 106.8986703 },
+    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    hours: '09.00–20.00',
+    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
     
     seo: {
       title: 'Harga Emas Duren Sawit Hari Ini Terkini | Super Emas',
@@ -338,6 +359,11 @@ export const locations = [
     fullName: 'Super Emas Bekasi',
     address: 'Jl. Caman Raya No.60, RT.007/RW.001, Jatibening, Kec. Pd. Gede, Kota Bks, Jawa Barat 17412',
     mapUrl: 'https://share.google/mhYXO0kZ56vJ7tTma',
+    // TODO: isi dari Google Maps setelah koordinat cabang Bekasi terverifikasi.
+    coordinates: null,
+    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    hours: '09.00–20.00',
+    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
     
     seo: {
       title: 'Harga Emas Bekasi Hari Ini Terkini | Super Emas',
@@ -404,6 +430,10 @@ export const locations = [
     fullName: 'Super Emas Kebon Jeruk',
     address: 'Jl. Panjang No.16 7, RT.7/RW.1, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530',
     mapUrl: 'https://maps.app.goo.gl/3AME3mLe8Y3F9MaL9',
+    coordinates: { lat: -6.1975043, lng: 106.7687641 },
+    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    hours: '09.00–20.00',
+    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
     
     seo: {
       title: 'Harga Emas Kebon Jeruk Hari Ini Terkini | Super Emas',
@@ -470,6 +500,10 @@ export const locations = [
     fullName: 'Super Emas Bogor',
     address: 'Jl. Otto Iskandardinata Jl. Otista Iskandar No.42, Babakan Ps., Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16126',
     mapUrl: 'https://maps.app.goo.gl/aKzoNWdBhAo1rzFA6',
+    coordinates: { lat: -6.6025955, lng: 106.8012338 },
+    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    hours: '09.00–20.00',
+    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
     
     seo: {
       title: 'Harga Emas Bogor Hari Ini Terkini | Super Emas',

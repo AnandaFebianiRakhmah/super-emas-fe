@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 64" fill="none">
+  <defs>
+    <linearGradient id="gold" x1="7" y1="8" x2="41" y2="53" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF1A3"/>
+      <stop offset=".34" stop-color="#F3D45A"/>
+      <stop offset=".7" stop-color="#D4AF37"/>
+      <stop offset="1" stop-color="#A87912"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="10" y1="9" x2="19" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9D1" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#FFF9D1" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="48" height="64" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+  </defs>
+  <path d="M24 3C12.4 3 3 12.4 3 24c0 14.6 16.4 32.8 21 37 4.6-4.2 21-22.4 21-37C45 12.4 35.6 3 24 3Z" fill="#24172D" opacity=".28" filter="url(#shadow)" transform="translate(0 1)"/>
+  <path d="M24 2.5C12.1 2.5 2.5 12.1 2.5 24c0 14.6 16.8 33.2 21.5 37.5 4.7-4.3 21.5-22.9 21.5-37.5C45.5 12.1 35.9 2.5 24 2.5Zm0 6.5c8.3 0 15 6.7 15 15s-6.7 15-15 15S9 32.3 9 24 15.7 9 24 9Z" fill="url(#gold)" fill-rule="evenodd" stroke="#A87912" stroke-width="1.2"/>
+  <path d="M24 4.8c-10.6 0-19.2 8.6-19.2 19.2 0 3 .8 6.2 2.1 9.5C4 21 10.1 8.4 22.2 7.6c8.3-.6 14.5 3.2 18.1 9.2C37.4 9.8 31.3 4.8 24 4.8Z" fill="url(#shine)"/>
+  <circle cx="24" cy="24" r="15" stroke="#FFF1A3" stroke-opacity=".7" stroke-width="1.2"/>
+</svg>

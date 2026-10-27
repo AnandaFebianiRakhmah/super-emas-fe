@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaSun, FaMoon } from "react-icons/fa";
@@ -13,7 +14,7 @@ export default function AppNavbar() {
       <Container fluid className="px-4">
         {/* Logo + Brand */}
         <Navbar.Brand as={Link} to="/" className="navbar-brand">
-          SUPER EMAS
+          <Image src="/images/super-emas-logo.png" alt="Super Emas" width={180} height={38} />
         </Navbar.Brand>
 
         {/* Theme Toggle & Hamburger Container */}

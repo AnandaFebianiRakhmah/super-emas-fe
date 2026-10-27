@@ -1,85 +1,32 @@
 'use client';
 
-// src/components/FloatingContact.js
-import React, { useState } from "react";
-import { FaWhatsapp, FaInstagram, FaTiktok, FaEnvelope, FaTimes, FaComments } from "react-icons/fa";
-import "./FloatingContact.css";
+import { useEffect, useState } from "react";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function FloatingContact() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [footerVisible, setFooterVisible] = useState(false);
 
-  const contacts = [
-    {
-      icon: <FaWhatsapp />,
-      label: "WhatsApp",
-      url: "https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0",
-      color: "#25D366"
-    },
-    {
-      icon: <FaInstagram />,
-      label: "Instagram",
-      url: "https://www.instagram.com/superemasid/",
-      color: "#E4405F"
-    },
-    {
-      icon: <FaTiktok />,
-      label: "TikTok",
-      url: "https://www.tiktok.com/@superemas_id",
-      color: "#000000"
-    },
-    {
-      icon: <FaEnvelope />,
-      label: "Email",
-      url: "admin@superemas.id",
-      color: "#EA4335"
-    }
-  ];
+  useEffect(() => {
+    const footer = document.querySelector(".se-footer");
+    if (!footer) return undefined;
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+    const observer = new IntersectionObserver(([entry]) => {
+      setFooterVisible(entry.isIntersecting);
+    }, { threshold: 0.05 });
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="floating-contact">
-      {/* Contact Menu Items */}
-      <div className={`contact-menu ${isOpen ? 'open' : ''}`}>
-        {contacts.map((contact, index) => (
-          <a
-            key={index}
-            href={contact.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-item"
-            style={{ 
-              '--item-index': index,
-              '--item-color': contact.color 
-            }}
-            onClick={() => setIsOpen(false)}
-          >
-            <span className="contact-icon">{contact.icon}</span>
-            <span className="contact-label">{contact.label}</span>
-          </a>
-        ))}
-      </div>
-
-      {/* Badge Label */}
-      {!isOpen && (
-        <div className="floating-badge">
-          Hubungi Kami
-        </div>
-      )}
-
-      {/* Main Toggle Button */}
-      <button 
-        className={`floating-button ${isOpen ? 'active' : ''}`}
-        onClick={toggleMenu}
-        aria-label="Contact Menu"
-      >
-        {isOpen ? <FaTimes /> : <FaComments />}
-      </button>
-
-      {/* Backdrop */}
-      {isOpen && <div className="floating-backdrop" onClick={toggleMenu}></div>}
-    </div>
+    <a
+      className={`se-whatsapp-fab${footerVisible ? " is-footer-visible" : ""}`}
+      href="https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat dengan Super Emas melalui WhatsApp"
+    >
+      <FaWhatsapp aria-hidden="true" />
+      <span>Chat Kami</span>
+    </a>
   );
 }

@@ -1,6 +1,5 @@
 import HomeClient from "../components/HomeClient";
-import LocationLinks from "../components/LocationLinks";
-import { getPriceData } from "../lib/priceApi";
+import { getPriceData, getWorldGoldPrice } from "../lib/priceApi";
 
 export const metadata = {
   title: {
@@ -23,15 +22,17 @@ export const metadata = {
 };
 
 export default async function HomePage() {
-  const priceData = await getPriceData();
+  const [priceData, worldGoldPrice] = await Promise.all([
+    getPriceData(),
+    getWorldGoldPrice(),
+  ]);
 
   return (
     <HomeClient
       initialPriceData={priceData.prices}
       initialPriceDate={priceData.date}
       initialPriceTime={priceData.latestUpdate}
-    >
-      <LocationLinks />
-    </HomeClient>
+      worldGoldPrice={worldGoldPrice}
+    />
   );
 }

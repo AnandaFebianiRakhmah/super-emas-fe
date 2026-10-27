@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "leaflet/dist/leaflet.css";
 import { Inter } from "next/font/google";
 import "../src/index.css";
 import "../src/components/Navbar.css";
@@ -12,6 +13,7 @@ import "../src/legacy-pages/LandingPage/GuideSection.css";
 import "../src/legacy-pages/LandingPage/GoldPriceByLocation.css";
 import "../src/legacy-pages/LandingPage/StoreLocation.css";
 import "../src/legacy-pages/GoldPriceLocation/GoldPriceLocationPage.css";
+import "../src/styles/superemas-redesign.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -39,14 +41,14 @@ export const metadata = {
     description:
       "Pusat jual beli emas resmi, aman, cepat, dan terpercaya di Indonesia. Dapatkan penawaran harga buyback terbaik dan cek informasi harga emas hari ini di seluruh cabang Super Emas terdekat di kota Anda.",
     url: "https://www.superemas.id/",
-    images: [{ url: "/images/logo.png", alt: "Super Emas Indonesia" }],
+    images: [{ url: "/images/super-emas-logo.png", alt: "Super Emas Indonesia" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Super Emas - Jual Beli Emas Aman, Cepat, Terpercaya | Cek Harga Semua Cabang",
     description:
       "Pusat jual beli emas resmi, aman, cepat, dan terpercaya di Indonesia. Dapatkan penawaran harga buyback terbaik dan cek informasi harga emas hari ini di seluruh cabang Super Emas terdekat di kota Anda.",
-    images: ["/images/logo.png"],
+    images: ["/images/super-emas-logo.png"],
   },
   robots: {
     index: true,
