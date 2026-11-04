@@ -97,7 +97,7 @@ export default function LocationPageClient({ location, priceData, updateText }) 
         </section>
         <section className="se-cta-banner se-location-cta"><div><p className="se-eyebrow se-eyebrow-light">SUPER EMAS {location.name.toUpperCase()}</p><h2>Siap menjual emas<br />Anda hari ini?</h2><p>Kunjungi cabang kami atau hubungi tim Super Emas.</p></div><a className="se-button se-button-gold" href={location.whatsapp} target="_blank" rel="noopener noreferrer"><FaWhatsapp /> Hubungi via WhatsApp</a></section>
       </main>
-      <footer className="se-footer"><div className="se-footer-bottom"><Link href="/" className="se-wordmark" aria-label="Super Emas, beranda"><Image src="/images/super-emas-logo.png" alt="Super Emas" width={170} height={36} /></Link><p>© {new Date().getFullYear()} PT Super Emas Indonesia. Hak cipta dilindungi.</p><Link href="/syarat-dan-ketentuan">Syarat & Ketentuan</Link></div></footer>
+      <footer className="se-footer"><div className="se-footer-bottom"><Link href="/" className="se-wordmark" aria-label="Super Emas, beranda"><Image src="/images/super-emas-logo.png" alt="Super Emas" width={170} height={36} /></Link><Link href="/syarat-dan-ketentuan">Syarat & Ketentuan</Link></div></footer>
       <FloatingContact />
     </>
   );

@@ -528,7 +528,7 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
             </div>
           </div>
         </div>
-        <div className="se-footer-bottom"><p>© {new Date().getFullYear()} PT Super Emas Indonesia. Hak cipta dilindungi.</p><Link href="/syarat-dan-ketentuan">Syarat & Ketentuan</Link></div>
+        <div className="se-footer-bottom"><Link href="/syarat-dan-ketentuan">Syarat & Ketentuan</Link></div>
       </footer>
     </div>
     <FloatingContact />
