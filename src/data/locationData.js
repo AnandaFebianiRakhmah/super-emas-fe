@@ -495,7 +495,7 @@ const branchRecords = [
     postalCode: '17412',
     lat: -6.2534589,
     lng: 106.9518885,
-    mapsUrl: 'https://maps.app.goo.gl/dcAEBusGZjacGuqn6',
+    mapsUrl: 'https://maps.app.goo.gl/BUTZqKHXwoQxh2yi7',
     embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2938.4093223419018!2d106.9518885!3d-6.2534589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698daf99bddb99%3A0x489673589465a0b8!2sSUPER%20EMAS%20BEKASI!5e1!3m2!1sid!2sid!4v1795491249067!5m2!1sid!2sid",
     photo: null,
     ...branchDetails.bekasi,

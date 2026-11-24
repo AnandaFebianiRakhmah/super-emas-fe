@@ -281,7 +281,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .se-faq-item button { display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 70px; padding: 12px 0; border: 0; color: var(--purple-950); background: transparent; text-align: left; font-size: 14px; font-weight: 550; cursor: pointer; }
 .se-faq-toggle { display: grid; place-items: center; flex: 0 0 28px; height: 28px; margin-left: 20px; border: 1px solid var(--line); border-radius: 50%; color: var(--purple-700); font-size: 19px; font-weight: 300; transition: transform .3s ease, background .3s ease; }
 .se-faq-item.is-open .se-faq-toggle { color: #fff; background: var(--purple-800); transform: rotate(45deg); }
-.se-faq-answer.is-collapsed { display: none; }
+/* .se-faq-answer.is-collapsed { display: none; } */ /* Removed to keep FAQ answers in DOM for SEO */
 .se-faq-answer p { max-width: 610px; margin: -2px 40px 20px 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
 
 .se-cta-banner { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 40px; margin: 0 clamp(28px, 8.5vw, 122px) 60px; padding: clamp(32px, 5vw, 65px); overflow: hidden; border-radius: 15px; color: #fff; background: linear-gradient(112deg,#201238,#3a2562 62%,#8b6fc0); }

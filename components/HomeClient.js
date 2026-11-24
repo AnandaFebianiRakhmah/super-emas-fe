@@ -162,7 +162,9 @@ function Accordion({ items }) {
                 <span>{item.question}</span><span className="se-faq-toggle" aria-hidden="true">{isOpen ? "×" : "+"}</span>
               </button>
             </h3>
-            <div className={`se-faq-answer${isOpen ? "" : " is-collapsed"}`} id={panelId} aria-hidden={!isOpen}><p>{item.answer}</p></div>
+            <div className="se-faq-answer" id={panelId} style={{ maxHeight: isOpen ? '500px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease' }}>
+              <p>{item.answer}</p>
+            </div>
           </article>
         );
       })}
@@ -376,7 +378,7 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
             <a href="#branches" className="se-button se-button-ghost">Cari Cabang Terdekat <FaArrowDown aria-hidden="true" /></a>
           </motion.div>
         </motion.div>
-        <div className="se-hero-footnote"><span><FaCheck aria-hidden="true" /> 20.000+ pelanggan terlayani</span><a href="#prices">Scroll to explore <FaArrowDown aria-hidden="true" /></a></div>
+        <div className="se-hero-footnote"><span><FaCheck aria-hidden="true" /> 25.000+ pelanggan terlayani</span><a href="#prices">Scroll to explore <FaArrowDown aria-hidden="true" /></a></div>
         <motion.div className="se-hero-price" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}>
           <span>Harga emas dunia <small>· IDR/gram</small></span>
           <strong>{worldGoldPrice ? formatCurrency(worldGoldPrice.pricePerGram) : "Tidak dapat ditampilkan"}</strong>
@@ -425,7 +427,7 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
         </section>
 
         <section className="se-stats" aria-label="Super Emas dalam angka" data-se-reveal>
-          <div><strong><CountUp value={20000} suffix="+" /></strong><p>Pelanggan terlayani</p></div>
+          <div><strong><CountUp value={25000} suffix="+" /></strong><p>Pelanggan terlayani</p></div>
           <div><strong><CountUp value={locations.length} /></strong><p>Cabang di Jabodetabek</p></div>
           <div><strong className="se-hours-stat">09.00–20.00</strong><p>Buka setiap hari</p></div>
           <div><strong>4</strong><p>Langkah transaksi mudah</p></div>
