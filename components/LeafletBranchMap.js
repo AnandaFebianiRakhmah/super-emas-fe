@@ -78,7 +78,7 @@ export default function LeafletBranchMap({ branches, selectedBranch, hoveredBran
           <Popup>
             <div className="se-leaflet-popup">
               <Image src={branch.photo} width={68} height={58} alt={`Foto placeholder Super Emas ${branch.name}`} placeholder="blur" blurDataURL={blurDataURL} />
-              <div><strong>{branch.fullName}</strong><p>{branch.address}</p><a href={branch.mapUrl} target="_blank" rel="noopener noreferrer">Petunjuk arah</a></div>
+              <div><strong>{branch.fullName}</strong><p>{branch.address}</p><a href={branch.mapUrl} target="_blank" rel="noopener noreferrer">Buka di Google Maps</a><a href={branch.whatsapp} target="_blank" rel="noopener noreferrer">Hubungi via WhatsApp</a></div>
             </div>
           </Popup>
         </Marker>

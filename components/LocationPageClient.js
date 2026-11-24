@@ -7,6 +7,7 @@ import { useState } from "react";
 import { FaArrowRight, FaClock, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 import { locations } from "../src/data/locationData";
 import { formatCurrency } from "../lib/priceApi";
+import { PHONE_DISPLAY, PHONE_E164 } from "../src/lib/contact";
 import NextNavbar from "./NextNavbar";
 import SmoothScroll from "./SmoothScroll";
 import FloatingContact from "../src/components/FloatingContact";
@@ -25,6 +26,7 @@ export default function LocationPageClient({ location, priceData, updateText }) 
   const estimate = price * (Number(weight) || 0);
   const coords = location.coordinates;
   const otherLocations = locations.filter((item) => item.slug !== location.slug);
+  const localDetails = location.localDetails;
 
   return (
     <>
@@ -82,13 +84,30 @@ export default function LocationPageClient({ location, priceData, updateText }) 
               <span className="se-branch-hours"><FaClock /> Setiap hari, 09.00–20.00</span>
               <a className="se-button se-button-dark" href={location.mapUrl} target="_blank" rel="noopener noreferrer">Petunjuk arah <FaArrowRight /></a>
             </div>
-            {coords ? <div className="se-map-frame"><LeafletBranchMap branches={[location]} selectedBranch={location} /><a href={location.mapUrl} target="_blank" rel="noopener noreferrer">Buka Google Maps <FaArrowRight /></a></div> : <div className="se-map-missing"><FaMapMarkerAlt /><p>Koordinat cabang belum tersedia.</p><a href={location.mapUrl} target="_blank" rel="noopener noreferrer">Buka petunjuk di Google Maps <FaArrowRight /></a></div>}
+            {location.embedUrl ? <div className="se-google-map-frame"><iframe src={location.embedUrl} title={`Lokasi Super Emas ${location.name}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" /><a href={location.mapUrl} target="_blank" rel="noopener noreferrer">Buka di Google Maps <FaArrowRight /></a></div> : coords ? <div className="se-map-frame"><LeafletBranchMap branches={[location]} selectedBranch={location} /><a href={location.mapUrl} target="_blank" rel="noopener noreferrer">Buka di Google Maps <FaArrowRight /></a></div> : <div className="se-map-missing"><FaMapMarkerAlt /><p>Embed Google Maps dan koordinat cabang belum tersedia.</p><a href={location.mapUrl} target="_blank" rel="noopener noreferrer">Buka di Google Maps <FaArrowRight /></a></div>}
+          </div>
+        </section>
+
+        <section className="se-location-details">
+          <div><p className="se-eyebrow"><span>•</span> AKSES DAN AREA LAYANAN</p><h2>Informasi cabang<br /><span>{location.name}.</span></h2></div>
+          <div className="se-location-details-grid">
+            {[
+              ["Patokan lokasi", localDetails.landmark],
+              ["Parkir", localDetails.parking],
+              ["Transportasi", localDetails.transport],
+              ["Area layanan", localDetails.areaServed],
+            ].filter(([, value]) => value).map(([label, value]) => (
+              <article key={label}><h3>{label}</h3><p>{value}</p></article>
+            ))}
+            {!localDetails.landmark && !localDetails.parking && !localDetails.transport && !localDetails.areaServed && (
+              <p>Informasi akses cabang akan ditambahkan setelah dikonfirmasi oleh tim Super Emas.</p>
+            )}
           </div>
         </section>
 
         <section className="se-location-faq">
           <div><p className="se-eyebrow"><span>•</span> PERTANYAAN</p><h2>Tentang cabang<br /><span>{location.name}.</span></h2></div>
-          <div>{location.content.faq.map((faq) => <article key={faq.question}><h3>{faq.question}</h3><p>{faq.answer}</p></article>)}</div>
+          <div>{[...location.content.faq, ...localDetails.faq].map((faq) => <article key={faq.question}><h3>{faq.question}</h3><p>{faq.answer}</p></article>)}</div>
         </section>
 
         <section className="se-location-other">
@@ -97,7 +116,7 @@ export default function LocationPageClient({ location, priceData, updateText }) 
         </section>
         <section className="se-cta-banner se-location-cta"><div><p className="se-eyebrow se-eyebrow-light">SUPER EMAS {location.name.toUpperCase()}</p><h2>Siap menjual emas<br />Anda hari ini?</h2><p>Kunjungi cabang kami atau hubungi tim Super Emas.</p></div><a className="se-button se-button-gold" href={location.whatsapp} target="_blank" rel="noopener noreferrer"><FaWhatsapp /> Hubungi via WhatsApp</a></section>
       </main>
-      <footer className="se-footer"><div className="se-footer-bottom"><Link href="/" className="se-wordmark" aria-label="Super Emas, beranda"><Image src="/images/super-emas-logo.png" alt="Super Emas" width={170} height={36} /></Link><Link href="/syarat-dan-ketentuan">Syarat & Ketentuan</Link></div></footer>
+      <footer className="se-footer"><div className="se-footer-bottom"><Link href="/" className="se-wordmark" aria-label="Super Emas, beranda"><Image src="/images/super-emas-logo.png" alt="Super Emas" width={170} height={36} /></Link><a href={`tel:${PHONE_E164}`}>{PHONE_DISPLAY}</a><Link href="/harga-jual-emas-hari-ini">Harga Jual Emas Hari Ini</Link><Link href="/syarat-dan-ketentuan">Syarat & Ketentuan</Link></div></footer>
       <FloatingContact />
     </>
   );

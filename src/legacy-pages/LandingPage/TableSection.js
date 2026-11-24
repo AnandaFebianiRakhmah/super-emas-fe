@@ -6,6 +6,7 @@ import "./TableSection.css";
 import PriceCalculator from "./PriceCalculator";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 import axios from "axios";
+import { waLink } from "../../lib/contact";
 
 const API_BASE_URL = "https://super-emas-be.onrender.com";
 
@@ -192,7 +193,7 @@ export default function TableSection({ initialPriceData = [], initialPriceDate =
                     </div>
                   </div>
                   <a 
-                    href="https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0" 
+                    href={waLink()}
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="contact-button"

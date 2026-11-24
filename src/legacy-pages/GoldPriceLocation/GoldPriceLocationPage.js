@@ -9,6 +9,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import FloatingContact from "../../components/FloatingContact";
 import "./GoldPriceLocationPage.css";
+import { PHONE_DISPLAY, PHONE_E164 } from "../../lib/contact";
 
 const API_BASE_URL = "https://super-emas-be.onrender.com";
 
@@ -141,7 +142,7 @@ export default function GoldPriceLocationPage() {
                 <FaExclamationTriangle />
                 <p>Data harga sedang tidak tersedia</p>
                 <a 
-                  href="https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0"
+                  href={locationData.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="contact-wa-btn"
@@ -220,7 +221,7 @@ export default function GoldPriceLocationPage() {
             <p>Hubungi kami atau kunjungi cabang {locationData.name} untuk transaksi emas Anda</p>
             <div className="cta-buttons">
               <a
-                href="https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0"
+                href={locationData.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cta-btn cta-primary"
@@ -236,6 +237,7 @@ export default function GoldPriceLocationPage() {
       </div>
       
       <Footer />
+      <a href={`tel:${PHONE_E164}`} className="location-phone-number">{PHONE_DISPLAY}</a>
       <FloatingContact />
     </>
   );

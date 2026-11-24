@@ -1,7 +1,7 @@
 // src/utils/seoHelpers.js
 
 export const generateBreadcrumbSchema = (locationName, locationSlug) => {
-  const siteUrl = typeof window !== 'undefined' ? window.location.origin : 'https://superemas.id';
+  const siteUrl = typeof window !== 'undefined' ? window.location.origin : 'https://www.superemas.id';
   
   return {
     "@context": "https://schema.org",
@@ -24,7 +24,7 @@ export const generateBreadcrumbSchema = (locationName, locationSlug) => {
 };
 
 export const generateWebPageSchema = (locationData) => {
-  const siteUrl = typeof window !== 'undefined' ? window.location.origin : 'https://superemas.id';
+  const siteUrl = typeof window !== 'undefined' ? window.location.origin : 'https://www.superemas.id';
   
   return {
     "@context": "https://schema.org",

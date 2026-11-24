@@ -1,6 +1,7 @@
 // src/pages/ContactPage/ContactPage.js
 import React from "react";
 import { FaBuilding, FaMapMarkerAlt, FaWhatsapp, FaEnvelope } from "react-icons/fa";
+import { PHONE_DISPLAY, PHONE_E164 } from "../../lib/contact";
 import "./ContactPage.css";
 
 export default function ContactPage() {
@@ -46,12 +47,12 @@ export default function ContactPage() {
             <div className="card-content">
               <h3 className="card-label">Nomor WhatsApp</h3>
               <a 
-                href="https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0" 
+                href={`tel:${PHONE_E164}`}
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="card-value-link"
               >
-                085111355020
+                {PHONE_DISPLAY}
               </a>
             </div>
           </div>

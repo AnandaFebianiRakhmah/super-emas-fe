@@ -263,6 +263,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .se-map-missing > svg { color: var(--gold-300); font-size: 25px; }
 .se-map-missing p { margin: 0; color: rgba(255,255,255,.75); font-size: 12px; }
 .se-map-missing a { display: inline-flex; align-items: center; gap: 8px; color: var(--gold-300); font-size: 11px; }
+.se-google-map-frame { display: flex; flex: 1; flex-direction: column; min-width: 0; min-height: 390px; aspect-ratio: 16 / 9; overflow: hidden; }
+.se-google-map-frame iframe { flex: 1; width: 100%; min-height: 0; border: 0; }
+.se-google-map-frame > a { display: inline-flex; justify-content: center; align-items: center; gap: 8px; min-height: 42px; color: #fff; background: var(--purple-800); font-size: 11px; }
 
 .se-faq { display: grid; grid-template-columns: .7fr 1.3fr; gap: 70px; background: #fff; }
 .se-faq-heading h2 { margin: 0 0 26px; }
@@ -340,7 +343,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .se-location-hero-meta { display: flex; gap: 24px; align-items: center; margin-top: 24px; color: #fff; font-size: 11px; }
 .se-location-hero-meta span, .se-location-hero-meta a { display: inline-flex; gap: 8px; align-items: center; }
 .se-location-hero-meta svg { color: var(--gold-300); }
-.se-location-price, .se-location-info, .se-location-faq, .se-location-other { padding: clamp(56px, 7vw, 95px) clamp(28px, 8.5vw, 122px); }
+.se-location-price, .se-location-info, .se-location-details, .se-location-faq, .se-location-other { padding: clamp(56px, 7vw, 95px) clamp(28px, 8.5vw, 122px); }
 .se-location-price { background: #fff; }
 .se-location-section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-bottom: 35px; }
 .se-location-section-head h2, .se-location-faq > div:first-child h2 { margin: 0; font-size: clamp(39px, 5vw, 60px); line-height: 1.05; font-weight: 450; letter-spacing: -.06em; }
@@ -360,6 +363,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .se-location-faq article { padding: 17px 0; border-top: 1px solid var(--line); }
 .se-location-faq article h3 { margin: 0 0 8px; font-size: 15px; }
 .se-location-faq article p { max-width: 650px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.75; }
+.se-location-details { display: grid; grid-template-columns: .7fr 1.3fr; gap: 60px; background: #fff; }
+.se-location-details > div:first-child h2 { margin: 0; font-size: clamp(39px, 5vw, 60px); line-height: 1.05; font-weight: 450; letter-spacing: -.06em; }
+.se-location-details > div:first-child h2 span { color: var(--purple-500); }
+.se-location-details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.se-location-details-grid article { padding: 18px; border: 1px solid var(--line); border-radius: 12px; }
+.se-location-details-grid article h3 { margin: 0 0 8px; font-size: 13px; }
+.se-location-details-grid article p, .se-location-details-grid > p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.75; }
 .se-location-other { background: #f1edf7; }
 .se-location-other .se-location-section-head { align-items: flex-end; }
 .se-location-other-list { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--line); }
@@ -475,7 +485,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .se-location-hero-content h1 { font-size: clamp(43px,11vw,63px); }
   .se-location-hero-content > p:not(.se-eyebrow) { font-size: 12px; }
   .se-location-hero-meta { align-items: flex-start; flex-direction: column; gap: 12px; }
-  .se-location-price, .se-location-info, .se-location-faq, .se-location-other { padding: 58px 23px; }
+  .se-location-price, .se-location-info, .se-location-details, .se-location-faq, .se-location-other { padding: 58px 23px; }
   .se-location-section-head { align-items: flex-start; flex-direction: column; gap: 17px; }
   .se-location-price-grid { grid-template-columns: 1fr; gap: 25px; }
   .se-location-map-layout { grid-template-columns: 1fr; }
@@ -483,6 +493,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .se-location-map-layout .se-map-frame, .se-location-map-layout .se-map-missing { min-height: 340px; }
   .se-location-map-layout .se-map-frame iframe, .se-location-map-layout .se-leaflet-map { min-height: 340px; }
   .se-location-faq { grid-template-columns: 1fr; gap: 28px; }
+  .se-location-details { grid-template-columns: 1fr; gap: 28px; }
   .se-location-other .se-location-section-head { align-items: flex-start; }
   .se-location-other-list { grid-template-columns: 1fr 1fr; }
   .se-location-other-list a:nth-child(2n) { border-right: 0; }

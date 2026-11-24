@@ -4,11 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaArrowRight, FaBars, FaTimes } from "react-icons/fa";
+import { waLink } from "../src/lib/contact";
 
-const WHATSAPP_URL = "https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0";
+const WHATSAPP_URL = waLink();
 const links = [
   ["Beranda", "/#home"],
-  ["Harga Emas", "/#prices"],
+  ["Harga Emas", "/harga-jual-emas-hari-ini"],
   ["Cabang", "/#branches"],
   ["Tentang", "/#about"],
   ["Panduan", "/#guide"],

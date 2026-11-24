@@ -2,6 +2,7 @@
 import React from "react";
 import { FaWhatsapp, FaBalanceScale, FaHandshake, FaMoneyBillWave } from "react-icons/fa";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
+import { waLink } from "../../lib/contact";
 import "./GuideSection.css";
 
 export default function GuideSection() {
@@ -72,7 +73,7 @@ export default function GuideSection() {
         >
           <p className="cta-text">Siap untuk menjual emas Anda?</p>
           <a 
-            href="https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0" 
+            href={waLink()}
             target="_blank" 
             rel="noopener noreferrer"
             className="cta-button"

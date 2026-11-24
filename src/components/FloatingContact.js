@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
+import { waLink } from "../lib/contact";
 
 export default function FloatingContact() {
   const [footerVisible, setFooterVisible] = useState(false);
@@ -20,7 +21,7 @@ export default function FloatingContact() {
   return (
     <a
       className={`se-whatsapp-fab${footerVisible ? " is-footer-visible" : ""}`}
-      href="https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0"
+      href={waLink()}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat dengan Super Emas melalui WhatsApp"

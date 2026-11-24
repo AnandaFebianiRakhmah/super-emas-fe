@@ -3,6 +3,7 @@ import JsonLd from "../../../components/JsonLd";
 import LocationPageClient from "../../../components/LocationPageClient";
 import { getAllLocationSlugs, getLocationBySlug } from "../../../src/data/locationData";
 import { getPriceData } from "../../../lib/priceApi";
+import { PHONE_E164 } from "../../../src/lib/contact";
 
 const SITE_URL = "https://www.superemas.id";
 
@@ -77,13 +78,22 @@ function getStructuredData({ location, priceData }) {
       {
         "@type": "JewelryStore",
         name: location.fullName,
+        telephone: PHONE_E164,
+        image: ["https://www.superemas.id/images/super-emas-logo.png"],
         url: canonical,
+        hasMap: location.mapUrl,
+        priceRange: "$$",
         address: {
           "@type": "PostalAddress",
           streetAddress: location.address,
           addressCountry: "ID",
         },
-        areaServed: location.content.serviceArea,
+        areaServed: location.localDetails.areaServed || location.content.serviceArea,
+        sameAs: [
+          "https://www.instagram.com/superemasid",
+          "https://www.tiktok.com/@superemasid",
+          location.mapUrl,
+        ],
         ...(location.coordinates ? {
           geo: {
             "@type": "GeoCoordinates",
@@ -130,7 +140,7 @@ function getStructuredData({ location, priceData }) {
       })),
       {
         "@type": "FAQPage",
-        mainEntity: location.content.faq.map((faq) => ({
+        mainEntity: [...location.content.faq, ...location.localDetails.faq].map((faq) => ({
           "@type": "Question",
           name: faq.question,
           acceptedAnswer: { "@type": "Answer", text: faq.answer },

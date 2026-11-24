@@ -23,6 +23,7 @@ import {
 import { FaInstagram, FaTiktok } from "react-icons/fa6";
 import { locations } from "../src/data/locationData";
 import { formatCurrency } from "../lib/priceApi";
+import { PHONE_DISPLAY, PHONE_E164, waLink } from "../src/lib/contact";
 import NextNavbar from "./NextNavbar";
 import SmoothScroll from "./SmoothScroll";
 import FloatingContact from "../src/components/FloatingContact";
@@ -32,7 +33,7 @@ const LeafletBranchMap = dynamic(() => import("./LeafletBranchMap"), {
   loading: () => <div className="se-map-loading se-bento-map-loading" role="status">Memuat peta cabang…</div>,
 });
 
-const WHATSAPP_URL = "https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0";
+const WHATSAPP_URL = waLink();
 // TODO: ganti dengan versi resolusi tinggi (sumber saat ini 736 x 736).
 const heroPhoto = "/images/hero-jewelry.jpg";
 const heroStagger = { hidden: {}, visible: { transition: { staggerChildren: 0.08, delayChildren: 0.08 } } };
@@ -47,7 +48,7 @@ const features = [
 
 const footerNavLinks = [
   ["Beranda", "/#home"],
-  ["Harga Emas", "/#prices"],
+  ["Harga Emas", "/harga-jual-emas-hari-ini"],
   ["Cabang", "/#branches"],
   ["Tentang", "/#about"],
   ["Panduan", "/#guide"],
@@ -56,7 +57,7 @@ const footerNavLinks = [
 
 const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/superemasid/", icon: FaInstagram },
-  { label: "TikTok", href: "https://www.tiktok.com/@superemas_id", icon: FaTiktok },
+  { label: "TikTok", href: "https://www.tiktok.com/@superemasid", icon: FaTiktok },
   { label: "WhatsApp", href: WHATSAPP_URL, icon: FaWhatsapp },
 ];
 
@@ -308,6 +309,24 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "Organization",
+        name: "Super Emas Indonesia",
+        url: "https://www.superemas.id/",
+        logo: "https://www.superemas.id/images/super-emas-logo.png",
+        telephone: PHONE_E164,
+        sameAs: [
+          "https://www.instagram.com/superemasid",
+          "https://www.tiktok.com/@superemasid",
+        ],
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: PHONE_E164,
+          contactType: "customer service",
+          areaServed: "ID",
+          availableLanguage: "Indonesian",
+        },
+      },
+      {
         "@type": "FAQPage",
         mainEntity: faqData.map((faq) => ({
           "@type": "Question",
@@ -318,10 +337,18 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
       ...locations.map((branch) => ({
         "@type": "JewelryStore",
         name: branch.fullName,
+        telephone: PHONE_E164,
+        image: ["https://www.superemas.id/images/super-emas-logo.png"],
         url: `https://www.superemas.id/harga-emas-hari-ini/${branch.slug}`,
         address: { "@type": "PostalAddress", streetAddress: branch.address, addressCountry: "ID" },
+        hasMap: branch.mapUrl,
+        priceRange: "$$",
         openingHours: "Mo-Su 09:00-20:00",
-        sameAs: branch.mapUrl,
+        sameAs: [
+          "https://www.instagram.com/superemasid",
+          "https://www.tiktok.com/@superemasid",
+          branch.mapUrl,
+        ],
         ...(branch.coordinates ? { geo: { "@type": "GeoCoordinates", latitude: branch.coordinates.lat, longitude: branch.coordinates.lng } } : {}),
       })),
     ],
@@ -367,7 +394,7 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
               <LeafletBranchMap branches={locations} overview />
               <div className="se-bento-photo-shade" />
               <div className="se-glass-stat"><strong>8</strong><span>Cabang di<br />Jabodetabek</span></div>
-              <p className="se-photo-caption">Peta cabang · 7 lokasi terverifikasi</p>
+              <p className="se-photo-caption">Peta cabang · {locations.length} lokasi terverifikasi</p>
             </div>
             <div className="se-bento-right">
               <button type="button" className="se-map-card" onClick={() => document.querySelector("#branches")?.scrollIntoView({ behavior: "smooth" })}>
@@ -389,7 +416,7 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
                 <div><span className="se-card-label">HARGA BUYBACK</span><strong>Transparan<br />dan terbarui.</strong></div>
                 <div className="se-market-bars" aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /></div>
                 <p>Harga diperbarui sesuai data terkini. Lihat harga per jenis emas.</p>
-                <a href="#prices">Lihat daftar harga <FaArrowRight /></a>
+                <Link href="/harga-jual-emas-hari-ini">Lihat semua harga <FaArrowRight /></Link>
               </div>
             </div>
           </div>
@@ -422,6 +449,7 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
                 </div>
               )) : <p className="se-no-prices">Data harga belum tersedia. Silakan hubungi kami untuk informasi terkini.</p>}
               <p className="se-price-note">* Harga akhir ditentukan setelah pemeriksaan kondisi emas di cabang.</p>
+              <Link className="se-price-note" href="/harga-jual-emas-hari-ini">Lihat semua harga <FaArrowRight /></Link>
             </div>
             <PriceCalculator prices={sortedPrices} />
           </div>
@@ -480,7 +508,7 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
                 <div className="se-branch-content">
                   <div className="se-branch-title"><span>0{index + 1}</span><h3>{branch.name}</h3></div>
                   <p>{branch.address}</p><small><FaClock aria-hidden="true" /> Setiap hari, {branch.hours}</small>
-                  <div className="se-branch-actions"><Link href={`/harga-emas-hari-ini/${branch.slug}`}>Lihat harga <FaArrowRight aria-hidden="true" /></Link><a href={branch.mapUrl} target="_blank" rel="noopener noreferrer">Petunjuk arah <FaExternalLinkAlt aria-hidden="true" /></a></div>
+                  <div className="se-branch-actions"><Link href={`/harga-emas-hari-ini/${branch.slug}`}>Lihat harga <FaArrowRight aria-hidden="true" /></Link><a href={branch.mapUrl} target="_blank" rel="noopener noreferrer">Buka di Google Maps <FaExternalLinkAlt aria-hidden="true" /></a></div>
                 </div>
               </article>
             ))}
@@ -526,6 +554,7 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
             <div className="se-footer-social-links">
               {socialLinks.map(({ label, href, icon: Icon }) => <a href={href} key={label} aria-label={label} target="_blank" rel="noopener noreferrer"><Icon aria-hidden="true" /><span>{label}</span><FaArrowRight aria-hidden="true" /></a>)}
             </div>
+            <a href={`tel:${PHONE_E164}`}>{PHONE_DISPLAY}</a>
           </div>
         </div>
         <div className="se-footer-bottom"><Link href="/syarat-dan-ketentuan">Syarat & Ketentuan</Link></div>

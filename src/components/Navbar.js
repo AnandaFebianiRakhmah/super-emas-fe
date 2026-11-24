@@ -1,4 +1,5 @@
 import React from "react";
+import { waLink } from "../lib/contact";
 import Image from "next/image";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -41,7 +42,7 @@ export default function AppNavbar() {
             <Nav.Link href="#home" className="nav-link">
               Beranda
             </Nav.Link>
-            <Nav.Link href="#prices" className="nav-link">
+            <Nav.Link as={Link} to="/harga-jual-emas-hari-ini" className="nav-link">
               Harga Emas
             </Nav.Link>
             <Nav.Link as={Link} to="/#harga-cabang" className="nav-link">
@@ -60,7 +61,7 @@ export default function AppNavbar() {
               Kontak
             </Nav.Link>
             <Nav.Link
-              href="https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0"
+              href={waLink()}
               target="_blank"
               rel="noopener noreferrer"
               className="nav-link-cta"

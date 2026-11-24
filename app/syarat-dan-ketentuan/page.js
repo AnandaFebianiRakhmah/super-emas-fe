@@ -2,15 +2,16 @@ import Link from "next/link";
 import NextNavbar from "../../components/NextNavbar";
 import Footer from "../../src/components/Footer";
 import styles from "./terms.module.css";
+import { waLink } from "../../src/lib/contact";
 
-const WHATSAPP_URL = "https://wa.me/6285111405501";
+const WHATSAPP_URL = waLink();
 
 export const metadata = {
   title: { absolute: "Syarat & Ketentuan | Super Emas Indonesia" },
   description:
     "Baca Syarat & Ketentuan Super Emas Indonesia terkait penggunaan layanan, pemeriksaan emas, harga, transaksi, pembayaran, dan ketentuan lainnya.",
   alternates: {
-    canonical: "https://superemas.id/syarat-dan-ketentuan",
+    canonical: "https://www.superemas.id/syarat-dan-ketentuan",
   },
 };
 

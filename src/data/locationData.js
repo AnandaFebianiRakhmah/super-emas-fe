@@ -1,4 +1,5 @@
 // src/data/locationData.js
+import { waLink } from "../lib/contact";
 
 export const locations = [
   {
@@ -12,7 +13,11 @@ export const locations = [
     // TODO: replace placeholder photos with real branch storefront photos.
     photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
     hours: '09.00–20.00',
-    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
+    whatsapp: waLink('Halo Super Emas Tangerang, saya ingin cek harga emas'),
+    // TODO: diisi owner dengan URL embed dari Google Maps.
+    embedUrl: "",
+    // TODO: diisi owner dengan landmark, parkir, transportasi, area layanan, dan FAQ cabang.
+    localDetails: { landmark: "", parking: "", transport: "", areaServed: "", faq: [] },
     
     seo: {
       title: 'Harga Emas Tangerang Hari Ini Terkini | Super Emas',
@@ -82,7 +87,11 @@ export const locations = [
     coordinates: { lat: -6.3889655, lng: 106.8145091 },
     photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
     hours: '09.00–20.00',
-    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
+    whatsapp: waLink('Halo Super Emas Depok, saya ingin cek harga emas'),
+    // TODO: diisi owner dengan URL embed dari Google Maps.
+    embedUrl: "",
+    // TODO: diisi owner dengan landmark, parkir, transportasi, area layanan, dan FAQ cabang.
+    localDetails: { landmark: "", parking: "", transport: "", areaServed: "", faq: [] },
     
     seo: {
       title: 'Harga Emas Depok Hari Ini Terkini | Super Emas',
@@ -152,7 +161,11 @@ export const locations = [
     coordinates: { lat: -6.2941881, lng: 106.7085865 },
     photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
     hours: '09.00–20.00',
-    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
+    whatsapp: waLink('Halo Super Emas Bintaro, saya ingin cek harga emas'),
+    // TODO: diisi owner dengan URL embed dari Google Maps.
+    embedUrl: "",
+    // TODO: diisi owner dengan landmark, parkir, transportasi, area layanan, dan FAQ cabang.
+    localDetails: { landmark: "", parking: "", transport: "", areaServed: "", faq: [] },
     
     seo: {
       title: 'Harga Emas Bintaro Hari Ini Terkini | Super Emas',
@@ -222,7 +235,11 @@ export const locations = [
     coordinates: { lat: -6.3810177, lng: 106.9238506 },
     photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
     hours: '09.00–20.00',
-    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
+    whatsapp: waLink('Halo Super Emas Cibubur, saya ingin cek harga emas'),
+    // TODO: diisi owner dengan URL embed dari Google Maps.
+    embedUrl: "",
+    // TODO: diisi owner dengan landmark, parkir, transportasi, area layanan, dan FAQ cabang.
+    localDetails: { landmark: "", parking: "", transport: "", areaServed: "", faq: [] },
     
     seo: {
       title: 'Harga Emas Cibubur Hari Ini Terkini | Super Emas',
@@ -292,7 +309,11 @@ export const locations = [
     coordinates: { lat: -6.2268377, lng: 106.8986703 },
     photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
     hours: '09.00–20.00',
-    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
+    whatsapp: waLink('Halo Super Emas Duren Sawit, saya ingin cek harga emas'),
+    // TODO: diisi owner dengan URL embed dari Google Maps.
+    embedUrl: "",
+    // TODO: diisi owner dengan landmark, parkir, transportasi, area layanan, dan FAQ cabang.
+    localDetails: { landmark: "", parking: "", transport: "", areaServed: "", faq: [] },
     
     seo: {
       title: 'Harga Emas Duren Sawit Hari Ini Terkini | Super Emas',
@@ -361,9 +382,13 @@ export const locations = [
     mapUrl: 'https://share.google/mhYXO0kZ56vJ7tTma',
     // TODO: isi dari Google Maps setelah koordinat cabang Bekasi terverifikasi.
     coordinates: null,
+    // TODO: diisi owner dengan URL embed dari Google Maps dan koordinat terverifikasi.
+    embedUrl: "",
+    // TODO: diisi owner dengan landmark, parkir, transportasi, area layanan, dan FAQ cabang.
+    localDetails: { landmark: "", parking: "", transport: "", areaServed: "", faq: [] },
     photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
     hours: '09.00–20.00',
-    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
+    whatsapp: waLink('Halo Super Emas Bekasi, saya ingin cek harga emas'),
     
     seo: {
       title: 'Harga Emas Bekasi Hari Ini Terkini | Super Emas',
@@ -433,7 +458,11 @@ export const locations = [
     coordinates: { lat: -6.1975043, lng: 106.7687641 },
     photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
     hours: '09.00–20.00',
-    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
+    whatsapp: waLink('Halo Super Emas Kebon Jeruk, saya ingin cek harga emas'),
+    // TODO: diisi owner dengan URL embed dari Google Maps.
+    embedUrl: "",
+    // TODO: diisi owner dengan landmark, parkir, transportasi, area layanan, dan FAQ cabang.
+    localDetails: { landmark: "", parking: "", transport: "", areaServed: "", faq: [] },
     
     seo: {
       title: 'Harga Emas Kebon Jeruk Hari Ini Terkini | Super Emas',
@@ -503,7 +532,11 @@ export const locations = [
     coordinates: { lat: -6.6025955, lng: 106.8012338 },
     photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
     hours: '09.00–20.00',
-    whatsapp: 'https://api.whatsapp.com/send/?phone=%2B6285111355020&text&type=phone_number&app_absent=0',
+    whatsapp: waLink('Halo Super Emas Bogor, saya ingin cek harga emas'),
+    // TODO: diisi owner dengan URL embed dari Google Maps.
+    embedUrl: "",
+    // TODO: diisi owner dengan landmark, parkir, transportasi, area layanan, dan FAQ cabang.
+    localDetails: { landmark: "", parking: "", transport: "", areaServed: "", faq: [] },
     
     seo: {
       title: 'Harga Emas Bogor Hari Ini Terkini | Super Emas',
