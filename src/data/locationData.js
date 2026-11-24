@@ -4,7 +4,7 @@ import { waLink } from "../lib/contact";
 const branchDetails = {
   tangerang: {
     // draft: verifikasi owner
-    accessDescription: 'Di kawasan pusat Kota Tangerang (Sukasari), tidak jauh dari area Pasar Anyar dan Stasiun KRL Tangerang.',
+    access: 'Di kawasan pusat Kota Tangerang (Sukasari), tidak jauh dari area Pasar Anyar dan Stasiun KRL Tangerang.',
     // draft: verifikasi owner
     parking: null,
     // draft: verifikasi owner
@@ -12,7 +12,7 @@ const branchDetails = {
   },
   depok: {
     // draft: verifikasi owner
-    accessDescription: 'Di Jl. Arif Rahman Hakim (Depok Jaya) yang menghubungkan Jl. Margonda Raya dan kawasan Depok Lama. Dapat dijangkau dari Stasiun KRL Depok Baru.',
+    access: 'Di Jl. Arif Rahman Hakim (Depok Jaya) yang menghubungkan Jl. Margonda Raya dan kawasan Depok Lama. Dapat dijangkau dari Stasiun KRL Depok Baru.',
     // draft: verifikasi owner
     parking: null,
     // draft: verifikasi owner
@@ -20,7 +20,7 @@ const branchDetails = {
   },
   bintaro: {
     // draft: verifikasi owner
-    accessDescription: 'Di Jl. Jombang Raya (Ciputat, Tangerang Selatan), jalur penghubung kawasan Bintaro, Jombang, dan Ciputat. Stasiun KRL terdekat di jalur Rangkasbitung adalah Sudimara.',
+    access: 'Di Jl. Jombang Raya (Ciputat, Tangerang Selatan), jalur penghubung kawasan Bintaro, Jombang, dan Ciputat. Stasiun KRL terdekat di jalur Rangkasbitung adalah Sudimara.',
     // draft: verifikasi owner
     parking: null,
     // draft: verifikasi owner
@@ -28,7 +28,7 @@ const branchDetails = {
   },
   cibubur: {
     // draft: verifikasi owner
-    accessDescription: 'Di Jl. Alternatif Cibubur (Transyogi), Jatisampurna, jalur utama kawasan Cibubur–Cileungsi.',
+    access: 'Di Jl. Alternatif Cibubur (Transyogi), Jatisampurna, jalur utama kawasan Cibubur–Cileungsi.',
     // draft: verifikasi owner
     parking: null,
     // draft: verifikasi owner
@@ -36,7 +36,7 @@ const branchDetails = {
   },
   durenSawit: {
     // draft: verifikasi owner
-    accessDescription: 'Di Jl. Pahlawan Revolusi, Pondok Bambu, Jakarta Timur, dekat kawasan Kalimalang dan Klender.',
+    access: 'Di Jl. Pahlawan Revolusi, Pondok Bambu, Jakarta Timur, dekat kawasan Kalimalang dan Klender.',
     // draft: verifikasi owner
     parking: null,
     // draft: verifikasi owner
@@ -44,7 +44,7 @@ const branchDetails = {
   },
   bekasi: {
     // draft: verifikasi owner
-    accessDescription: 'Di Jl. Caman Raya, Jatibening, Pondok Gede, dekat akses Tol Jatibening dan kawasan Kalimalang.',
+    access: 'Di Jl. Caman Raya, Jatibening, Pondok Gede, dekat akses Tol Jatibening dan kawasan Kalimalang.',
     // draft: verifikasi owner
     parking: null,
     // draft: verifikasi owner
@@ -52,7 +52,7 @@ const branchDetails = {
   },
   kebonJeruk: {
     // draft: verifikasi owner
-    accessDescription: 'Di Jl. Panjang, Kebon Jeruk, Jakarta Barat. Jalan ini dilalui layanan TransJakarta.',
+    access: 'Di Jl. Panjang, Kebon Jeruk, Jakarta Barat. Jalan ini dilalui layanan TransJakarta.',
     // draft: verifikasi owner
     parking: null,
     // draft: verifikasi owner
@@ -60,7 +60,7 @@ const branchDetails = {
   },
   bogor: {
     // draft: verifikasi owner
-    accessDescription: 'Di Jl. Otto Iskandardinata (Otista), Bogor Tengah, di kawasan Pasar Bogor dan Kebun Raya Bogor, di pusat kota.',
+    access: 'Di Jl. Otto Iskandardinata (Otista), Bogor Tengah, di kawasan Pasar Bogor dan Kebun Raya Bogor, di pusat kota.',
     // draft: verifikasi owner
     parking: null,
     // draft: verifikasi owner
@@ -79,21 +79,22 @@ const makeBranchFaq = (name) => [
   },
 ];
 
-export const locations = [
+const branchRecords = [
   {
-    id: 'tangerang',
     slug: 'tangerang',
     name: 'Tangerang',
-    fullName: 'Super Emas Tangerang',
-    address: 'Jl. A. Damyati No.3, RT.006/RW.003, Sukasari, Kec. Tangerang, Kota Tangerang, Banten 15118',
-    mapUrl: 'https://maps.app.goo.gl/VNvLZ3AuAvempESQ9',
-    coordinates: { lat: -6.1777825, lng: 106.6305562 },
-    // TODO: replace placeholder photos with real branch storefront photos.
-    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    streetAddress: 'Jl. A. Damyati No.3, RT.006/RW.003, Sukasari, Kec. Tangerang',
+    addressLocality: 'Kota Tangerang',
+    addressRegion: 'Banten',
+    postalCode: '15118',
+    lat: -6.1777825,
+    lng: 106.6305562,
+    mapsUrl: 'https://maps.app.goo.gl/VNvLZ3AuAvempESQ9',
+    photo: null,
     hours: '09.00–20.00',
     whatsapp: waLink('Halo Super Emas Tangerang, saya ingin cek harga emas'),
     embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2938.832041242645!2d106.6305562!3d-6.177782499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f9fdd3c2c701%3A0x38772dd6affebf2d!2sSUPER%20EMAS%20TANGERANG!5e1!3m2!1sid!2sid!4v1795489972039!5m2!1sid!2sid",
-    localDetails: { ...branchDetails.tangerang, faq: makeBranchFaq('Tangerang') },
+    ...branchDetails.tangerang,
     
     seo: {
       title: 'Harga Emas Tangerang Hari Ini Terkini | Super Emas',
@@ -105,8 +106,6 @@ export const locations = [
     content: {
       intro: 'Super Emas cabang Tangerang berlokasi di Jl. A. Damyati No.3, Sukasari, melayani masyarakat Tangerang dan sekitarnya untuk transaksi jual beli emas. Harga yang ditampilkan adalah harga Super Emas yang berlaku secara nasional dan diperbarui secara real-time.',
       
-      // draft: verifikasi owner
-      serviceArea: branchDetails.tangerang.areaServed,
       branchNarrative: [
         'Untuk warga yang beraktivitas di Sukasari dan pusat Kota Tangerang, cabang ini menyediakan tempat untuk menanyakan transaksi jual emas secara langsung. Alamat lengkap dan tautan Google Maps tersedia pada bagian lokasi. Sebelum berangkat, Anda dapat membuka tautan tersebut untuk memastikan rute yang sesuai dengan titik awal perjalanan.',
         'Harga pada halaman ini menjadi acuan awal untuk memahami nilai emas berdasarkan jenis dan kadar yang tersedia. Nilai akhir tetap mengikuti pemeriksaan emas di cabang, termasuk pengecekan karat, berat, dan kondisi. Jika masih ingin memastikan jenis emas atau informasi harga sebelum datang, hubungi tim Tangerang melalui WhatsApp dengan tombol yang tersedia di halaman ini.',
@@ -163,18 +162,20 @@ export const locations = [
   },
   
   {
-    id: 'depok',
     slug: 'depok',
     name: 'Depok',
-    fullName: 'Super Emas Depok',
-    address: 'Jl. Arif Rahman Hakim, Depok Jaya, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16432',
-    mapUrl: 'https://maps.app.goo.gl/t5v6xfn43ciddeUF8',
-    coordinates: { lat: -6.3889655, lng: 106.8145091 },
-    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    streetAddress: 'Jl. Arif Rahman Hakim, Depok Jaya, Kec. Pancoran Mas',
+    addressLocality: 'Kota Depok',
+    addressRegion: 'Jawa Barat',
+    postalCode: '16432',
+    lat: -6.3889655,
+    lng: 106.8145091,
+    mapsUrl: 'https://maps.app.goo.gl/t5v6xfn43ciddeUF8',
+    photo: null,
     hours: '09.00–20.00',
     whatsapp: waLink('Halo Super Emas Depok, saya ingin cek harga emas'),
     embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2937.6395926575224!2d106.8145091!3d-6.3889655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e9e0b207671b%3A0x93033a9703c24657!2sSUPER%20EMAS%20DEPOK!5e1!3m2!1sid!2sid!4v1795489994721!5m2!1sid!2sid",
-    localDetails: { ...branchDetails.depok, faq: makeBranchFaq('Depok') },
+    ...branchDetails.depok,
     
     seo: {
       title: 'Harga Emas Depok Hari Ini Terkini | Super Emas',
@@ -186,8 +187,6 @@ export const locations = [
     content: {
       intro: 'Super Emas cabang Depok hadir di Jl. Arif Rahman Hakim, Depok Jaya, melayani kebutuhan jual beli emas untuk warga Depok dan sekitarnya. Harga yang ditampilkan merupakan harga Super Emas yang berlaku secara nasional.',
       
-      // draft: verifikasi owner
-      serviceArea: branchDetails.depok.areaServed,
       branchNarrative: [
         'Cabang Depok berada di kawasan Depok Jaya, pada Jl. Arif Rahman Hakim. Informasi alamat dan peta di halaman ini dapat membantu pengunjung menentukan titik tujuan sebelum berangkat dari Margonda, Depok Lama, atau lingkungan lain di sekitarnya. Silakan gunakan tautan peta untuk melihat rute yang paling sesuai.',
         'Sebelum berkunjung, Anda dapat meninjau harga emas yang ditampilkan sebagai gambaran awal. Setiap emas yang dibawa tetap perlu diperiksa karat, berat, dan kondisinya agar tim dapat menyampaikan penawaran berdasarkan hasil pemeriksaan tersebut. Bila ada pertanyaan tentang jenis emas yang akan dijual, sampaikan melalui WhatsApp ke tim Depok terlebih dahulu.',
@@ -244,18 +243,20 @@ export const locations = [
   },
   
   {
-    id: 'bintaro',
     slug: 'bintaro',
     name: 'Bintaro',
-    fullName: 'Super Emas Bintaro',
-    address: 'Jl. Jombang Raya No.71, Pd. Pucung, Kec. Ciputat, Kota Tangerang Selatan, Banten 15414',
-    mapUrl: 'https://maps.app.goo.gl/Bes9RNp5s3PjTW5p9',
-    coordinates: { lat: -6.2941881, lng: 106.7085865 },
-    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    streetAddress: 'Jl. Jombang Raya No.71, Pd. Pucung, Kec. Ciputat',
+    addressLocality: 'Kota Tangerang Selatan',
+    addressRegion: 'Banten',
+    postalCode: '15414',
+    lat: -6.2941881,
+    lng: 106.7085865,
+    mapsUrl: 'https://maps.app.goo.gl/Bes9RNp5s3PjTW5p9',
+    photo: null,
     hours: '09.00–20.00',
     whatsapp: waLink('Halo Super Emas Bintaro, saya ingin cek harga emas'),
     embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2938.179692219955!2d106.7085865!3d-6.2941881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fbfd867c710b%3A0x2364f57de8f6471b!2sSUPER%20EMAS%20BINTARO!5e1!3m2!1sid!2sid!4v1795491278178!5m2!1sid!2sid",
-    localDetails: { ...branchDetails.bintaro, faq: makeBranchFaq('Bintaro') },
+    ...branchDetails.bintaro,
     
     seo: {
       title: 'Harga Emas Bintaro Hari Ini Terkini | Super Emas',
@@ -267,8 +268,6 @@ export const locations = [
     content: {
       intro: 'Super Emas cabang Bintaro terletak di Jl. Jombang Raya No.71, Pondok Pucung, siap melayani transaksi emas untuk warga Bintaro dan Tangerang Selatan. Harga emas yang kami tampilkan adalah harga Super Emas yang berlaku untuk semua cabang.',
       
-      // draft: verifikasi owner
-      serviceArea: branchDetails.bintaro.areaServed,
       branchNarrative: [
         'Bagi warga Bintaro, Jombang, dan Ciputat, alamat cabang serta peta pada halaman ini menjadi rujukan untuk merencanakan kunjungan ke Jl. Jombang Raya. Pengunjung dapat membuka petunjuk arah Google Maps untuk melihat lokasi tujuan. Informasi kawasan yang disebutkan menggambarkan area layanan, bukan penanda jarak atau waktu tempuh.',
         'Tabel harga dapat dilihat sebelum emas dibawa ke cabang, tetapi angka tersebut bukan penawaran final untuk setiap barang. Tim akan memeriksa kadar, berat, dan kondisi emas secara langsung, kemudian menjelaskan penawaran yang berlaku. Untuk bertanya mengenai emas tertentu atau mengecek informasi sebelum datang, hubungi tim Bintaro lewat WhatsApp.',
@@ -325,18 +324,20 @@ export const locations = [
   },
   
   {
-    id: 'cibubur',
     slug: 'cibubur',
     name: 'Cibubur',
-    fullName: 'Super Emas Cibubur',
-    address: 'Jl. Transyogi, RT.001/RW.010, Jatisampurna, Kec. Jatisampurna, Kota Bks, Jawa Barat 17435',
-    mapUrl: 'https://maps.app.goo.gl/GnccP7fz1WLjZSqF7',
-    coordinates: { lat: -6.3810177, lng: 106.9238506 },
-    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    streetAddress: 'Jl. Transyogi, RT.001/RW.010, Jatisampurna, Kec. Jatisampurna',
+    addressLocality: 'Kota Bekasi',
+    addressRegion: 'Jawa Barat',
+    postalCode: '17435',
+    lat: -6.3810177,
+    lng: 106.9238506,
+    mapsUrl: 'https://maps.app.goo.gl/GnccP7fz1WLjZSqF7',
+    photo: null,
     hours: '09.00–20.00',
     whatsapp: waLink('Halo Super Emas Cibubur, saya ingin cek harga emas'),
     embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2937.685192873033!2d106.9238506!3d-6.3810177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6995009f8def4f%3A0x9c4892aad2b5c09c!2sSUPER%20EMAS%20CIBUBUR!5e1!3m2!1sid!2sid!4v1795491280667!5m2!1sid!2sid",
-    localDetails: { ...branchDetails.cibubur, faq: makeBranchFaq('Cibubur') },
+    ...branchDetails.cibubur,
     
     seo: {
       title: 'Harga Emas Cibubur Hari Ini Terkini | Super Emas',
@@ -348,8 +349,6 @@ export const locations = [
     content: {
       intro: 'Super Emas cabang Cibubur berada di Jl. Transyogi, Jatisampurna, melayani kebutuhan jual beli emas di wilayah Cibubur dan Bekasi. Harga yang kami tampilkan adalah harga Super Emas yang update secara real-time.',
       
-      // draft: verifikasi owner
-      serviceArea: branchDetails.cibubur.areaServed,
       branchNarrative: [
         'Cabang Cibubur beralamat di Jl. Transyogi, Jatisampurna, pada jalur utama kawasan Cibubur–Cileungsi. Pengunjung dari lingkungan sekitar dapat menggunakan alamat dan peta di halaman ini sebagai panduan menuju titik cabang. Buka petunjuk arah sebelum perjalanan agar tujuan yang dipilih sesuai dengan cabang Cibubur.',
         'Informasi harga yang tersedia membantu Anda melihat acuan berdasarkan kadar emas, sedangkan nilai transaksi ditentukan setelah pemeriksaan barang. Prosesnya mencakup pengecekan karat dan berat sebelum tim menyampaikan penawaran. Jika ingin mengonfirmasi informasi sebelum datang, kirim pesan ke WhatsApp Super Emas Cibubur melalui tombol pada halaman.',
@@ -407,18 +406,20 @@ export const locations = [
   },
   
   {
-    id: 'duren-sawit',
     slug: 'duren-sawit',
     name: 'Duren Sawit',
-    fullName: 'Super Emas Duren Sawit',
-    address: 'Jl. Pahlawan Revolusi.22 A, RT.2/RW.2, Pd. Bambu, Kec. Duren Sawit, Kota Jakarta Timur, DKI Jakarta 13430',
-    mapUrl: 'https://maps.app.goo.gl/uQzjL4rA9N6ApsNJ8',
-    coordinates: { lat: -6.2268377, lng: 106.8986703 },
-    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    streetAddress: 'Jl. Pahlawan Revolusi No.22A, RT.2/RW.2, Pd. Bambu, Kec. Duren Sawit',
+    addressLocality: 'Jakarta Timur',
+    addressRegion: 'DKI Jakarta',
+    postalCode: '13430',
+    lat: -6.2268377,
+    lng: 106.8986703,
+    mapsUrl: 'https://maps.app.goo.gl/uQzjL4rA9N6ApsNJ8',
+    photo: null,
     hours: '09.00–20.00',
     whatsapp: waLink('Halo Super Emas Duren Sawit, saya ingin cek harga emas'),
     embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2938.558609525047!2d106.89867029999999!3d-6.2268377!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f37573628943%3A0x25f802665f31ff22!2sSUPER%20EMAS%20DUREN%20SAWIT!5e1!3m2!1sid!2sid!4v1795491283251!5m2!1sid!2sid",
-    localDetails: { ...branchDetails.durenSawit, faq: makeBranchFaq('Duren Sawit') },
+    ...branchDetails.durenSawit,
     
     seo: {
       title: 'Harga Emas Duren Sawit Hari Ini Terkini | Super Emas',
@@ -430,8 +431,6 @@ export const locations = [
     content: {
       intro: 'Super Emas cabang Duren Sawit berlokasi di Jl. Pahlawan Revolusi 22 A, Pondok Bambu, melayani transaksi jual beli emas untuk masyarakat Jakarta Timur. Harga yang ditampilkan merupakan harga Super Emas yang berlaku untuk semua cabang.',
       
-      // draft: verifikasi owner
-      serviceArea: branchDetails.durenSawit.areaServed,
       branchNarrative: [
         'Berlokasi di Jl. Pahlawan Revolusi, Pondok Bambu, cabang ini melayani kebutuhan jual emas bagi warga Duren Sawit dan area Jakarta Timur. Alamat dan peta yang tertera membantu Anda menentukan tujuan ketika akan berkunjung. Pengunjung dapat membuka tautan Google Maps untuk melihat lokasi cabang secara langsung.',
         'Gunakan informasi harga pada halaman ini sebagai gambaran awal, lalu bawa emas ke cabang agar karat, berat, dan kondisinya dapat diperiksa. Setelah pemeriksaan, tim menyampaikan penawaran yang dapat Anda pertimbangkan. Jika ingin bertanya sebelum berangkat dari Pondok Bambu, Klender, atau kawasan lain, hubungi tim Duren Sawit melalui WhatsApp.',
@@ -488,16 +487,18 @@ export const locations = [
   },
   
   {
-    id: 'bekasi',
     slug: 'bekasi',
     name: 'Bekasi',
-    fullName: 'Super Emas Bekasi',
-    address: 'Jl. Caman Raya No.60, RT.007/RW.001, Jatibening, Kec. Pd. Gede, Kota Bks, Jawa Barat 17412',
-    mapUrl: 'https://maps.app.goo.gl/dcAEBusGZjacGuqn6',
-    coordinates: { lat: -6.2534589, lng: 106.9518885 },
+    streetAddress: 'Jl. Caman Raya No.60, RT.007/RW.001, Jatibening, Kec. Pd. Gede',
+    addressLocality: 'Kota Bekasi',
+    addressRegion: 'Jawa Barat',
+    postalCode: '17412',
+    lat: -6.2534589,
+    lng: 106.9518885,
+    mapsUrl: 'https://maps.app.goo.gl/dcAEBusGZjacGuqn6',
     embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2938.4093223419018!2d106.9518885!3d-6.2534589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698daf99bddb99%3A0x489673589465a0b8!2sSUPER%20EMAS%20BEKASI!5e1!3m2!1sid!2sid!4v1795491249067!5m2!1sid!2sid",
-    localDetails: { ...branchDetails.bekasi, faq: makeBranchFaq('Bekasi') },
-    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    photo: null,
+    ...branchDetails.bekasi,
     hours: '09.00–20.00',
     whatsapp: waLink('Halo Super Emas Bekasi, saya ingin cek harga emas'),
     
@@ -511,8 +512,6 @@ export const locations = [
     content: {
       intro: 'Super Emas cabang Bekasi hadir di Jl. Caman Raya No.60, Jatibening, siap melayani kebutuhan transaksi emas Anda di wilayah Bekasi. Harga yang ditampilkan adalah harga Super Emas yang berlaku secara nasional.',
       
-      // draft: verifikasi owner
-      serviceArea: branchDetails.bekasi.areaServed,
       branchNarrative: [
         'Super Emas Bekasi berada di Jl. Caman Raya, Jatibening, wilayah Pondok Gede. Pengunjung dari area sekitar dapat memakai alamat lengkap dan tautan peta di halaman ini untuk merencanakan kunjungan. Lokasi pada peta menunjukkan cabang yang dimaksud; silakan buka petunjuk arah untuk melihat rute sesuai titik keberangkatan Anda.',
         'Harga emas yang terlihat di halaman ini merupakan informasi awal sebelum pemeriksaan di cabang. Tim akan melihat karat, berat, dan kondisi emas, lalu menyampaikan penawaran berdasarkan hasilnya. Warga Jatibening dan Kalimalang dapat mengirim pertanyaan melalui WhatsApp Super Emas Bekasi untuk mengecek harga atau memastikan informasi sebelum datang.',
@@ -569,18 +568,21 @@ export const locations = [
   },
   
   {
-    id: 'kebon-jeruk',
     slug: 'kebon-jeruk',
     name: 'Kebon Jeruk',
-    fullName: 'Super Emas Kebon Jeruk',
-    address: 'Jl. Panjang No.16 7, RT.7/RW.1, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530',
-    mapUrl: 'https://maps.app.goo.gl/3AME3mLe8Y3F9MaL9',
-    coordinates: { lat: -6.1975043, lng: 106.7687641 },
-    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    // TODO: konfirmasi nomor alamat dengan owner (No.16 atau No.167).
+    streetAddress: 'Jl. Panjang No.16, RT.7/RW.1, Kb. Jeruk, Kec. Kb. Jeruk',
+    addressLocality: 'Jakarta Barat',
+    addressRegion: 'DKI Jakarta',
+    postalCode: '11530',
+    lat: -6.1975043,
+    lng: 106.7687641,
+    mapsUrl: 'https://maps.app.goo.gl/3AME3mLe8Y3F9MaL9',
+    photo: null,
     hours: '09.00–20.00',
     whatsapp: waLink('Halo Super Emas Kebon Jeruk, saya ingin cek harga emas'),
     embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.5004946059116!2d106.7687641!3d-6.197504299999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f75d17f9ac71%3A0xc16dfbc664d7d599!2sSUPER%20EMAS%20KEBON%20JERUK!5e0!3m2!1sid!2sid!4v1795489929174!5m2!1sid!2sid",
-    localDetails: { ...branchDetails.kebonJeruk, faq: makeBranchFaq('Kebon Jeruk') },
+    ...branchDetails.kebonJeruk,
     
     seo: {
       title: 'Harga Emas Kebon Jeruk Hari Ini Terkini | Super Emas',
@@ -590,10 +592,8 @@ export const locations = [
     },
     
     content: {
-      intro: 'Super Emas cabang Kebon Jeruk berada di Jl. Panjang No.16 7, melayani transaksi jual beli emas untuk masyarakat Jakarta Barat. Harga yang kami tampilkan adalah harga Super Emas yang berlaku untuk semua cabang di Indonesia.',
+      intro: 'Super Emas cabang Kebon Jeruk berada di Jl. Panjang, melayani transaksi jual beli emas untuk masyarakat Jakarta Barat. Harga yang kami tampilkan adalah harga Super Emas yang berlaku untuk semua cabang di Indonesia.',
       
-      // draft: verifikasi owner
-      serviceArea: branchDetails.kebonJeruk.areaServed,
       branchNarrative: [
         'Cabang Kebon Jeruk berada di Jl. Panjang, Jakarta Barat. Pengunjung dari Kebon Jeruk dan lingkungan yang disebutkan pada area layanan dapat memakai tautan peta untuk membuka lokasi dan menyiapkan perjalanan. Alamat lengkap cabang tercantum di halaman ini agar tujuan dapat diperiksa sebelum berangkat.',
         'Sebelum menjual, lihat informasi harga emas yang tersedia sebagai acuan awal. Pemeriksaan langsung tetap diperlukan untuk mengetahui karat, berat, dan kondisi barang yang dibawa, lalu tim akan memberikan penawaran. Anda dapat bertanya kepada tim Kebon Jeruk lewat WhatsApp, termasuk untuk mengecek harga terlebih dahulu sebelum datang.',
@@ -613,7 +613,7 @@ export const locations = [
         {
           step: 1,
           title: 'Kunjungi Cabang Kebon Jeruk',
-          description: 'Datang ke toko kami di Jl. Panjang No.16 7 dengan emas Anda.'
+          description: 'Datang ke cabang Kebon Jeruk di Jl. Panjang dengan membawa emas yang ingin diperiksa.'
         },
         {
           step: 2,
@@ -639,7 +639,7 @@ export const locations = [
         },
         {
           question: 'Dimana alamat Super Emas Kebon Jeruk?',
-          answer: 'Alamat kami di Jl. Panjang No.16 7, RT.7/RW.1, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, DKI Jakarta 11530.'
+          answer: 'Alamat lengkap Super Emas Kebon Jeruk tercantum pada bagian lokasi di halaman ini.'
         },
         {
           question: 'Bagaimana cara mengetahui harga emas terkini?',
@@ -650,18 +650,20 @@ export const locations = [
   },
   
   {
-    id: 'bogor',
     slug: 'bogor',
     name: 'Bogor',
-    fullName: 'Super Emas Bogor',
-    address: 'Jl. Otto Iskandardinata Jl. Otista Iskandar No.42, Babakan Ps., Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16126',
-    mapUrl: 'https://maps.app.goo.gl/aKzoNWdBhAo1rzFA6',
-    coordinates: { lat: -6.6025955, lng: 106.8012338 },
-    photo: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=1200&q=85',
+    streetAddress: 'Jl. Otto Iskandardinata No.42, Babakan Pasar, Kec. Bogor Tengah',
+    addressLocality: 'Kota Bogor',
+    addressRegion: 'Jawa Barat',
+    postalCode: '16126',
+    lat: -6.6025955,
+    lng: 106.8012338,
+    mapsUrl: 'https://maps.app.goo.gl/aKzoNWdBhAo1rzFA6',
+    photo: null,
     hours: '09.00–20.00',
     whatsapp: waLink('Halo Super Emas Bogor, saya ingin cek harga emas'),
     embedUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d253654.78921261418!2d106.5210824!3d-6.6025955!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c5a94b371393%3A0xf81315ab971df75d!2sSUPER%20EMAS%20BOGOR!5e0!3m2!1sid!2sid!4v1795489853795!5m2!1sid!2sid",
-    localDetails: { ...branchDetails.bogor, faq: makeBranchFaq('Bogor') },
+    ...branchDetails.bogor,
     
     seo: {
       title: 'Harga Emas Bogor Hari Ini Terkini | Super Emas',
@@ -673,8 +675,6 @@ export const locations = [
     content: {
       intro: 'Super Emas cabang Bogor berlokasi di Jl. Otto Iskandardinata (Otista) No.42, Babakan Pasar, Bogor Tengah, siap melayani transaksi jual beli emas untuk masyarakat Bogor dan sekitarnya. Harga yang ditampilkan adalah harga Super Emas yang berlaku secara nasional dan diperbarui secara real-time.',
       
-      // draft: verifikasi owner
-      serviceArea: branchDetails.bogor.areaServed,
       branchNarrative: [
         'Cabang Bogor berada di Jl. Otto Iskandardinata (Otista), Bogor Tengah, pada kawasan pusat kota. Alamat dan tautan peta tersedia untuk membantu pengunjung menuju lokasi cabang. Warga dari Babakan Pasar, Baranangsiang, Pajajaran, Tanah Sareal, dan Bogor Utara dapat menggunakan informasi tersebut untuk merencanakan kunjungan.',
         'Harga yang ditampilkan di halaman ini membantu Anda mengenali acuan nilai sebelum datang, namun hasil transaksi bergantung pada pemeriksaan emas. Tim akan menimbang dan mengecek kadar karat serta kondisi barang, kemudian menyampaikan penawaran. Jika ingin bertanya tentang emas yang akan dibawa atau mengecek harga terlebih dahulu, hubungi tim Bogor lewat WhatsApp.',
@@ -720,7 +720,7 @@ export const locations = [
         },
         {
           question: 'Dimana alamat lengkap Super Emas Bogor?',
-          answer: 'Super Emas Bogor beralamat di Jl. Otto Iskandardinata Jl. Otista Iskandar No.42, Babakan Ps., Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16126.'
+          answer: 'Super Emas Bogor beralamat di Jl. Otto Iskandardinata No.42, Babakan Pasar, Kec. Bogor Tengah, Kota Bogor, Jawa Barat 16126.'
         },
         {
           question: 'Bagaimana cara menjual emas di Super Emas Bogor?',
@@ -730,6 +730,13 @@ export const locations = [
     }
   }
 ];
+
+export const locations = branchRecords.map((location) => ({
+  ...location,
+  fullName: `Super Emas ${location.name}`,
+  address: `${location.streetAddress}, ${location.addressLocality}, ${location.addressRegion} ${location.postalCode}`,
+  faq: [...location.content.faq, ...makeBranchFaq(location.name)],
+}));
 
 // Helper functions
 export const getLocationBySlug = (slug) => {

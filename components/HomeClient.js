@@ -108,26 +108,12 @@ const faqs = [
   },
   {
     question: "Apakah Super Emas melayani pembelian logam mulia?",
-    answer: "Super Emas juga menyediakan pilihan logam mulia untuk Anda yang ingin membeli dan berinvestasi emas. Hubungi cabang untuk informasi ketersediaan.",
+    answer: "Super Emas tidak menjual logam mulia untuk investasi. Kami menerima logam mulia Antam dan non-Antam untuk buyback setelah pemeriksaan.",
   },
 ];
 
 function SectionLabel({ children, light = false }) {
   return <p className={`se-eyebrow${light ? " se-eyebrow-light" : ""}`}><span aria-hidden="true">•</span> {children}</p>;
-}
-
-function getBranchMapPreviewUrl(branch) {
-  if (!branch.coordinates) {
-    const query = encodeURIComponent(`${branch.fullName}, ${branch.address}`);
-    return `https://maps.google.com/maps?q=${query}&output=embed`;
-  }
-
-  const { lat, lng } = branch.coordinates;
-  const delta = 0.008;
-  const bounds = [lng - delta, lat - delta, lng + delta, lat + delta]
-    .map((coordinate) => coordinate.toFixed(6))
-    .join("%2C");
-  return `https://www.openstreetmap.org/export/embed.html?bbox=${bounds}&layer=mapnik&marker=${lat}%2C${lng}`;
 }
 
 function PriceCalculator({ prices }) {
@@ -149,7 +135,7 @@ function PriceCalculator({ prices }) {
       <select id="se-karat" value={karat} onChange={(event) => setKarat(event.target.value)} disabled={!prices.length}>
         {prices.length ? prices.map((price) => (
           <option value={price.karat} key={price.karat}>{price.label || price.karat}</option>
-        )) : <option value="">Harga belum tersedia</option>}
+        )) : <option value="">Harga belum dapat ditampilkan</option>}
       </select>
       <label className="se-field-label" htmlFor="se-weight">Berat (gram)</label>
       <input id="se-weight" type="number" min="0" step="0.01" inputMode="decimal" placeholder="Contoh: 5" value={weight} onChange={(event) => setWeight(event.target.value)} />
@@ -176,7 +162,7 @@ function Accordion({ items }) {
                 <span>{item.question}</span><span className="se-faq-toggle" aria-hidden="true">{isOpen ? "×" : "+"}</span>
               </button>
             </h3>
-            <div className="se-faq-answer" id={panelId} hidden={!isOpen}><p>{item.answer}</p></div>
+            <div className={`se-faq-answer${isOpen ? "" : " is-collapsed"}`} id={panelId} aria-hidden={!isOpen}><p>{item.answer}</p></div>
           </article>
         );
       })}
@@ -185,7 +171,7 @@ function Accordion({ items }) {
 }
 
 function CountUp({ value, suffix = "" }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(value);
   const countRef = useRef(null);
 
   useEffect(() => {
@@ -197,6 +183,7 @@ function CountUp({ value, suffix = "" }) {
       return undefined;
     }
 
+    setCount(0);
     let frameId;
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
@@ -310,12 +297,13 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
     "@graph": [
       {
         "@type": "Organization",
+        "@id": "https://www.superemas.id/#organization",
         name: "Super Emas Indonesia",
         url: "https://www.superemas.id/",
-        logo: "https://www.superemas.id/images/super-emas-logo.png",
+        logo: "https://www.superemas.id/logo.png",
         telephone: PHONE_E164,
         sameAs: [
-          "https://www.instagram.com/superemasid",
+          "https://www.instagram.com/superemasid/",
           "https://www.tiktok.com/@superemasid",
         ],
         contactPoint: {
@@ -325,6 +313,12 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
           areaServed: "ID",
           availableLanguage: "Indonesian",
         },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Beranda", item: "https://www.superemas.id/" },
+        ],
       },
       {
         "@type": "FAQPage",
@@ -338,18 +332,26 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
         "@type": "JewelryStore",
         name: branch.fullName,
         telephone: PHONE_E164,
-        image: ["https://www.superemas.id/images/super-emas-logo.png"],
+        image: "https://www.superemas.id/logo.png",
         url: `https://www.superemas.id/harga-emas-hari-ini/${branch.slug}`,
-        address: { "@type": "PostalAddress", streetAddress: branch.address, addressCountry: "ID" },
-        hasMap: branch.mapUrl,
+        parentOrganization: { "@id": "https://www.superemas.id/#organization" },
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: branch.streetAddress,
+          addressLocality: branch.addressLocality,
+          addressRegion: branch.addressRegion,
+          postalCode: branch.postalCode,
+          addressCountry: "ID",
+        },
+        hasMap: branch.mapsUrl,
         priceRange: "$$",
-        openingHours: "Mo-Su 09:00-20:00",
+        openingHours: `Mo-Su ${branch.hours.replace(/\./g, ":").replace("–", "-")}`,
         sameAs: [
-          "https://www.instagram.com/superemasid",
+          "https://www.instagram.com/superemasid/",
           "https://www.tiktok.com/@superemasid",
-          branch.mapUrl,
+          branch.mapsUrl,
         ],
-        ...(branch.coordinates ? { geo: { "@type": "GeoCoordinates", latitude: branch.coordinates.lat, longitude: branch.coordinates.lng } } : {}),
+        geo: { "@type": "GeoCoordinates", latitude: branch.lat, longitude: branch.lng },
       })),
     ],
   };
@@ -366,7 +368,7 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
         <div className="se-hero-tint" />
         <div className="se-hero-overlay" />
         <motion.div className="se-hero-content" variants={heroStagger} initial="hidden" animate="visible">
-          <motion.p className="se-hero-kicker" variants={heroReveal}>SUPER EMAS INDONESIA <span /> 8 CABANG • JABODETABEK</motion.p>
+          <motion.p className="se-hero-kicker" variants={heroReveal}>SUPER EMAS INDONESIA <span /> {locations.length} CABANG • JABODETABEK</motion.p>
           <motion.h1 variants={heroReveal}>Solusi Jual Emas<br /><span>Paling Super.</span></motion.h1>
           <motion.p className="se-hero-copy" variants={heroReveal}>Kami membeli emas Anda dalam kondisi apa pun — perhiasan, logam mulia, rusak, patah, hingga tanpa surat — dengan harga terbaik.</motion.p>
           <motion.div className="se-hero-actions" variants={heroReveal}>
@@ -374,12 +376,12 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
             <a href="#branches" className="se-button se-button-ghost">Cari Cabang Terdekat <FaArrowDown aria-hidden="true" /></a>
           </motion.div>
         </motion.div>
-        <div className="se-hero-footnote"><span><FaCheck aria-hidden="true" /> 25.000+ pelanggan terlayani</span><a href="#prices">Scroll to explore <FaArrowDown aria-hidden="true" /></a></div>
+        <div className="se-hero-footnote"><span><FaCheck aria-hidden="true" /> 20.000+ pelanggan terlayani</span><a href="#prices">Scroll to explore <FaArrowDown aria-hidden="true" /></a></div>
         <motion.div className="se-hero-price" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}>
           <span>Harga emas dunia <small>· IDR/gram</small></span>
-          <strong>{worldGoldPrice ? formatCurrency(worldGoldPrice.pricePerGram) : "Belum tersedia"}</strong>
-          <small className="se-hero-price-source">{worldGoldPrice ? `Spot XAU/USD · Kurs USD/IDR · Update ${worldGoldUpdatedAt} WIB` : "Data harga spot global sedang tidak tersedia."}</small>
-          <small className="se-hero-price-mobile-update">{worldGoldUpdatedTime ? `Update ${worldGoldUpdatedTime} WIB` : "Harga spot global belum tersedia"}</small>
+          <strong>{worldGoldPrice ? formatCurrency(worldGoldPrice.pricePerGram) : "Tidak dapat ditampilkan"}</strong>
+          <small className="se-hero-price-source">{worldGoldPrice ? `Spot XAU/USD · Kurs USD/IDR · Update ${worldGoldUpdatedAt} WIB` : "Harga spot global tidak dapat ditampilkan saat ini."}</small>
+          <small className="se-hero-price-mobile-update">{worldGoldUpdatedTime ? `Update ${worldGoldUpdatedTime} WIB` : "Harga spot global belum dapat ditampilkan"}</small>
         </motion.div>
       </header>
 
@@ -393,20 +395,20 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
             <div className="se-bento-photo se-bento-branch-map" data-se-reveal>
               <LeafletBranchMap branches={locations} overview />
               <div className="se-bento-photo-shade" />
-              <div className="se-glass-stat"><strong>8</strong><span>Cabang di<br />Jabodetabek</span></div>
+              <div className="se-glass-stat"><strong>{locations.length}</strong><span>Cabang di<br />Jabodetabek</span></div>
               <p className="se-photo-caption">Peta cabang · {locations.length} lokasi terverifikasi</p>
             </div>
             <div className="se-bento-right">
               <button type="button" className="se-map-card" onClick={() => document.querySelector("#branches")?.scrollIntoView({ behavior: "smooth" })}>
                 <span className="se-card-label">JANGKAUAN KAMI</span><strong>Lebih dekat,<br />di sekitar Anda.</strong>
                 <div className="se-dotted-map" aria-hidden="true">
-                  {locations.filter((branch) => branch.coordinates).map((branch) => {
+                  {locations.filter((branch) => Number.isFinite(branch.lat) && Number.isFinite(branch.lng)).map((branch) => {
                     const minLat = -6.61;
                     const maxLat = -6.17;
                     const minLng = 106.62;
                     const maxLng = 106.94;
-                    const left = 10 + ((branch.coordinates.lng - minLng) / (maxLng - minLng)) * 78;
-                    const top = 9 + ((maxLat - branch.coordinates.lat) / (maxLat - minLat)) * 78;
+                    const left = 10 + ((branch.lng - minLng) / (maxLng - minLng)) * 78;
+                    const top = 9 + ((maxLat - branch.lat) / (maxLat - minLat)) * 78;
                     return <span className="se-map-point" style={{ left: `${left}%`, top: `${top}%` }} key={branch.slug} />;
                   })}
                 </div>
@@ -423,8 +425,8 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
         </section>
 
         <section className="se-stats" aria-label="Super Emas dalam angka" data-se-reveal>
-          <div><strong><CountUp value={25000} suffix="+" /></strong><p>Pelanggan terlayani</p></div>
-          <div><strong><CountUp value={8} /></strong><p>Cabang di Jabodetabek</p></div>
+          <div><strong><CountUp value={20000} suffix="+" /></strong><p>Pelanggan terlayani</p></div>
+          <div><strong><CountUp value={locations.length} /></strong><p>Cabang di Jabodetabek</p></div>
           <div><strong className="se-hours-stat">09.00–20.00</strong><p>Buka setiap hari</p></div>
           <div><strong>4</strong><p>Langkah transaksi mudah</p></div>
         </section>
@@ -448,7 +450,7 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
                     <th scope="row"><span><i className="se-price-mark" />{item.label || item.karat}</span></th>
                     <td><strong>{formatCurrency(item.price)}</strong></td>
                   </tr>
-                )) : <tr><td className="se-no-prices" colSpan={2}>Data harga belum tersedia. Silakan hubungi kami untuk informasi terkini.</td></tr>}</tbody>
+                )) : <tr><td className="se-no-prices" colSpan={2}>Data harga tidak dapat ditampilkan saat ini. Silakan hubungi kami untuk informasi terkini.</td></tr>}</tbody>
               </table>
               <p className="se-price-note">* Harga akhir ditentukan setelah pemeriksaan kondisi emas di cabang.</p>
               <Link className="se-price-note" href="/harga-jual-emas-hari-ini">Lihat semua harga <FaArrowRight /></Link>
@@ -498,7 +500,7 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
               <article className={`se-branch-card${index % 2 ? " se-branch-card-purple" : ""}`} key={branch.slug}>
                 <div className="se-branch-image">
                   <iframe
-                    src={getBranchMapPreviewUrl(branch)}
+                    src={branch.embedUrl}
                     title={`Pratinjau peta cabang Super Emas ${branch.name}`}
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -510,7 +512,7 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
                 <div className="se-branch-content">
                   <div className="se-branch-title"><span>0{index + 1}</span><h3>{branch.name}</h3></div>
                   <p>{branch.address}</p><small><FaClock aria-hidden="true" /> Setiap hari, {branch.hours}</small>
-                  <div className="se-branch-actions"><Link href={`/harga-emas-hari-ini/${branch.slug}`}>Lihat harga <FaArrowRight aria-hidden="true" /></Link><a href={branch.mapUrl} target="_blank" rel="noopener noreferrer">Buka di Google Maps <FaExternalLinkAlt aria-hidden="true" /></a></div>
+                  <div className="se-branch-actions"><Link href={`/harga-emas-hari-ini/${branch.slug}`}>Lihat harga <FaArrowRight aria-hidden="true" /></Link><a href={branch.mapsUrl} target="_blank" rel="noopener noreferrer">Buka di Google Maps <FaExternalLinkAlt aria-hidden="true" /></a></div>
                 </div>
               </article>
             ))}

@@ -1,8 +1,5 @@
-'use client';
-
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { FaArrowRight, FaClock, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 import { locations } from "../src/data/locationData";
 import { formatCurrency } from "../lib/priceApi";
@@ -10,9 +7,10 @@ import { PHONE_DISPLAY, PHONE_E164 } from "../src/lib/contact";
 import NextNavbar from "./NextNavbar";
 import SmoothScroll from "./SmoothScroll";
 import FloatingContact from "../src/components/FloatingContact";
+import LocationPriceCalculator from "./LocationPriceCalculator";
 
 function getNearbyLocations(location) {
-  if (!location.coordinates) return [];
+  if (!Number.isFinite(location.lat) || !Number.isFinite(location.lng)) return [];
 
   const radians = (degrees) => degrees * Math.PI / 180;
   const distanceInKm = (first, second) => {
@@ -26,25 +24,18 @@ function getNearbyLocations(location) {
   };
 
   return locations
-    .filter((item) => item.slug !== location.slug && item.coordinates)
+    .filter((item) => item.slug !== location.slug && Number.isFinite(item.lat) && Number.isFinite(item.lng))
     .map((item) => ({
       location: item,
-      distance: distanceInKm(location.coordinates, item.coordinates),
+      distance: distanceInKm(location, item),
     }))
     .sort((first, second) => first.distance - second.distance)
     .slice(0, 3)
     .map(({ location: nearbyLocation }) => nearbyLocation);
 }
 
-const blurDataURL = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////2wBDAf//////////////////////////////////////////////////////////////////////////////////////wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAF//8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABBQJ//8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAwEBPwF//8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAgEBPwF//8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQAGPwJ//8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPyF//9k=";
-
 export default function LocationPageClient({ location, priceData, updateText }) {
-  const [karat, setKarat] = useState(priceData.prices[0]?.karat || "");
-  const [weight, setWeight] = useState("");
-  const price = priceData.prices.find((item) => item.karat === karat)?.price || 0;
-  const estimate = price * (Number(weight) || 0);
   const nearbyLocations = getNearbyLocations(location);
-  const localDetails = location.localDetails;
 
   return (
     <>
@@ -53,13 +44,13 @@ export default function LocationPageClient({ location, priceData, updateText }) 
       <main className="se-location-page">
         <div className="se-location-breadcrumb"><div><Link href="/">Beranda</Link><span>/</span><Link href="/#branches">Cabang</Link><span>/</span><span>{location.name}</span></div></div>
         <section className="se-location-hero">
-          <Image src={location.photo} alt={`Foto placeholder cabang Super Emas ${location.name}`} fill priority sizes="100vw" placeholder="blur" blurDataURL={blurDataURL} />
+          {location.photo && <Image src={location.photo} alt={`Super Emas ${location.name}`} fill priority sizes="100vw" />}
           <div className="se-location-hero-overlay" />
           <div className="se-location-hero-content">
             <p className="se-eyebrow se-eyebrow-light">SUPER EMAS • {location.name.toUpperCase()}</p>
             <h1>{location.seo.h1}</h1>
             <p>{location.content.intro}</p>
-            <div className="se-location-hero-meta"><span><FaClock /> Setiap hari, {location.hours}</span><a href={location.mapUrl} target="_blank" rel="noopener noreferrer">Petunjuk arah <FaArrowRight /></a></div>
+            <div className="se-location-hero-meta"><span><FaClock /> Setiap hari, {location.hours}</span><a href={location.mapsUrl} target="_blank" rel="noopener noreferrer">Petunjuk arah <FaArrowRight /></a></div>
           </div>
         </section>
 
@@ -78,23 +69,14 @@ export default function LocationPageClient({ location, priceData, updateText }) 
               </table>
               <p className="se-price-note">* Harga akhir ditentukan setelah pemeriksaan kondisi emas di cabang.</p>
             </div>
-            <aside className="se-calculator">
-              <div className="se-calculator-heading"><span className="se-icon-square"><FaMapMarkerAlt /></span><div><p className="se-small-label">PERKIRAAN TRANSAKSI</p><h3>Kalkulator harga</h3></div></div>
-              <label className="se-field-label" htmlFor="branch-karat">Jenis emas</label>
-              <select id="branch-karat" value={karat} onChange={(event) => setKarat(event.target.value)} disabled={!priceData.prices.length}>
-                {priceData.prices.map((item) => <option value={item.karat} key={item.karat}>{item.label || item.karat}</option>)}
-              </select>
-              <label className="se-field-label" htmlFor="branch-weight">Berat (gram)</label>
-              <input id="branch-weight" type="number" min="0" step="0.01" inputMode="decimal" placeholder="Contoh: 5" value={weight} onChange={(event) => setWeight(event.target.value)} />
-              <div className="se-estimate"><span>Estimasi harga</span><strong>{formatCurrency(estimate)}</strong><small>Nilai akhir mengikuti hasil pemeriksaan di cabang.</small></div>
-            </aside>
+            <LocationPriceCalculator prices={priceData.prices} />
           </div>
         </section>
 
         <section className="se-location-info">
           <div className="se-location-section-head">
             <div><p className="se-eyebrow"><span>•</span> INFORMASI CABANG</p><h2>Area yang kami<br /><span>layani.</span></h2></div>
-            <p>{location.content.serviceArea}</p>
+            <p>{location.areaServed}</p>
           </div>
           <div className="se-location-map-layout">
             <div className="se-location-address">
@@ -102,17 +84,17 @@ export default function LocationPageClient({ location, priceData, updateText }) 
               <h3>{location.fullName}</h3>
               <p>{location.address}</p>
               <span className="se-branch-hours"><FaClock /> Setiap hari, {location.hours}</span>
-              <a className="se-button se-button-dark" href={location.mapUrl} target="_blank" rel="noopener noreferrer">Petunjuk arah <FaArrowRight /></a>
+              <a className="se-button se-button-dark" href={location.mapsUrl} target="_blank" rel="noopener noreferrer">Petunjuk arah <FaArrowRight /></a>
             </div>
-            <div className="se-google-map-frame"><iframe src={location.embedUrl} title={`Lokasi Super Emas ${location.name}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" /><a href={location.mapUrl} target="_blank" rel="noopener noreferrer">Buka di Google Maps <FaArrowRight /></a></div>
+            <div className="se-google-map-frame"><iframe src={location.embedUrl} title={`Lokasi Super Emas ${location.name}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" /><a href={location.mapsUrl} target="_blank" rel="noopener noreferrer">Buka di Google Maps <FaArrowRight /></a></div>
           </div>
         </section>
 
         <section className="se-location-details">
           <div><p className="se-eyebrow"><span>•</span> AKSES & LOKASI</p><h2>Menuju cabang<br /><span>{location.name}.</span></h2></div>
           <div className="se-location-details-grid">
-            <article><h3>Akses & sekitar lokasi</h3><p>{localDetails.accessDescription}</p></article>
-            {localDetails.parking !== null && <article><h3>Parkir</h3><p>{localDetails.parking}</p></article>}
+            <article><h3>Akses & sekitar lokasi</h3><p>{location.access}</p></article>
+            {location.parking !== null && <article><h3>Parkir</h3><p>{location.parking}</p></article>}
           </div>
         </section>
 
@@ -141,7 +123,7 @@ export default function LocationPageClient({ location, priceData, updateText }) 
 
         <section className="se-location-faq">
           <div><p className="se-eyebrow"><span>•</span> PERTANYAAN</p><h2>Tentang cabang<br /><span>{location.name}.</span></h2></div>
-          <div>{[...location.content.faq, ...localDetails.faq].map((faq) => <article key={faq.question}><h3>{faq.question}</h3><p>{faq.answer}</p></article>)}</div>
+          <div>{location.faq.map((faq) => <article key={faq.question}><h3>{faq.question}</h3><p>{faq.answer}</p></article>)}</div>
         </section>
 
         <section className="se-location-other">

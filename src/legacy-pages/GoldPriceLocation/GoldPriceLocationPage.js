@@ -184,11 +184,11 @@ export default function GoldPriceLocationPage() {
                 <div>
                   <h3>{locationData.fullName}</h3>
                   <p>{locationData.address}</p>
-                  <p className="service-area">{locationData.content.serviceArea}</p>
+                  <p className="service-area">{locationData.areaServed}</p>
                 </div>
               </div>
               <a
-                href={locationData.mapUrl}
+                href={locationData.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="maps-button"
@@ -204,7 +204,7 @@ export default function GoldPriceLocationPage() {
           <div className="container">
             <h2>Pertanyaan yang Sering Diajukan</h2>
             <div className="faq-list">
-              {locationData.content.faq.map((faq, index) => (
+              {locationData.faq.map((faq, index) => (
                 <div key={index} className="faq-item">
                   <h3 className="faq-question">{faq.question}</h3>
                   <p className="faq-answer">{faq.answer}</p>

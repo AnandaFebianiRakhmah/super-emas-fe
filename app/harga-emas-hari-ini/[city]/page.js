@@ -73,28 +73,34 @@ function getStructuredData({ location }) {
         "@type": "JewelryStore",
         name: location.fullName,
         telephone: PHONE_E164,
-        image: ["https://www.superemas.id/images/super-emas-logo.png"],
+        image: "https://www.superemas.id/logo.png",
         url: canonical,
-        hasMap: location.mapUrl,
+        hasMap: location.mapsUrl,
         priceRange: "$$",
+        parentOrganization: {
+          "@type": "Organization",
+          name: "PT Super Emas Indonesia",
+          url: SITE_URL,
+        },
         address: {
           "@type": "PostalAddress",
-          streetAddress: location.address,
+          streetAddress: location.streetAddress,
+          addressLocality: location.addressLocality,
+          addressRegion: location.addressRegion,
+          postalCode: location.postalCode,
           addressCountry: "ID",
         },
-        areaServed: location.localDetails.areaServed || location.content.serviceArea,
+        areaServed: location.areaServed,
         sameAs: [
-          "https://www.instagram.com/superemasid",
+          "https://www.instagram.com/superemasid/",
           "https://www.tiktok.com/@superemasid",
-          location.mapUrl,
+          location.mapsUrl,
         ],
-        ...(location.coordinates ? {
-          geo: {
-            "@type": "GeoCoordinates",
-            latitude: location.coordinates.lat,
-            longitude: location.coordinates.lng,
-          },
-        } : {}),
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: location.lat,
+          longitude: location.lng,
+        },
         openingHoursSpecification: [{
           "@type": "OpeningHoursSpecification",
           dayOfWeek: [
@@ -120,7 +126,7 @@ function getStructuredData({ location }) {
       },
       {
         "@type": "FAQPage",
-        mainEntity: [...location.content.faq, ...location.localDetails.faq].map((faq) => ({
+        mainEntity: location.faq.map((faq) => ({
           "@type": "Question",
           name: faq.question,
           acceptedAnswer: { "@type": "Answer", text: faq.answer },

@@ -5,6 +5,7 @@ import styles from "./terms.module.css";
 import { waLink } from "../../src/lib/contact";
 
 const WHATSAPP_URL = waLink();
+const SITE_URL = "https://www.superemas.id";
 
 export const metadata = {
   title: { absolute: "Syarat & Ketentuan | Super Emas Indonesia" },
@@ -271,8 +272,18 @@ const sections = [
 ];
 
 export default function TermsPage() {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Beranda", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Syarat & Ketentuan", item: `${SITE_URL}/syarat-dan-ketentuan` },
+    ],
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <NextNavbar />
       <main className={styles.page}>
         <div className={styles.container}>
