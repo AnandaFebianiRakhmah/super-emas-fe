@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { useState } from "react";
 import { FaArrowRight, FaClock, FaMapMarkerAlt, FaWhatsapp } from "react-icons/fa";
 import { locations } from "../src/data/locationData";
@@ -12,10 +11,30 @@ import NextNavbar from "./NextNavbar";
 import SmoothScroll from "./SmoothScroll";
 import FloatingContact from "../src/components/FloatingContact";
 
-const LeafletBranchMap = dynamic(() => import("./LeafletBranchMap"), {
-  ssr: false,
-  loading: () => <div className="se-map-loading" role="status">Memuat peta cabang…</div>,
-});
+function getNearbyLocations(location) {
+  if (!location.coordinates) return [];
+
+  const radians = (degrees) => degrees * Math.PI / 180;
+  const distanceInKm = (first, second) => {
+    const latitudeDelta = radians(second.lat - first.lat);
+    const longitudeDelta = radians(second.lng - first.lng);
+    const latitude1 = radians(first.lat);
+    const latitude2 = radians(second.lat);
+    const a = Math.sin(latitudeDelta / 2) ** 2
+      + Math.cos(latitude1) * Math.cos(latitude2) * Math.sin(longitudeDelta / 2) ** 2;
+    return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  };
+
+  return locations
+    .filter((item) => item.slug !== location.slug && item.coordinates)
+    .map((item) => ({
+      location: item,
+      distance: distanceInKm(location.coordinates, item.coordinates),
+    }))
+    .sort((first, second) => first.distance - second.distance)
+    .slice(0, 3)
+    .map(({ location: nearbyLocation }) => nearbyLocation);
+}
 
 const blurDataURL = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////2wBDAf//////////////////////////////////////////////////////////////////////////////////////wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAF//8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABBQJ//8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAwEBPwF//8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAgEBPwF//8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQAGPwJ//8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPyF//9k=";
 
@@ -24,8 +43,7 @@ export default function LocationPageClient({ location, priceData, updateText }) 
   const [weight, setWeight] = useState("");
   const price = priceData.prices.find((item) => item.karat === karat)?.price || 0;
   const estimate = price * (Number(weight) || 0);
-  const coords = location.coordinates;
-  const otherLocations = locations.filter((item) => item.slug !== location.slug);
+  const nearbyLocations = getNearbyLocations(location);
   const localDetails = location.localDetails;
 
   return (
@@ -41,7 +59,7 @@ export default function LocationPageClient({ location, priceData, updateText }) 
             <p className="se-eyebrow se-eyebrow-light">SUPER EMAS • {location.name.toUpperCase()}</p>
             <h1>{location.seo.h1}</h1>
             <p>{location.content.intro}</p>
-            <div className="se-location-hero-meta"><span><FaClock /> Setiap hari, 09.00–20.00</span><a href={location.mapUrl} target="_blank" rel="noopener noreferrer">Petunjuk arah <FaArrowRight /></a></div>
+            <div className="se-location-hero-meta"><span><FaClock /> Setiap hari, {location.hours}</span><a href={location.mapUrl} target="_blank" rel="noopener noreferrer">Petunjuk arah <FaArrowRight /></a></div>
           </div>
         </section>
 
@@ -73,7 +91,7 @@ export default function LocationPageClient({ location, priceData, updateText }) 
 
         <section className="se-location-info">
           <div className="se-location-section-head">
-            <div><p className="se-eyebrow"><span>•</span> INFORMASI CABANG</p><h2>Temui kami<br /><span>di {location.name}.</span></h2></div>
+            <div><p className="se-eyebrow"><span>•</span> INFORMASI CABANG</p><h2>Area yang kami<br /><span>layani.</span></h2></div>
             <p>{location.content.serviceArea}</p>
           </div>
           <div className="se-location-map-layout">
@@ -81,28 +99,42 @@ export default function LocationPageClient({ location, priceData, updateText }) 
               <span className="se-icon-square"><FaMapMarkerAlt /></span>
               <h3>{location.fullName}</h3>
               <p>{location.address}</p>
-              <span className="se-branch-hours"><FaClock /> Setiap hari, 09.00–20.00</span>
+              <span className="se-branch-hours"><FaClock /> Setiap hari, {location.hours}</span>
               <a className="se-button se-button-dark" href={location.mapUrl} target="_blank" rel="noopener noreferrer">Petunjuk arah <FaArrowRight /></a>
             </div>
-            {location.embedUrl ? <div className="se-google-map-frame"><iframe src={location.embedUrl} title={`Lokasi Super Emas ${location.name}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" /><a href={location.mapUrl} target="_blank" rel="noopener noreferrer">Buka di Google Maps <FaArrowRight /></a></div> : coords ? <div className="se-map-frame"><LeafletBranchMap branches={[location]} selectedBranch={location} /><a href={location.mapUrl} target="_blank" rel="noopener noreferrer">Buka di Google Maps <FaArrowRight /></a></div> : <div className="se-map-missing"><FaMapMarkerAlt /><p>Embed Google Maps dan koordinat cabang belum tersedia.</p><a href={location.mapUrl} target="_blank" rel="noopener noreferrer">Buka di Google Maps <FaArrowRight /></a></div>}
+            <div className="se-google-map-frame"><iframe src={location.embedUrl} title={`Lokasi Super Emas ${location.name}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" /><a href={location.mapUrl} target="_blank" rel="noopener noreferrer">Buka di Google Maps <FaArrowRight /></a></div>
           </div>
         </section>
 
         <section className="se-location-details">
-          <div><p className="se-eyebrow"><span>•</span> AKSES DAN AREA LAYANAN</p><h2>Informasi cabang<br /><span>{location.name}.</span></h2></div>
+          <div><p className="se-eyebrow"><span>•</span> AKSES & LOKASI</p><h2>Menuju cabang<br /><span>{location.name}.</span></h2></div>
           <div className="se-location-details-grid">
-            {[
-              ["Patokan lokasi", localDetails.landmark],
-              ["Parkir", localDetails.parking],
-              ["Transportasi", localDetails.transport],
-              ["Area layanan", localDetails.areaServed],
-            ].filter(([, value]) => value).map(([label, value]) => (
-              <article key={label}><h3>{label}</h3><p>{value}</p></article>
-            ))}
-            {!localDetails.landmark && !localDetails.parking && !localDetails.transport && !localDetails.areaServed && (
-              <p>Informasi akses cabang akan ditambahkan setelah dikonfirmasi oleh tim Super Emas.</p>
-            )}
+            <article><h3>Akses & sekitar lokasi</h3><p>{localDetails.accessDescription}</p></article>
+            {localDetails.parking !== null && <article><h3>Parkir</h3><p>{localDetails.parking}</p></article>}
           </div>
+        </section>
+
+        <section className="se-location-details">
+          <div><p className="se-eyebrow"><span>•</span> JUAL EMAS</p><h2>Emas yang bisa dijual<br /><span>di {location.name}.</span></h2></div>
+          <div className="se-location-details-grid">
+            <article><h3>Jenis emas yang diterima</h3><p>{location.content.goldIntro}</p><ul>{location.content.goldTypes.map((type) => <li key={type}>{type}</li>)}</ul></article>
+          </div>
+        </section>
+
+        <section className="se-location-details">
+          <div><p className="se-eyebrow"><span>•</span> JAM OPERASIONAL</p><h2>Cara datang<br /><span>ke {location.name}.</span></h2></div>
+          <div>
+            <p>{location.content.visitGuide}</p>
+            <div className="se-location-details-grid">
+              {location.content.howToSellSteps.map((step) => <article key={step.step}><h3>{step.title}</h3><p>{step.description}</p></article>)}
+            </div>
+            <a className="se-button se-button-dark" href={location.whatsapp} target="_blank" rel="noopener noreferrer"><FaWhatsapp /> Cek harga via WhatsApp</a>
+          </div>
+        </section>
+
+        <section className="se-location-details">
+          <div><p className="se-eyebrow"><span>•</span> INFORMASI PENJUALAN</p><h2>Sebelum menjual<br /><span>emas Anda.</span></h2></div>
+          <div className="se-location-narrative">{location.content.branchNarrative.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
         </section>
 
         <section className="se-location-faq">
@@ -112,7 +144,7 @@ export default function LocationPageClient({ location, priceData, updateText }) 
 
         <section className="se-location-other">
           <div className="se-location-section-head"><div><p className="se-eyebrow"><span>•</span> CABANG LAIN</p><h2>Temukan Super Emas<br /><span>di sekitar Anda.</span></h2></div><Link href="/#branches" className="se-button se-button-dark">Semua cabang <FaArrowRight /></Link></div>
-          <div className="se-location-other-list">{otherLocations.map((item) => <Link href={`/harga-emas-hari-ini/${item.slug}`} key={item.slug}><span>{item.name}</span><FaArrowRight /></Link>)}</div>
+          <div className="se-location-other-list">{nearbyLocations.map((item) => <Link href={`/harga-emas-hari-ini/${item.slug}`} key={item.slug}><span>{item.name}</span><FaArrowRight /></Link>)}</div>
         </section>
         <section className="se-cta-banner se-location-cta"><div><p className="se-eyebrow se-eyebrow-light">SUPER EMAS {location.name.toUpperCase()}</p><h2>Siap menjual emas<br />Anda hari ini?</h2><p>Kunjungi cabang kami atau hubungi tim Super Emas.</p></div><a className="se-button se-button-gold" href={location.whatsapp} target="_blank" rel="noopener noreferrer"><FaWhatsapp /> Hubungi via WhatsApp</a></section>
       </main>

@@ -66,6 +66,7 @@ function getPriceValidUntil() {
 function getStructuredData({ location, priceData }) {
   const canonical = `${SITE_URL}/harga-emas-hari-ini/${location.slug}`;
   const priceValidUntil = getPriceValidUntil();
+  const [opens, closes] = location.hours.split("–").map((hour) => hour.replace(".", ":"));
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
@@ -112,8 +113,8 @@ function getStructuredData({ location, priceData }) {
             "Saturday",
             "Sunday",
           ],
-          opens: "09:00",
-          closes: "20:00",
+          opens,
+          closes,
         }],
       },
       {
