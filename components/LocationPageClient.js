@@ -70,10 +70,12 @@ export default function LocationPageClient({ location, priceData, updateText }) 
           </div>
           <div className="se-location-price-grid">
             <div className="se-location-price-table">
-              <div className="se-price-column-head"><span>JENIS EMAS</span><span>HARGA / GRAM</span></div>
-              {priceData.prices.length ? priceData.prices.map((item) => (
-                <div className="se-price-row" key={item.karat}><span><i className="se-price-mark" />{item.label || item.karat}</span><strong>{formatCurrency(item.price)}</strong></div>
-              )) : <p className="se-no-prices">Data harga sedang tidak tersedia. Silakan hubungi kami untuk informasi terkini.</p>}
+              <table className="se-price-list">
+                <thead><tr><th scope="col">Jenis emas</th><th scope="col">Harga buyback / gram</th></tr></thead>
+                <tbody>{priceData.prices.length ? priceData.prices.map((item) => (
+                  <tr className="se-price-row" key={item.karat}><th scope="row"><span><i className="se-price-mark" />{item.label || item.karat}</span></th><td><strong>{formatCurrency(item.price)}</strong></td></tr>
+                )) : <tr><td className="se-no-prices" colSpan={2}>Data harga sedang tidak tersedia. Silakan hubungi kami untuk informasi terkini.</td></tr>}</tbody>
+              </table>
               <p className="se-price-note">* Harga akhir ditentukan setelah pemeriksaan kondisi emas di cabang.</p>
             </div>
             <aside className="se-calculator">

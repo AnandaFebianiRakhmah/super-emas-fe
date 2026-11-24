@@ -170,7 +170,7 @@ export default async function GoldSellPricePage() {
               <div className={styles.tableWrap}>
                 <table>
                   <caption>Harga buyback emas Super Emas per gram</caption>
-                  <thead><tr><th scope="col">Jenis atau kadar emas</th><th scope="col">Harga buyback per gram</th></tr></thead>
+                  <thead><tr><th scope="col">Jenis emas</th><th scope="col">Harga buyback / gram</th></tr></thead>
                   <tbody>{prices.map((item) => <tr key={item.karat}><th scope="row">{item.label}</th><td>{formatCurrency(item.price)} /gram</td></tr>)}</tbody>
                 </table>
               </div>

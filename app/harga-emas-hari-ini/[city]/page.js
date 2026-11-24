@@ -57,15 +57,8 @@ export async function generateMetadata({ params }) {
   };
 }
 
-function getPriceValidUntil() {
-  const validUntil = new Date();
-  validUntil.setDate(validUntil.getDate() + 1);
-  return validUntil.toISOString().slice(0, 10);
-}
-
-function getStructuredData({ location, priceData }) {
+function getStructuredData({ location }) {
   const canonical = `${SITE_URL}/harga-emas-hari-ini/${location.slug}`;
-  const priceValidUntil = getPriceValidUntil();
   const [opens, closes] = location.hours.split("–").map((hour) => hour.replace(".", ":"));
   const schema = {
     "@context": "https://schema.org",
@@ -125,20 +118,6 @@ function getStructuredData({ location, priceData }) {
           { "@type": "ListItem", position: 3, name: location.name, item: canonical },
         ],
       },
-      ...priceData.prices.map((item) => ({
-        "@type": "Product",
-        name: `${item.label} - Harga Emas ${location.name}`,
-        category: "Harga buyback emas per gram",
-        offers: {
-          "@type": "Offer",
-          url: canonical,
-          price: item.price,
-          priceCurrency: "IDR",
-          priceValidUntil,
-          availability: "https://schema.org/InStock",
-          itemCondition: "https://schema.org/NewCondition",
-        },
-      })),
       {
         "@type": "FAQPage",
         mainEntity: [...location.content.faq, ...location.localDetails.faq].map((faq) => ({
@@ -160,7 +139,7 @@ export default async function LocationPage({ params }) {
   const priceData = await getPriceData();
   const updateDate = priceData.date || "Terbaru";
   const updateTime = priceData.latestUpdate ? `${priceData.latestUpdate} WIB` : "";
-  const structuredData = getStructuredData({ location, priceData });
+  const structuredData = getStructuredData({ location });
 
   return (
     <>

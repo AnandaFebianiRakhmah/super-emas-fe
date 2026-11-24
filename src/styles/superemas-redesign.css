@@ -168,11 +168,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .se-price-tabs { display: flex; gap: 8px; margin-bottom: 24px; }
 .se-price-tabs button { padding: 9px 15px; border: 1px solid var(--line); border-radius: 30px; color: var(--muted); background: transparent; font-size: 11px; cursor: pointer; transition: .2s ease; }
 .se-price-tabs button.active { border-color: var(--purple-800); color: #fff; background: var(--purple-800); }
-.se-price-column-head, .se-price-row { display: flex; justify-content: space-between; align-items: center; }
-.se-price-column-head { padding: 0 10px 12px; border-bottom: 1px solid var(--line); color: #887e95; font-size: 9px; font-weight: 700; letter-spacing: .13em; }
-.se-price-row { min-height: 53px; padding: 0 10px; border-bottom: 1px solid var(--line); color: var(--purple-950); font-size: 13px; transition: background .22s ease, padding .22s ease; }
-.se-price-row:hover { padding-right: 15px; padding-left: 15px; background: #f5f1fa; }
-.se-price-row > span { display: inline-flex; align-items: center; gap: 11px; }
+.se-price-list { width: 100%; border-collapse: collapse; }
+.se-price-list thead th { padding: 0 10px 12px; border-bottom: 1px solid var(--line); color: #887e95; font-size: 9px; font-weight: 700; letter-spacing: .13em; text-align: left; }
+.se-price-list thead th:last-child { text-align: right; }
+.se-price-row { color: var(--purple-950); font-size: 13px; transition: background .22s ease; }
+.se-price-row:hover { background: #f5f1fa; }
+.se-price-row > th, .se-price-row > td { height: 53px; padding: 0 10px; border-bottom: 1px solid var(--line); }
+.se-price-row > th { font-weight: 400; text-align: left; }
+.se-price-row > td { text-align: right; }
+.se-price-row > th span { display: inline-flex; align-items: center; gap: 11px; }
 .se-price-mark { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-500); }
 .se-price-row strong { color: var(--gold-text); font-size: 13px; font-weight: 650; font-variant-numeric: tabular-nums; }
 .se-price-note, .se-no-prices { margin: 18px 8px 0; color: #81778d; font-size: 10px; line-height: 1.6; }
@@ -431,9 +435,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .se-price-heading { gap: 14px; }
   .se-price-layout { grid-template-columns: 1fr; gap: 24px; }
   .se-calculator { position: static; }
-  .se-price-row { min-height: 49px; padding-inline: 3px; font-size: 11px; }
+  .se-price-row { font-size: 11px; }
+  .se-price-row > th, .se-price-row > td { height: 49px; padding-inline: 3px; }
   .se-price-row strong { font-size: 11px; }
-  .se-price-column-head { padding-inline: 3px; font-size: 8px; }
+  .se-price-list thead th { padding-inline: 3px; font-size: 8px; }
   .se-price-tabs button { padding: 8px 11px; font-size: 10px; }
   .se-feature-row { grid-template-columns: 25px 25px 1fr 20px; min-height: 78px; gap: 9px; padding-inline: 8px; }
   .se-feature-row h3 { font-size: 15px; }

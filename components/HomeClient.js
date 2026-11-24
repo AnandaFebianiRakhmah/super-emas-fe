@@ -441,13 +441,15 @@ export default function HomeClient({ initialPriceData = [], initialPriceDate, in
                   <button type="button" role="tab" aria-selected={category === item} className={category === item ? "active" : ""} onClick={() => setCategory(item)} key={item}>{item}</button>
                 ))}
               </div>
-              <div className="se-price-column-head"><span>JENIS EMAS</span><span>HARGA / GRAM</span></div>
-              {filteredPrices.length ? filteredPrices.map((item) => (
-                <div className="se-price-row" key={item.karat}>
-                  <span><i className="se-price-mark" />{item.label || item.karat}</span>
-                  <strong>{formatCurrency(item.price)}</strong>
-                </div>
-              )) : <p className="se-no-prices">Data harga belum tersedia. Silakan hubungi kami untuk informasi terkini.</p>}
+              <table className="se-price-list">
+                <thead><tr><th scope="col">Jenis emas</th><th scope="col">Harga buyback / gram</th></tr></thead>
+                <tbody>{filteredPrices.length ? filteredPrices.map((item) => (
+                  <tr className="se-price-row" key={item.karat}>
+                    <th scope="row"><span><i className="se-price-mark" />{item.label || item.karat}</span></th>
+                    <td><strong>{formatCurrency(item.price)}</strong></td>
+                  </tr>
+                )) : <tr><td className="se-no-prices" colSpan={2}>Data harga belum tersedia. Silakan hubungi kami untuk informasi terkini.</td></tr>}</tbody>
+              </table>
               <p className="se-price-note">* Harga akhir ditentukan setelah pemeriksaan kondisi emas di cabang.</p>
               <Link className="se-price-note" href="/harga-jual-emas-hari-ini">Lihat semua harga <FaArrowRight /></Link>
             </div>
